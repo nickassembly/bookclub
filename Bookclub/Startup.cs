@@ -1,3 +1,5 @@
+using Bookclub.Brokers.API;
+using Bookclub.Models.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -14,10 +16,7 @@ namespace Bookclub
 {
    public class Startup
    {
-      public Startup(IConfiguration configuration)
-      {
-         Configuration = configuration;
-      }
+      public Startup(IConfiguration configuration) => Configuration = configuration;
 
       public IConfiguration Configuration { get; }
 
@@ -25,6 +24,18 @@ namespace Bookclub
       {
          services.AddRazorPages();
          services.AddServerSideBlazor();
+         services.AddScoped<IApiBroker, ApiBroker>();
+
+         // Adding HTTP client to communicate with Api (possibly add in RESTFULsense library once I understand it)
+         // for now just using a generic client
+         // TODO: need to find out best httpclient to use
+         //services.AddHttpClient();
+         services.AddHttpClient<IHttpClientBuilder, IHttpClientBuilder>(client => 
+         {
+            LocalConfigurations localConfigurations = Configuration.Get<LocalConfigurations>();
+            string apiUrl = localConfigurations.ApiConfigurations.Url;
+            client.BaseAddress = new Uri(apiUrl);
+         });
 
          services.AddRazorPages(options =>
          {
