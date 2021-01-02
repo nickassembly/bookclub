@@ -10,4 +10,8 @@
     <Folder Include="Views\Components\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="RESTFulSense" Version="1.7.0" />
+  </ItemGroup>
+
 </Project>
