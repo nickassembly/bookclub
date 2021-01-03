@@ -1,4 +1,5 @@
 using Bookclub.Brokers.API;
+using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Configurations;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,7 @@ namespace Bookclub
             services.AddScoped<IApiBroker, ApiBroker>();
             services.AddScoped<ILogger, Logger<LoggingBroker>>();
             services.AddScoped<ILoggingBroker, LoggingBroker>();
+            services.AddScoped<IDateTimeBroker, DateTimeBroker>();
 
             // Adding HTTP client to communicate with Api (possibly add in RESTFULsense library once I understand it)
             // for now just using a generic client
