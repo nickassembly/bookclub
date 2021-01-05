@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bookclub.Brokers.API
 {
-    public class ApiBroker : IApiBroker
+    public partial class ApiBroker : IApiBroker
     {
       private readonly IRESTFulApiFactoryClient apiClient;
 
