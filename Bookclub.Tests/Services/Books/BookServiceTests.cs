@@ -1,5 +1,6 @@
 ﻿using Bookclub.Brokers.API;
 using Bookclub.Brokers.Logging;
+using Bookclub.Models.Books;
 using Bookclub.Services.Books;
 using Moq;
 using System;
@@ -7,10 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tynamix.ObjectFiller;
 
 namespace Bookclub.Tests.Services.Books
 {
-    public class BookServiceTests
+    public partial class BookServiceTests
     {
         private readonly Mock<IApiBroker> _apiBrokerMock;
         private readonly Mock<ILoggingBroker> _loggingBrokerMock;
@@ -23,6 +25,16 @@ namespace Bookclub.Tests.Services.Books
 
             _bookService = new BookService(_apiBrokerMock.Object, _loggingBrokerMock.Object);
         }
+
+        private static Book CreateRandomBook() => CreateBookFiller().Create();
+
+        private static Filler<Book> CreateBookFiller()
+        {
+            var filler = new Filler<Book>();
+
+            return filler;
+        }
+
 
     }
 }
