@@ -16,6 +16,7 @@ namespace Bookclub.Tests.Services.Books
         public async Task ShouldAddBookToUserAsync()
         {
             // Test for adding a book, should test the 'happy' path of the service
+            // validation testing in another class
 
             //given
             Book randomBook = CreateRandomBook();
@@ -32,6 +33,8 @@ namespace Bookclub.Tests.Services.Books
             addedBook.Should().BeEquivalentTo(expectedBook);
 
             _apiBrokerMock.Verify(broker => broker.PostBookAsync(retrievedBook), Times.Once);
+            _apiBrokerMock.VerifyNoOtherCalls();
+            _loggingBrokerMock.VerifyNoOtherCalls();
 
         }
     }

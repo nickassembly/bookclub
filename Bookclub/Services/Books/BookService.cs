@@ -17,9 +17,8 @@ namespace Bookclub.Services.Books
             _loggingBroker = loggingBroker;
         }
 
-        public ValueTask<Book> AddBookAsync(Book book)
-        {
-            throw new NotImplementedException();
-        }
+        public async ValueTask<Book> AddBookAsync(Book book) => 
+            await _apiBroker.PostBookAsync(book);
+        
     }
 }
