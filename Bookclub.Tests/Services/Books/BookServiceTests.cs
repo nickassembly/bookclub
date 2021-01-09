@@ -6,9 +6,11 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tynamix.ObjectFiller;
+using Xunit.Sdk;
 
 namespace Bookclub.Tests.Services.Books
 {
@@ -27,6 +29,12 @@ namespace Bookclub.Tests.Services.Books
         }
 
         private static Book CreateRandomBook() => CreateBookFiller().Create();
+
+        private Expression<Func<Exception, bool>> SameExceptionAs(Exception expectedException)
+        {
+            return actualException => actualException.Message == expectedException.Message
+            && actualException.InnerException.Message == expectedException.InnerException.Message;
+        }
 
         private static Filler<Book> CreateBookFiller()
         {
