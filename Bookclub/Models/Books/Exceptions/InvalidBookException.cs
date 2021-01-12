@@ -8,7 +8,7 @@ namespace Bookclub.Models.Books.Exceptions
 {
     public class InvalidBookException : Exception
     {
-        public InvalidBookException(string parameterName, string parameterValue)
+        public InvalidBookException(string parameterName, object parameterValue)
             :base("Invalid Book error occurred," +
                  $"parameter name: {parameterName}" +
                  $"parameter value: {parameterValue}")
