@@ -21,13 +21,18 @@ namespace Bookclub.Services.Books
                     parameterName: nameof(book.Id),
                     parameterValue: book.Id);
 
-                case { } when IsInvalid(book.BookId):
+                case { } when IsInvalid(book.Isbn):
                     throw new InvalidBookException(
-                    parameterName: nameof(book.BookId),
-                    parameterValue: book.BookId);
+                    parameterName: nameof(book.Isbn),
+                    parameterValue: book.Isbn);
+
+                case { } when IsInvalid(book.Title):
+                    throw new InvalidBookException(
+                    parameterName: nameof(book.Title),
+                    parameterValue: book.Title);
             }
         }
-        private static bool IsInvalid(int id) => id == null;
+
         private static bool IsInvalid(string text) => String.IsNullOrWhiteSpace(text);
 
     }
