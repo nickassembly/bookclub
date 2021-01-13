@@ -12,11 +12,23 @@ namespace Bookclub.Services.Books
     {
         private void ValidateBook(Book book)
         {
-            if(book is null)
+            switch (book)
             {
-                throw new NullBookException();
+                case null: throw new NullBookException();
+
+                case { } when IsInvalid(book.Id):
+                    throw new InvalidBookException(
+                    parameterName: nameof(book.Id),
+                    parameterValue: book.Id);
+
+                case { } when IsInvalid(book.BookId):
+                    throw new InvalidBookException(
+                    parameterName: nameof(book.BookId),
+                    parameterValue: book.BookId);
             }
         }
+        private static bool IsInvalid(int id) => id == null;
+        private static bool IsInvalid(string text) => String.IsNullOrWhiteSpace(text);
 
     }
 }

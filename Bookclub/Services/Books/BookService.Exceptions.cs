@@ -20,9 +20,15 @@ namespace Bookclub.Services.Books
 
                 throw CreateAndLogValidationException(nullBookException);
             }
+            catch (InvalidBookException invalidBookException)
+            {
+
+                throw CreateAndLogValidationException(invalidBookException);
+            }
+
         }
 
-        private Exception CreateAndLogValidationException(NullBookException nullBookException)
+        private Exception CreateAndLogValidationException(Exception nullBookException)
         {
             var bookValidationException = new BookValidationException(nullBookException);
             _loggingBroker.LogError(bookValidationException);
