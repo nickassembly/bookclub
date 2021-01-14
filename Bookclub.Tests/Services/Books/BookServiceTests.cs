@@ -36,6 +36,8 @@ namespace Bookclub.Tests.Services.Books
             && actualException.InnerException.Message == expectedException.InnerException.Message;
         }
 
+        private static string GetRandomString() => new MnemonicString().GetValue();
+
         private static Filler<Book> CreateBookFiller()
         {
             var filler = new Filler<Book>();
