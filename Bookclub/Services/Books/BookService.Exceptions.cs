@@ -26,6 +26,18 @@ namespace Bookclub.Services.Books
 
                 throw CreateAndLogValidationException(invalidBookException);
             }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                throw CreateAndLogCriticalDependencyException(httpResponseUrlNotFoundException);
+            }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                throw CreateAndLogCriticalDependencyException(httpResponseUnauthorizedException);
+            }
+            catch (HttpResponseConflictException httpResponseConflictException)
+            {
+                throw CreateAndLogDependencyValidationException(httpResponseConflictException);
+            }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 throw CreateAndLogDependencyValidationException(httpResponseBadRequestException);
@@ -47,6 +59,14 @@ namespace Bookclub.Services.Books
             _loggingBroker.LogError(bookDependencyValidationException);
 
             return bookDependencyValidationException;
+        }
+
+        private BookDependencyException CreateAndLogCriticalDependencyException(Exception exception)
+        {
+            var bookDependencyException = new BookDependencyException(exception);
+            _loggingBroker.LogCritical(bookDependencyException);
+
+            return bookDependencyException;
         }
     }
 }

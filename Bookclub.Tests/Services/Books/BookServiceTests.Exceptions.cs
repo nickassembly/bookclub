@@ -14,25 +14,43 @@ namespace Bookclub.Tests.Services.Books
 {
     public partial class BookServiceTests
     {
-        [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnCreateIfBadRequestErrorOccursAndLogItAsync()
+        public static TheoryData ValidationApiExceptions()
+        {
+            string exceptionMessage = GetRandomString();
+            var responseMessage = new HttpResponseMessage();
+
+            var httpResponseBadRequestException =
+                new HttpResponseBadRequestException(
+                responseMessage: responseMessage,
+                message: exceptionMessage);
+
+            var httpResponseConflictException =
+                new HttpResponseConflictException(
+                    responseMessage: responseMessage,
+                    message: exceptionMessage);
+
+            return new TheoryData<Exception>
+            {
+                httpResponseBadRequestException,
+                httpResponseConflictException
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(ValidationApiExceptions))]
+        public async Task ShouldThrowDependencyValidationExceptionOnCreateIfBadRequestErrorOccursAndLogItAsync(
+            Exception validationApiException)
         {
 
             // given
             Book someBook = CreateRandomBook();
-            string exceptionMessage = GetRandomString();
-            var responseMessage = new HttpResponseMessage();
-
-            var httpResponseBadRequestException = new HttpResponseBadRequestException(
-                responseMessage: responseMessage,
-                message: exceptionMessage);
 
             var expectedDependencyValidationException = new BookDependencyValidationException(
-                httpResponseBadRequestException);
+                validationApiException);
 
             _apiBrokerMock.Setup(broker =>
             broker.PostBookAsync(It.IsAny<Book>()))
-                .ThrowsAsync(httpResponseBadRequestException);
+                .ThrowsAsync(validationApiException);
 
             // when
             ValueTask<Book> registerBookTask = _bookService.AddBookAsync(someBook);
@@ -46,6 +64,56 @@ namespace Bookclub.Tests.Services.Books
             _apiBrokerMock.VerifyNoOtherCalls();
             _loggingBrokerMock.VerifyNoOtherCalls();
 
+        }
+
+        public static TheoryData CriticalApiExceptions()
+        {
+            string exceptionMessage = GetRandomString();
+            var responseMessage = new HttpResponseMessage();
+
+            var httpResponseUrlNotFoundException =
+                new HttpResponseUrlNotFoundException(
+                responseMessage: responseMessage,
+                message: exceptionMessage);
+
+            var httpResponseUnauthorizedException =
+                new HttpResponseUnauthorizedException(
+                    responseMessage: responseMessage,
+                    message: exceptionMessage);
+
+            return new TheoryData<Exception>
+            {
+                httpResponseUrlNotFoundException,
+                httpResponseUnauthorizedException
+            };
+        }
+
+        public async Task ShouldThrowCriticalDependencyExceptionOnCreateIfUrlNotFoundErrorOccursAndLogItAsync(
+            Exception httpResponseCriticalException)
+        {
+            // given
+            Book someBook = CreateRandomBook();
+
+            var expectedDependencyException =
+                new BookDependencyException(
+                httpResponseCriticalException);
+
+            _apiBrokerMock.Setup(broker =>
+            broker.PostBookAsync(It.IsAny<Book>()))
+                .ThrowsAsync(httpResponseCriticalException);
+
+            // when
+            ValueTask<Book> registerStudentTask =
+               _bookService.AddBookAsync(someBook);
+
+            // then
+            await Assert.ThrowsAsync<BookDependencyException>(() =>
+            registerStudentTask.AsTask());
+
+            _apiBrokerMock.Verify(broker => broker.PostBookAsync(It.IsAny<Book>()), Times.Once);
+            _loggingBrokerMock.Verify(broker => broker.LogCritical(It.Is(SameExceptionAs(expectedDependencyException))), Times.Once);
+            _apiBrokerMock.VerifyNoOtherCalls();
+            _loggingBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
