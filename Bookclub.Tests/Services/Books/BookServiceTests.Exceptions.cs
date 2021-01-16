@@ -88,6 +88,8 @@ namespace Bookclub.Tests.Services.Books
             };
         }
 
+        [Theory]
+        [MemberData(nameof(CriticalApiExceptions))]
         public async Task ShouldThrowCriticalDependencyExceptionOnCreateIfUrlNotFoundErrorOccursAndLogItAsync(
             Exception httpResponseCriticalException)
         {
@@ -115,5 +117,84 @@ namespace Bookclub.Tests.Services.Books
             _apiBrokerMock.VerifyNoOtherCalls();
             _loggingBrokerMock.VerifyNoOtherCalls();
         }
+
+        public static TheoryData DependencyApiExceptions()
+        {
+            string exceptionMessage = GetRandomString();
+            var responseMessage = new HttpResponseMessage();
+
+            var httpResponseException =
+                new HttpResponseException(
+                httpResponseMessage: responseMessage,
+                message: exceptionMessage);
+
+            var httpResponseInternalServerErrorException =
+                new HttpResponseInternalServerErrorException(
+                    responseMessage: responseMessage,
+                    message: exceptionMessage);
+
+            return new TheoryData<Exception>
+            {
+                httpResponseException,
+                httpResponseInternalServerErrorException
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(DependencyApiExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnCreateIfDependencyApiErrorOccursAndLogItAsync(
+            Exception dependencyApiException)
+        {
+            // given
+            Book someBook = CreateRandomBook();
+            string exceptionMessage = GetRandomString();
+           
+            var expectedBookDependencyException = new BookDependencyException(
+                dependencyApiException);
+
+            _apiBrokerMock.Setup(broker =>
+            broker.PostBookAsync(It.IsAny<Book>()))
+                .ThrowsAsync(dependencyApiException);
+
+            // when
+            ValueTask<Book> registerBookTask = _bookService.AddBookAsync(someBook);
+
+            // then
+            await Assert.ThrowsAsync<BookDependencyException>(() =>
+            registerBookTask.AsTask());
+
+            _apiBrokerMock.Verify(broker => broker.PostBookAsync(It.IsAny<Book>()), Times.Once);
+           _loggingBrokerMock.Verify(broker => broker.LogError(It.Is(SameExceptionAs(expectedBookDependencyException))), Times.Once);
+            _apiBrokerMock.VerifyNoOtherCalls();
+            _loggingBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnCreateIfErrorOccursAndLogItAsync()
+        {
+            // given
+            Book someBook = CreateRandomBook();
+            var serviceException = new Exception();
+
+            var expectedBookServiceException =
+                new BookServiceException(serviceException);
+
+            _apiBrokerMock.Setup(broker =>
+            broker.PostBookAsync(It.IsAny<Book>()))
+                .ThrowsAsync(serviceException);
+            // when
+            ValueTask<Book> registerBookTask = _bookService.AddBookAsync(someBook);
+
+            // then
+            await Assert.ThrowsAsync<BookServiceException>(() =>
+            registerBookTask.AsTask());
+
+            _apiBrokerMock.Verify(broker => broker.PostBookAsync(It.IsAny<Book>()), Times.Once);
+            _loggingBrokerMock.Verify(broker => broker.LogError(It.Is(SameExceptionAs(expectedBookServiceException))), Times.Once);
+            _apiBrokerMock.VerifyNoOtherCalls();
+            _loggingBrokerMock.VerifyNoOtherCalls();
+        }
+
+
     }
 }
