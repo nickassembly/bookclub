@@ -9,18 +9,18 @@ namespace Bookclub.Services.BookViews
 {
     public class BookViewService : IBookViewService
     {
-        private readonly ILoggingBroker _bookViewService;
+        private readonly IBookViewService _bookService;
         private readonly IUserService _userService;
         private readonly IDateTimeBroker _dateTimeBroker;
-        private readonly Brokers.Logging.ILoggingBroker _loggingBroker;
+        private readonly ILoggingBroker _loggingBroker;
 
         public BookViewService(
-            ILoggingBroker bookViewService,
+            IBookViewService bookService,
             IUserService userService, 
             IDateTimeBroker dateTimeBroker,
-            Brokers.Logging.ILoggingBroker loggingBroker)
+            ILoggingBroker loggingBroker)
         {
-            _bookViewService = bookViewService;
+            _bookService = bookService;
             _userService = userService;
             _dateTimeBroker = dateTimeBroker;
             _loggingBroker = loggingBroker;
