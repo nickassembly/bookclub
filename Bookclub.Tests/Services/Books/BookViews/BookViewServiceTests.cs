@@ -35,7 +35,7 @@ namespace Bookclub.Tests.Services.Books.BookViews
         }
 
         // Todo: Get better filler strings for title/etc. 
-        private static dynamic CreateRandomStudentViewProperties()
+        private static dynamic CreateRandomBookViewProperties()
         {
             return new
             {
