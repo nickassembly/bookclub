@@ -15,5 +15,7 @@ namespace Bookclub.Models.Books.BookViews
         public string Subtitle { get; set; }
         public string PrimaryAuthor { get; set; }
         public DateTime? PublishedDate { get; set; }
+        public int CollectionType { get; set; }
+
     }
 }

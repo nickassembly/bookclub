@@ -11,6 +11,7 @@ using Xunit;
 
 namespace Bookclub.Tests.Services.Books.BookViews
 {
+    // TODO: Need to refactor Tests with better modelling
     public partial class BookViewServiceTests
     {
         [Fact]
@@ -41,7 +42,8 @@ namespace Bookclub.Tests.Services.Books.BookViews
             BookView expectedBookView = inputBookView;
 
             var randomBook = new Book
-            {   BookId = randomInt,
+            { 
+                BookId = randomInt,
                 Id = randomBookViewProperties.Id,
                 Isbn = randomBookViewProperties.Isbn,
                 Isbn13 = randomBookViewProperties.Isbn13,
