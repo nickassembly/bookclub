@@ -1,31 +1,36 @@
 ﻿using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
+using Bookclub.Models.Books;
+using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Services.Users;
 using Moq;
 using System;
+using System.Linq.Expressions;
+using KellermanSoftware.CompareNetObjects;
 using Tynamix.ObjectFiller;
 
 namespace Bookclub.Tests.Services.Books.BookViews
 {
     public partial class BookViewServiceTests
     {
-        private readonly Mock<IBookViewService> _bookServiceMock;
+        private readonly Mock<IBookService> _bookServiceMock;
         private readonly Mock<IUserService> _userServiceMock;
         private readonly Mock<IDateTimeBroker> _dateTimeBrokerMock;
         private readonly Mock<ILoggingBroker> _loggingBrokerMock;
         private readonly IBookViewService bookViewService;
+        private readonly ICompareLogic _compareLogic;
 
-        public BookViewServiceTests(
-            Mock<IBookViewService> bookServiceMock,
-            Mock<IUserService> userServiceMock,
-            Mock<IDateTimeBroker> dateTimeBrokerMock,
-            Mock<ILoggingBroker> loggingBrokerMock)
+        public BookViewServiceTests()
         {
-            _bookServiceMock = bookServiceMock;
-            _userServiceMock = userServiceMock;
-            _dateTimeBrokerMock = dateTimeBrokerMock;
-            _loggingBrokerMock = loggingBrokerMock;
+            this._bookServiceMock = new Mock<IBookService>();
+            this._userServiceMock = new Mock<IUserService>();
+            this._dateTimeBrokerMock = new Mock<IDateTimeBroker>();
+            this._loggingBrokerMock = new Mock<ILoggingBroker>();
+            var compareConfig = new ComparisonConfig();
+            compareConfig.IgnoreProperty<Book>(book => book.Id);
+            compareConfig.IgnoreProperty<Book>(book => book.BookId);
+            this._compareLogic = new CompareLogic(compareConfig);
 
             this.bookViewService = new BookViewService(
                bookService: _bookServiceMock.Object,
@@ -59,6 +64,10 @@ namespace Bookclub.Tests.Services.Books.BookViews
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
 
+        private Expression<Func<Book, bool>> SameBookAs(Book expectedBook)
+        {
+            return actualBook => _compareLogic.Compare(expectedBook, actualBook).AreEqual;
+        }
 
     }
 }
