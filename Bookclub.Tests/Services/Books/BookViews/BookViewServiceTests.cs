@@ -9,6 +9,7 @@ using System;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Tynamix.ObjectFiller;
+using Bookclub.Models.Books.BookViews;
 
 namespace Bookclub.Tests.Services.Books.BookViews
 {
@@ -39,7 +40,6 @@ namespace Bookclub.Tests.Services.Books.BookViews
                loggingBroker: _loggingBrokerMock.Object);
         }
 
-        // Todo: Get better filler strings for title/etc. 
         private static dynamic CreateRandomBookViewProperties()
         {
             return new
@@ -54,20 +54,33 @@ namespace Bookclub.Tests.Services.Books.BookViews
             };
 
         }
-
-        private static string GetRandomName() =>
-            new RealNames(NameStyle.LastName).GetValue();
-
-        private static DateTime GetRandomDate() =>
-            new DateTimeRange(earliestDate: new DateTime()).GetValue();
-
-        private static string GetRandomString() =>
-            new MnemonicString().GetValue();
-
         private Expression<Func<Book, bool>> SameBookAs(Book expectedBook)
         {
             return actualBook => _compareLogic.Compare(expectedBook, actualBook).AreEqual;
         }
+
+        private static DateTime GetRandomDate() =>
+            new DateTimeRange(earliestDate: new DateTime()).GetValue();
+
+        private static BookView CreateRandomBookView() =>
+            CreateBookViewFiller().Create();
+
+        private static string GetRandomName() =>
+            new RealNames(NameStyle.LastName).GetValue();
+
+        private static string GetRandomString() =>
+            new MnemonicString().GetValue();
+
+        private static Filler<BookView> CreateBookViewFiller()
+        {
+            var filler = new Filler<BookView>();
+
+            filler.Setup()
+                .OnType<DateTime>().Use(DateTime.UtcNow);
+
+            return filler;
+        }
+
 
     }
 }
