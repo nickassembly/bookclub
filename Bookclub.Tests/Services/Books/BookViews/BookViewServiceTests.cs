@@ -65,6 +65,12 @@ namespace Bookclub.Tests.Services.Books.BookViews
         private static BookView CreateRandomBookView() =>
             CreateBookViewFiller().Create();
 
+        private static Expression<Func<Exception, bool>> SameExceptionAs(Exception expectedException)
+        {
+            return actualException => actualException.Message == expectedException.Message
+            && actualException.InnerException.Message == expectedException.InnerException.Message;
+        }
+
         private static string GetRandomName() =>
             new RealNames(NameStyle.LastName).GetValue();
 
