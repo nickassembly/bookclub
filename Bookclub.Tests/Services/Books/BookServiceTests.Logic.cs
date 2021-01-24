@@ -14,7 +14,7 @@ namespace Bookclub.Tests.Services.Books
     {
         [Fact]
         public async Task ShouldAddBookToUserAsync()
-        {
+         {
             // Test for adding a book, should test the 'happy' path of the service
             // validation testing in another class
 

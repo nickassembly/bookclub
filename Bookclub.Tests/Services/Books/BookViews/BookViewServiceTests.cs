@@ -82,7 +82,7 @@ namespace Bookclub.Tests.Services.Books.BookViews
             var filler = new Filler<BookView>();
 
             filler.Setup()
-                .OnType<DateTime>().Use(DateTime.UtcNow);
+                .OnType<DateTimeOffset>().Use(DateTimeOffset.UtcNow);
 
             return filler;
         }

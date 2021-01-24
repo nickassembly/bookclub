@@ -25,7 +25,7 @@ namespace Bookclub.Models.Books
         public string Language { get; set; }
         public string SelfLink { get; set; }
         public string Publisher { get; set; }
-        public DateTime? PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
         public string Description { get; set; }
         public decimal ListPrice { get; set; }
         public string ListCurrencyCode { get; set; }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
 {
-    public class BookViewService : IBookViewService
+    public partial class BookViewService : IBookViewService
     {
         private readonly IBookService _bookService;
         private readonly IUserService _userService;
@@ -18,7 +18,7 @@ namespace Bookclub.Services.BookViews
 
         public BookViewService(
             IBookService bookService,
-            IUserService userService, 
+            IUserService userService,
             IDateTimeBroker dateTimeBroker,
             ILoggingBroker loggingBroker)
         {
@@ -28,14 +28,16 @@ namespace Bookclub.Services.BookViews
             _loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<BookView> AddBookViewAsync(BookView bookView)
-        {
-            Book book = MapToBook(bookView);
+        public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
+            TryCatch(async () =>
+            {
+                ValidateBookView(bookView);
+                Book book = MapToBook(bookView);
+                await _bookService.AddBookAsync(book);
 
-            await _bookService.AddBookAsync(book);
+                return bookView;
+            });
 
-            return bookView;
-        }
 
         private Book MapToBook(BookView bookView)
         {
@@ -68,7 +70,7 @@ namespace Bookclub.Services.BookViews
                 SmallThumbnail = "",
                 Thumbnail = ""
             };
-           
+
         }
     }
 }
