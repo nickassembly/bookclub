@@ -70,6 +70,107 @@ namespace Bookclub.Tests.Services.Books.BookViews
             _bookServiceMock.VerifyNoOtherCalls();
         }
 
+        public static TheoryData BookServiceDependencyExceptions()
+        {
+            var innerException = new Exception();
+
+            return new TheoryData<Exception>
+            {
+                new BookDependencyException(innerException),
+                new BookServiceException(innerException)
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(BookServiceDependencyExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnAddIfBookDependencyErrorOccuredAndLogAsync(
+        Exception bookServiceDependencyException)
+        {
+            // given
+            BookView someBookView = CreateRandomBookView();
+
+            var expectedDepedencyException =
+                new BookViewDependencyException(bookServiceDependencyException);
+
+            _bookServiceMock.Setup(service =>
+            service.AddBookAsync(It.IsAny<Book>()))
+                .ThrowsAsync(bookServiceDependencyException);
+
+            // when 
+            ValueTask<BookView> addBookViewTask =
+                this.bookViewService.AddBookViewAsync(someBookView);
+
+            // then
+            await Assert.ThrowsAsync<BookViewDependencyException>(() =>
+            addBookViewTask.AsTask());
+
+            _userServiceMock.Verify(service =>
+            service.GetCurrentlyLoggedInUser(),
+            Times.Once);
+
+            _dateTimeBrokerMock.Verify(broker =>
+            broker.GetCurrentDateTime(),
+            Times.Once);
+
+            _bookServiceMock.Verify(service =>
+            service.AddBookAsync(It.IsAny<Book>()),
+            Times.Once);
+
+            _loggingBrokerMock.Verify(broker =>
+            broker.LogError(It.Is(SameExceptionAs(expectedDepedencyException))),
+            Times.Once);
+
+            _loggingBrokerMock.VerifyNoOtherCalls();
+            _userServiceMock.VerifyNoOtherCalls();
+            _dateTimeBrokerMock.VerifyNoOtherCalls();
+            _bookServiceMock.VerifyNoOtherCalls();
+        }
+
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnAddIfServiceErrorOccuredAndLogAsync()
+        {
+            // given
+            BookView someBookView = CreateRandomBookView();
+            var serviceException = new Exception();
+
+            var expectedBookServiceException =
+                new BookViewServiceException(serviceException);
+
+            _userServiceMock.Setup(service =>
+            service.GetCurrentlyLoggedInUser())
+                .Throws(serviceException);
+
+            // when 
+            ValueTask<BookView> addBookViewTask =
+                this.bookViewService.AddBookViewAsync(someBookView);
+
+            // then
+            await Assert.ThrowsAsync<BookViewServiceException>(() =>
+            addBookViewTask.AsTask());
+
+            _userServiceMock.Verify(service =>
+            service.GetCurrentlyLoggedInUser(),
+            Times.Once);
+
+            _loggingBrokerMock.Verify(broker =>
+            broker.LogError(It.Is(SameExceptionAs(expectedBookServiceException))),
+            Times.Once);
+
+            _dateTimeBrokerMock.Verify(broker =>
+            broker.GetCurrentDateTime(),
+            Times.Never);
+
+            _bookServiceMock.Verify(service =>
+            service.AddBookAsync(It.IsAny<Book>()),
+            Times.Never);
+
+            _loggingBrokerMock.VerifyNoOtherCalls();
+            _userServiceMock.VerifyNoOtherCalls();
+            _dateTimeBrokerMock.VerifyNoOtherCalls();
+            _bookServiceMock.VerifyNoOtherCalls();
+        }
+
 
 
     }

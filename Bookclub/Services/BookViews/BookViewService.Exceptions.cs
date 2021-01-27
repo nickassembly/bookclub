@@ -35,6 +35,18 @@ namespace Bookclub.Services.BookViews
             {
                 throw CreateAndLogDependencyValidationException(bookDependencyValidationException);
             }
+            catch (BookDependencyException bookDependencyException)
+            {
+                throw CreateAndLogDependencyException(bookDependencyException);
+            }
+            catch (BookServiceException bookServiceException)
+            {
+                throw CreateAndLogDependencyException(bookServiceException);
+            }
+            catch (Exception serviceException)
+            {
+                throw CreateAndLogServiceException(serviceException);
+            }
         }
 
         private BookViewValidationException CreateAndLogValidationException(Exception exception)
@@ -51,6 +63,22 @@ namespace Bookclub.Services.BookViews
             _loggingBroker.LogError(bookViewValidationException);
 
             return bookViewValidationException;
+        }
+
+        private BookViewDependencyException CreateAndLogDependencyException(Exception exception)
+        {
+            var bookViewDependencyException = new BookViewDependencyException(exception);
+            _loggingBroker.LogError(bookViewDependencyException);
+
+            return bookViewDependencyException;
+        }
+
+        private BookViewServiceException CreateAndLogServiceException(Exception exception)
+        {
+            var bookViewServiceException = new BookViewServiceException(exception);
+            _loggingBroker.LogError(bookViewServiceException);
+
+            return bookViewServiceException;
         }
 
     }
