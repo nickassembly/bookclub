@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RESTFulSense" Version="1.7.0" />
+    <Compile Remove="Views\Components\**" />
+    <Content Remove="Views\Components\**" />
+    <EmbeddedResource Remove="Views\Components\**" />
+    <None Remove="Views\Components\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Bases\" />
-    <Folder Include="Views\Components\Basics\" />
+    <PackageReference Include="RESTFulSense" Version="1.7.0" />
   </ItemGroup>
 
 </Project>

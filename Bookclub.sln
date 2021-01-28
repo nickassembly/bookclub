@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookclub", "Bookclub\Bookclub.csproj", "{1B915475-2C45-4E95-B36D-1CD5954B4EAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookclub.Tests", "Bookclub.Tests\Bookclub.Tests.csproj", "{D22F9E58-8BE8-4954-9FE0-71C0508E1A30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookclub.Tests", "Bookclub.Tests\Bookclub.Tests.csproj", "{D22F9E58-8BE8-4954-9FE0-71C0508E1A30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
