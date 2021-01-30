@@ -5,22 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Components\**" />
-    <Content Remove="Views\Components\**" />
-    <EmbeddedResource Remove="Views\Components\**" />
-    <None Remove="Views\Components\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="RESTFulSense" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\Components\Basics\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Components\AddBookComponent.razor" />
   </ItemGroup>
 
 </Project>
