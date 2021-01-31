@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookclub.Models.Basics
+namespace Bookclub.Models.ContainerComponents
 {
     public enum ComponentState
     {

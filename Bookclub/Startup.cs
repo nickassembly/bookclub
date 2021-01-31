@@ -2,6 +2,9 @@ using Bookclub.Brokers.API;
 using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Configurations;
+using Bookclub.Services.Books;
+using Bookclub.Services.BookViews;
+using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -33,9 +36,9 @@ namespace Bookclub
             services.AddScoped<ILogger, Logger<LoggingBroker>>();
             services.AddScoped<ILoggingBroker, LoggingBroker>();
             services.AddScoped<IDateTimeBroker, DateTimeBroker>();
-
-            // Adding HTTP client to communicate with Api (possibly add in RESTFULsense library once I understand it)
-            // for now just using a generic client
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IBookViewService, BookViewService>();
 
             // TODO: need to find out best httpclient to use
             //services.AddHttpClient();
@@ -51,7 +54,6 @@ namespace Bookclub
             AddRootDirectory(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -61,7 +63,6 @@ namespace Bookclub
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

@@ -1,21 +1,21 @@
-﻿using Bookclub.Views.Bases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bookclub.Models.AddBookComponents.Exceptions;
+using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.ContainerComponents;
+using Bookclub.Services.BookViews;
+using Microsoft.AspNetCore.Components;
 
 namespace Bookclub.Views.Components
 {
     public partial class AddBookComponent
     {
-        public TextBoxBase TextBox { get; set; }
+        [Inject]
+        public IBookViewService BookViewService { get; set; }
 
-        public void ButtonClicked()
-        {
-            string textBoxValue = this.TextBox.Value;
+        public ComponentState State { get; set; }
 
-            Console.WriteLine(textBoxValue);
-        }
+        public AddBookComponentException Exception { get; set; }
+
+        public BookView BookView { get; set; }
+
     }
 }
