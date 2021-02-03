@@ -54,6 +54,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
             // then
             _addBookComponent.Instance.State.Should().Be(expectedComponentState);
 
+            _addBookComponent.Instance.IsbnTextBox.Should().NotBeNull();
+
         }
 
     }

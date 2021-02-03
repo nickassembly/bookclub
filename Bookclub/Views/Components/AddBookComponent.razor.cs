@@ -22,5 +22,10 @@ namespace Bookclub.Views.Components
         public TextBoxBase AuthorTextBox { get; set; }
         public ButtonBase SubmitButton { get; set; }
 
+        protected override void OnInitialized()
+        {
+            this.State = ComponentState.Content;
+        }
+
     }
 }
