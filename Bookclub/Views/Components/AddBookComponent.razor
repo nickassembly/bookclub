@@ -2,6 +2,29 @@
 
 <ContainerComponent State="State">
     <Content>
-        <TextBoxBase @ref="IsbnTextBox" />
+        <div align="center">
+  
+                <TextBoxBase @ref="IsbnTextBox"
+                             Placeholder="Isbn" />
+            <br />
+
+            <TextBoxBase @ref="Isbn13TextBox"
+                         Placeholder="Isbn13" />
+            <br />
+            <TextBoxBase @ref="AuthorTextBox"
+                         Placeholder="Author" />
+            <br />
+            <TextBoxBase @ref="TitleTextBox"
+                         Placeholder="Title" />
+            <br />
+            <TextBoxBase @ref="SubtitleTextBox"
+                         Placeholder="Subtitle" />
+            <br />
+            <TextBoxBase @ref="IdTextBox"
+                         Placeholder="Id" />
+            <br />
+            <ButtonBase @ref=SubmitButton
+                        Label="Submit Book" />
+        </div>
     </Content>
 </ContainerComponent>

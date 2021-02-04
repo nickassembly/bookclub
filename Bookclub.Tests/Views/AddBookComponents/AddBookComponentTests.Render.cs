@@ -55,6 +55,31 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.State.Should().Be(expectedComponentState);
 
             _addBookComponent.Instance.IsbnTextBox.Should().NotBeNull();
+            _addBookComponent.Instance.IsbnTextBox.Placeholder.Should().Be(expectedIsbnTextBoxPlaceholder);
+
+            _addBookComponent.Instance.Isbn13TextBox.Should().NotBeNull();
+            _addBookComponent.Instance.Isbn13TextBox.Placeholder.Should().Be(expectedIsbn13TextBoxPlaceholder);
+
+            _addBookComponent.Instance.AuthorTextBox.Should().NotBeNull();
+            _addBookComponent.Instance.AuthorTextBox.Placeholder.Should().Be(expectedAuthorTextBoxPlaceholder);
+
+            _addBookComponent.Instance.TitleTextBox.Should().NotBeNull();
+            _addBookComponent.Instance.TitleTextBox.Placeholder.Should().Be(expectedTitleTextBoxPlaceholder);
+
+            _addBookComponent.Instance.SubtitleTextBox.Should().NotBeNull();
+            _addBookComponent.Instance.SubtitleTextBox.Placeholder.Should().Be(expectedSubtitleTextBoxPlaceholder);
+
+            _addBookComponent.Instance.IdTextBox.Should().NotBeNull();
+            _addBookComponent.Instance.IdTextBox.Placeholder.Should().Be(expectedIdTextBoxPlaceholder);
+
+            _addBookComponent.Instance.SubmitButton.Should().NotBeNull();
+            _addBookComponent.Instance.SubmitButton.Label.Should().Be(expectedSubmitButtonLabel);
+
+            _addBookComponent.Instance.BookView.Should().BeNull();
+            _addBookComponent.Instance.Exception.Should().BeNull();
+
+            _bookViewServiceMock.VerifyNoOtherCalls();
+
 
         }
 
