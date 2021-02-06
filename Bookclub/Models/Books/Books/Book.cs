@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookclub.Models.Books.Books;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Bookclub.Models.Books
     public class Book
     {
         public int BookId { get; set; }
-        public int CollectionType { get; set; }
+      //  public int CollectionType { get; set; }
         public string Id { get; set; }
         public string Isbn { get; set; }
         public string Isbn13 { get; set; }
@@ -30,5 +31,6 @@ namespace Bookclub.Models.Books
         public decimal ListPrice { get; set; }
         public string ListCurrencyCode { get; set; }
         public string Country { get; set; }
+        public BookMediaType MediaType { get; set; }
     }
 }

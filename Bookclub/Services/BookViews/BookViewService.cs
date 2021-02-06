@@ -55,7 +55,7 @@ namespace Bookclub.Services.BookViews
                 PublishedDate = bookView.PublishedDate,
                 Title = bookView.Title,
                 Subtitle = bookView.Subtitle,
-                CollectionType = bookView.CollectionType,
+               // CollectionType = bookView.CollectionType,
                 Country = "",
                 Description = "",
                 ExtraLarge = "",
