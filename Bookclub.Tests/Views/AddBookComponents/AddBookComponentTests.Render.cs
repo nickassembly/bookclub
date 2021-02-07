@@ -32,6 +32,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             initialBookAddComponent.IdTextBox.Should().BeNull();
             initialBookAddComponent.SubmitButton.Should().BeNull();
             initialBookAddComponent.BookView.Should().BeNull();
+            initialBookAddComponent.MediaTypeDropDown.Should().BeNull();
         }
 
         [Fact]
@@ -68,6 +69,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             _addBookComponent.Instance.SubtitleTextBox.Should().NotBeNull();
             _addBookComponent.Instance.SubtitleTextBox.Placeholder.Should().Be(expectedSubtitleTextBoxPlaceholder);
+
+            _addBookComponent.Instance.MediaTypeDropDown.Should().NotBeNull();
 
             _addBookComponent.Instance.IdTextBox.Should().NotBeNull();
             _addBookComponent.Instance.IdTextBox.Placeholder.Should().Be(expectedIdTextBoxPlaceholder);

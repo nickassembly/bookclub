@@ -11,5 +11,6 @@ namespace Bookclub.Views.Bases
     {
         [Parameter]
         public TEnum Value { get; set; }
+
     }
 }

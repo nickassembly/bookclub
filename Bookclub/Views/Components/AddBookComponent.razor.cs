@@ -20,6 +20,7 @@ namespace Bookclub.Views.Components
         public TextBoxBase TitleTextBox { get; set; }
         public TextBoxBase SubtitleTextBox { get; set; }
         public TextBoxBase AuthorTextBox { get; set; }
+        public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
         public ButtonBase SubmitButton { get; set; }
 
         protected override void OnInitialized()
