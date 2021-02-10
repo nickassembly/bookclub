@@ -26,8 +26,10 @@ namespace Bookclub.Views.Components
 
         protected override void OnInitialized()
         {
+            this.BookView = new BookView();
             this.State = ComponentState.Content;
         }
+
 
     }
 }

@@ -55,6 +55,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent = RenderComponent<AddBookComponent>();
 
             // then
+            _addBookComponent.Instance.BookView.Should().NotBeNull();
+
             _addBookComponent.Instance.State.Should().Be(expectedComponentState);
 
             _addBookComponent.Instance.IsbnTextBox.Should().NotBeNull();
@@ -84,7 +86,6 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.SubmitButton.Should().NotBeNull();
             _addBookComponent.Instance.SubmitButton.Label.Should().Be(expectedSubmitButtonLabel);
 
-            _addBookComponent.Instance.BookView.Should().BeNull();
             _addBookComponent.Instance.Exception.Should().BeNull();
 
             _bookViewServiceMock.VerifyNoOtherCalls();
