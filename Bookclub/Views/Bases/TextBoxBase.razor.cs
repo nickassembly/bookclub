@@ -13,8 +13,6 @@ namespace Bookclub.Views.Bases
         public void SetValue(string value) =>
             this.Value = value;
 
-        public void SetPlaceholder(string value) =>
-            this.Placeholder = value;
     }
 
 }

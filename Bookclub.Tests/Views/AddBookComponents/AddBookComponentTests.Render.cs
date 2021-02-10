@@ -1,4 +1,5 @@
-﻿using Bookclub.Models.ContainerComponents;
+﻿using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.ContainerComponents;
 using Bookclub.Views.Components;
 using FluentAssertions;
 using System;
@@ -33,6 +34,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             initialBookAddComponent.SubmitButton.Should().BeNull();
             initialBookAddComponent.BookView.Should().BeNull();
             initialBookAddComponent.MediaTypeDropDown.Should().BeNull();
+            initialBookAddComponent.PublishDatePicker.Should().BeNull();
         }
 
         [Fact]
@@ -70,10 +72,14 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.SubtitleTextBox.Should().NotBeNull();
             _addBookComponent.Instance.SubtitleTextBox.Placeholder.Should().Be(expectedSubtitleTextBoxPlaceholder);
 
+            _addBookComponent.Instance.MediaTypeDropDown.Value.Should().BeOfType(typeof(BookViewMediaType));
+
             _addBookComponent.Instance.MediaTypeDropDown.Should().NotBeNull();
 
             _addBookComponent.Instance.IdTextBox.Should().NotBeNull();
             _addBookComponent.Instance.IdTextBox.Placeholder.Should().Be(expectedIdTextBoxPlaceholder);
+
+            _addBookComponent.Instance.PublishDatePicker.Should().NotBeNull();
 
             _addBookComponent.Instance.SubmitButton.Should().NotBeNull();
             _addBookComponent.Instance.SubmitButton.Label.Should().Be(expectedSubmitButtonLabel);

@@ -16,14 +16,17 @@
             <TextBoxBase @ref="TitleTextBox"
                          Placeholder="Title" />
             <br />
+            <DropDownBase @ref=MediaTypeDropDown
+                          TEnum="BookViewMediaType" />
+            <br />
             <TextBoxBase @ref="SubtitleTextBox"
                          Placeholder="Subtitle" />
             <br />
+            <DatePickerBase @ref="PublishDatePicker" />
+
+            <br />
             <TextBoxBase @ref="IdTextBox"
                          Placeholder="Id" />
-            <br />
-            <DropDownBase @ref=MediaTypeDropDown
-                          TEnum="BookViewMediaType" />
 
             <br />
             <ButtonBase @ref=SubmitButton
