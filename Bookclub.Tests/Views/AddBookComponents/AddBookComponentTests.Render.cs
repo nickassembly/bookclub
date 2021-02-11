@@ -93,5 +93,23 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
         }
 
+        [Fact]
+        public void ShouldSubmitBook()
+        {
+            // given
+            BookView randomBookView = CreateRandomBookView();
+            BookView inputBookView = randomBookView;
+            BookView expectedBookView = inputBookView;
+
+            // when
+            _addBookComponent = RenderComponent<AddBookComponent>();
+
+            _addBookComponent.Instance.IsbnTextBox.SetValue(inputBookView.Isbn);
+
+            // then
+            _addBookComponent.Instance.IsbnTextBox.Value.Should().BeEquivalentTo(expectedBookView.Isbn);
+
+        }
+
     }
 }

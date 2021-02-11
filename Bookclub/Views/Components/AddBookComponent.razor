@@ -5,6 +5,7 @@
     <Content>
         <div align="center">
             <TextBoxBase @ref="IsbnTextBox"
+                         @bind-Value="BookView.Isbn"
                          Placeholder="Isbn" />
             <br />
             <TextBoxBase @ref="Isbn13TextBox"
