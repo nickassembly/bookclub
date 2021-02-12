@@ -23,7 +23,7 @@ namespace Bookclub.Services.BookViews
                         parameterName: nameof(BookView.Title),
                         parameterValue: bookView.Title);
 
-                case { } when IsInvalid(bookView.PublishedDate):
+                case { } when IsInvalid(bookView.PublishedDate.ToString()):
                     throw new InvalidBookViewException(
                         parameterName: nameof(BookView.PublishedDate),
                         parameterValue: bookView.PublishedDate);

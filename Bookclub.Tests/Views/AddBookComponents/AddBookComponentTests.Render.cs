@@ -2,6 +2,7 @@
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Views.Components;
 using FluentAssertions;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,9 +106,32 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent = RenderComponent<AddBookComponent>();
 
             _addBookComponent.Instance.IsbnTextBox.SetValue(inputBookView.Isbn);
+            _addBookComponent.Instance.Isbn13TextBox.SetValue(inputBookView.Isbn13);
+            _addBookComponent.Instance.AuthorTextBox.SetValue(inputBookView.PrimaryAuthor);
+            _addBookComponent.Instance.TitleTextBox.SetValue(inputBookView.Title);
+            _addBookComponent.Instance.SubtitleTextBox.SetValue(inputBookView.Subtitle);
+            _addBookComponent.Instance.IdTextBox.SetValue(inputBookView.Id);
+            _addBookComponent.Instance.MediaTypeDropDown.SetValue(inputBookView.MediaType);
+            _addBookComponent.Instance.PublishDatePicker.SetValue(inputBookView.PublishedDate);
+
+            _addBookComponent.Instance.SubmitButton.Click();
+
 
             // then
             _addBookComponent.Instance.IsbnTextBox.Value.Should().BeEquivalentTo(expectedBookView.Isbn);
+            _addBookComponent.Instance.Isbn13TextBox.Value.Should().BeEquivalentTo(expectedBookView.Isbn13);
+            _addBookComponent.Instance.AuthorTextBox.Value.Should().BeEquivalentTo(expectedBookView.PrimaryAuthor);
+            _addBookComponent.Instance.TitleTextBox.Value.Should().BeEquivalentTo(expectedBookView.Title);
+            _addBookComponent.Instance.SubtitleTextBox.Value.Should().BeEquivalentTo(expectedBookView.Subtitle);
+            _addBookComponent.Instance.IdTextBox.Value.Should().BeEquivalentTo(expectedBookView.Id);
+            _addBookComponent.Instance.MediaTypeDropDown.Value.Should().Be(expectedBookView.MediaType);
+            _addBookComponent.Instance.PublishDatePicker.Value.Should().Be(expectedBookView.PublishedDate);
+
+            _bookViewServiceMock.Verify(service => service.AddBookViewAsync(_addBookComponent.Instance.BookView),
+                Times.Once);
+
+            _bookViewServiceMock.VerifyNoOtherCalls();
+
 
         }
 

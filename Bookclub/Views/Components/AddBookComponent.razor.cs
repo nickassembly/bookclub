@@ -4,6 +4,7 @@ using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace Bookclub.Views.Components
 {
@@ -29,6 +30,11 @@ namespace Bookclub.Views.Components
             this.BookView = new BookView();
             this.State = ComponentState.Content;
         }
+
+        public async void AddBookAsync()
+        {
+            await this.BookViewService.AddBookViewAsync(this.BookView);
+        } 
 
 
     }

@@ -4,33 +4,41 @@
 <ContainerComponent State="State">
     <Content>
         <div align="center">
+            <TextBoxBase @ref="IdTextBox"
+                         @bind-Value="BookView.Id"
+                         Placeholder="Id" />
+            <br />
             <TextBoxBase @ref="IsbnTextBox"
                          @bind-Value="BookView.Isbn"
                          Placeholder="Isbn" />
             <br />
             <TextBoxBase @ref="Isbn13TextBox"
+                         @bind-Value="BookView.Isbn13"
                          Placeholder="Isbn13" />
             <br />
             <TextBoxBase @ref="AuthorTextBox"
+                         @bind-Value="BookView.PrimaryAuthor"
                          Placeholder="Author" />
             <br />
             <TextBoxBase @ref="TitleTextBox"
+                         @bind-Value="BookView.Title"
                          Placeholder="Title" />
             <br />
-            <DropDownBase @ref=MediaTypeDropDown
-                          TEnum="BookViewMediaType" />
-            <br />
             <TextBoxBase @ref="SubtitleTextBox"
+                         @bind-Value="BookView.Subtitle"
                          Placeholder="Subtitle" />
             <br />
-            <DatePickerBase @ref="PublishDatePicker" />
+            <DropDownBase @ref=MediaTypeDropDown
+                          @bind-Value="BookView.MediaType"
+                          TEnum="BookViewMediaType" />
+            <br />
+            <DatePickerBase @ref="PublishDatePicker"
+                            @bind-Value="BookView.PublishedDate" />
 
             <br />
-            <TextBoxBase @ref="IdTextBox"
-                         Placeholder="Id" />
-            <br />
             <ButtonBase @ref=SubmitButton
-                        Label="Submit Book" />
+                        Label="Submit Book"
+                        OnClick="@AddBookAsync" />
         </div>
     </Content>
 </ContainerComponent>

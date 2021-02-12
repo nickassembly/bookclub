@@ -12,6 +12,21 @@ namespace Bookclub.Views.Bases
         [Parameter]
         public DateTimeOffset Value { get; set; }
 
-        public void SetValue(DateTimeOffset value) => this.Value = value;
+        [Parameter]
+        public EventCallback<DateTimeOffset> ValueChanged { get; set; }
+
+        public async Task SetValue(DateTimeOffset value)
+        {
+            this.Value = value;
+            await ValueChanged.InvokeAsync(this.Value);
+        }
+
+        private Task OnValueChanged(ChangeEventArgs changeEventArgs)
+        {
+            this.Value =  DateTimeOffset.Parse(changeEventArgs.Value.ToString());
+
+            return ValueChanged.InvokeAsync(this.Value);
+
+        }
     }
 }
