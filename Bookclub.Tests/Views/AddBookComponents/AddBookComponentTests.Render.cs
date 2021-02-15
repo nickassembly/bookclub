@@ -36,6 +36,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             initialBookAddComponent.BookView.Should().BeNull();
             initialBookAddComponent.MediaTypeDropDown.Should().BeNull();
             initialBookAddComponent.PublishDatePicker.Should().BeNull();
+            initialBookAddComponent.ErrorLabel.Should().BeNull();
         }
 
         [Fact]
@@ -87,6 +88,9 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.SubmitButton.Should().NotBeNull();
             _addBookComponent.Instance.SubmitButton.Label.Should().Be(expectedSubmitButtonLabel);
 
+            _addBookComponent.Instance.ErrorLabel.Should().NotBeNull();
+            _addBookComponent.Instance.ErrorLabel.Value.Should().BeNull();
+
             _addBookComponent.Instance.Exception.Should().BeNull();
 
             _bookViewServiceMock.VerifyNoOtherCalls();
@@ -126,6 +130,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.IdTextBox.Value.Should().BeEquivalentTo(expectedBookView.Id);
             _addBookComponent.Instance.MediaTypeDropDown.Value.Should().Be(expectedBookView.MediaType);
             _addBookComponent.Instance.PublishDatePicker.Value.Should().Be(expectedBookView.PublishedDate);
+
+            _addBookComponent.Instance.ErrorLabel.Value.Should().BeNull();
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(_addBookComponent.Instance.BookView),
                 Times.Once);

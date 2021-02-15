@@ -42,6 +42,8 @@ namespace Bookclub.Tests.Services.Books
         {
             var filler = new Filler<Book>();
 
+            filler.Setup().OnType<DateTimeOffset>().Use(DateTimeOffset.UtcNow);
+
             return filler;
         }
 

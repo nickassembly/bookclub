@@ -23,7 +23,7 @@ namespace Bookclub.Services.BookViews
                         parameterName: nameof(BookView.Title),
                         parameterValue: bookView.Title);
 
-                case { } when IsInvalid(bookView.PublishedDate.ToString()):
+                case { } when IsInvalid(bookView.PublishedDate):
                     throw new InvalidBookViewException(
                         parameterName: nameof(BookView.PublishedDate),
                         parameterValue: bookView.PublishedDate);
@@ -32,7 +32,7 @@ namespace Bookclub.Services.BookViews
 
         private static bool IsInvalid(string text) => String.IsNullOrWhiteSpace(text);
 
-        private static bool IsInvalid(DateTime date) => date == default;
+        private static bool IsInvalid(DateTimeOffset date) => date == default;
 
     }
 

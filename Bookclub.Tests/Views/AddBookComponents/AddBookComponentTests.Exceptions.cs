@@ -1,13 +1,9 @@
-﻿using Bookclub.Models.Books.BookViews;
-using Bookclub.Models.ContainerComponents;
-using Bookclub.Views.Components;
-using FluentAssertions;
+﻿
+using Bookclub.Models.Books;
+using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.Books.BookViews.Exceptions;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Bookclub.Tests.Views.AddBookComponents
@@ -16,10 +12,17 @@ namespace Bookclub.Tests.Views.AddBookComponents
     {
 
         [Fact]
-        public void ShouldSubmitBook()
+        public void ShouldRenderInnerExceptionMessageIfValidationErrorOccured()
         {
-        
+
             // given
+            string randomMessage = GetRandomString();
+            string validationMessage = randomMessage;
+            var innerValidationException = new Exception(validationMessage);
+
+            var bookViewValidationException = new BookViewValidationException(innerValidationException);
+
+            _bookViewServiceMock.Setup(service => service.AddBookViewAsync(It.IsAny<BookView>())).ThrowsAsync(bookViewValidationException);
 
             // when
 

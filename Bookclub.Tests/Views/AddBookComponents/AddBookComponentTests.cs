@@ -24,6 +24,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
         private static BookView CreateRandomBookView() => CreateBookFiller().Create();
 
+        private static string GetRandomString() => new MnemonicString().GetValue();
+
         private static Filler<BookView> CreateBookFiller()
         {
             var filler = new Filler<BookView>();
