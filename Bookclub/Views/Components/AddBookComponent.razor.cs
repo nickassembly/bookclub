@@ -1,5 +1,6 @@
 ﻿using Bookclub.Models.AddBookComponents.Exceptions;
 using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.Books.BookViews.Exceptions;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
@@ -34,7 +35,17 @@ namespace Bookclub.Views.Components
 
         public async void AddBookAsync()
         {
+            try
+            {
             await this.BookViewService.AddBookViewAsync(this.BookView);
+
+            }
+            catch (BookViewValidationException bookViewValidationException)
+            {
+                string validationMessage = bookViewValidationException.InnerException.Message;
+                
+                this.ErrorLabel.SetValue(validationMessage);
+            }
         } 
 
 
