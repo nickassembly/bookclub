@@ -1,5 +1,7 @@
 ﻿
 using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.Books.BookViews.Exceptions;
+using Bookclub.Models.Books.Exceptions;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Components;
 using Bunit;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Bookclub.Tests.Views.AddBookComponents
 {
@@ -25,6 +28,20 @@ namespace Bookclub.Tests.Views.AddBookComponents
         private static BookView CreateRandomBookView() => CreateBookFiller().Create();
 
         private static string GetRandomString() => new MnemonicString().GetValue();
+
+        public static TheoryData BookViewValidationExceptions()
+        {
+            string randomMessage = GetRandomString();
+            string validationMessage = randomMessage;
+            string expectedErrorMessage = validationMessage;
+            var innerValidationException = new Exception(validationMessage);
+
+            return new TheoryData<Exception>
+            {
+                new BookViewValidationException(innerValidationException),
+                new BookViewDependencyValidationException(innerValidationException)
+            };
+        }
 
         private static Filler<BookView> CreateBookFiller()
         {

@@ -11,17 +11,13 @@ namespace Bookclub.Tests.Views.AddBookComponents
     public partial class AddBookComponentTests
     {
 
-        [Fact]
-        public void ShouldRenderInnerExceptionMessageIfValidationErrorOccured()
+        [Theory]
+        [MemberData(nameof(BookViewValidationExceptions))]
+        public void ShouldRenderInnerExceptionMessageIfValidationErrorOccured(
+            Exception bookViewValidationException)
         {
-
             // given
-            string randomMessage = GetRandomString();
-            string validationMessage = randomMessage;
-            string expectedErrorMessage = validationMessage;
-            var innerValidationException = new Exception(validationMessage);
-
-            var bookViewValidationException = new BookViewValidationException(innerValidationException);
+            string expectedErrorMessage = bookViewValidationException.InnerException.Message;
 
             _bookViewServiceMock.Setup(service => service.AddBookViewAsync(It.IsAny<BookView>())).ThrowsAsync(bookViewValidationException);
 
