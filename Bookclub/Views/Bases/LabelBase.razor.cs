@@ -12,8 +12,11 @@ namespace Bookclub.Views.Bases
         [Parameter]
         public string Value { get; set; }
 
-        public void SetValue(string value) =>
+        public void SetValue(string value)
+        {
             this.Value = value;
+            InvokeAsync(StateHasChanged);
+        }
 
     }
 }

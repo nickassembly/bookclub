@@ -1,6 +1,7 @@
 ﻿using Bookclub.Models.AddBookComponents.Exceptions;
 using Bookclub.Models.Books.BookViews;
 using Bookclub.Models.Books.BookViews.Exceptions;
+using Bookclub.Models.Books.Exceptions;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
@@ -44,6 +45,12 @@ namespace Bookclub.Views.Components
             {
                 string validationMessage = bookViewValidationException.InnerException.Message;
                 
+                this.ErrorLabel.SetValue(validationMessage);
+            }
+            catch (BookViewDependencyValidationException bookViewDependencyValidationException)
+            {
+                string validationMessage = bookViewDependencyValidationException.InnerException.Message;
+
                 this.ErrorLabel.SetValue(validationMessage);
             }
         } 
