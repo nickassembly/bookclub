@@ -43,6 +43,17 @@ namespace Bookclub.Tests.Views.AddBookComponents
             };
         }
 
+        public static TheoryData BookViewDependencyServiceExceptions()
+        {
+            var innerValidationException = new Exception();
+
+            return new TheoryData<Exception>
+            {
+                new BookViewDependencyException(innerValidationException),
+                new BookViewServiceException(innerValidationException)
+            };
+        }
+
         private static Filler<BookView> CreateBookFiller()
         {
             var filler = new Filler<BookView>();

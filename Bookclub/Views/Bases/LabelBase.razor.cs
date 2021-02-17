@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Bookclub.Models.Colors;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace Bookclub.Views.Bases
     {
         [Parameter]
         public string Value { get; set; }
+
+        [Parameter]
+        public Color Color { get; set; }
 
         public void SetValue(string value)
         {

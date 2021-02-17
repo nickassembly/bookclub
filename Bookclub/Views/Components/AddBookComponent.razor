@@ -1,5 +1,6 @@
 ﻿@using Bookclub.Models.Books.BookViews;
 @using Bookclub.Views.Components.ContainerComponents;
+@using Bookclub.Models.Colors;
 
 <ContainerComponent State="State">
     <Content>
@@ -40,7 +41,7 @@
                         Label="Submit Book"
                         OnClick="@AddBookAsync" />
             <br />
-            <LabelBase @ref="ErrorLabel" />
+            <LabelBase @ref=ErrorLabel Color="Color.Red" />
 
         </div>
     </Content>

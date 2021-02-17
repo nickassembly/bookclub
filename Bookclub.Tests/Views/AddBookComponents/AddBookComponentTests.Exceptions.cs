@@ -35,5 +35,29 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
         }
 
+        [Theory]
+        [MemberData(nameof(BookViewDependencyServiceExceptions))]
+        public void ShouldRenderOuterExceptionMessageIfDependencyOrServiceErrorOccured(
+          Exception bookViewDependencyServiceException)
+        {
+            // given
+            string expectedErrorMessage = bookViewDependencyServiceException.Message;
+
+            _bookViewServiceMock.Setup(service => service.AddBookViewAsync(It.IsAny<BookView>())).ThrowsAsync(bookViewDependencyServiceException);
+
+            // when
+            _addBookComponent = RenderComponent<AddBookComponent>();
+
+            _addBookComponent.Instance.SubmitButton.Click();
+
+            // then
+            _addBookComponent.Instance.ErrorLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
+
+            _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
+
+            _bookViewServiceMock.VerifyNoOtherCalls();
+
+        }
+
     }
 }

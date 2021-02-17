@@ -47,9 +47,21 @@ namespace Bookclub.Views.Components
                 
                 this.ErrorLabel.SetValue(validationMessage);
             }
-            catch (BookViewDependencyValidationException bookViewDependencyValidationException)
+            catch (BookViewDependencyValidationException dependencyValidationException)
             {
-                string validationMessage = bookViewDependencyValidationException.InnerException.Message;
+                string validationMessage = dependencyValidationException.InnerException.Message;
+
+                this.ErrorLabel.SetValue(validationMessage);
+            }
+            catch (BookViewDependencyException bookViewDependencyException)
+            {
+                string validationMessage = bookViewDependencyException.Message;
+
+                this.ErrorLabel.SetValue(validationMessage);
+            }
+            catch (BookViewServiceException bookViewServiceException)
+            {
+                string validationMessage = bookViewServiceException.Message;
 
                 this.ErrorLabel.SetValue(validationMessage);
             }

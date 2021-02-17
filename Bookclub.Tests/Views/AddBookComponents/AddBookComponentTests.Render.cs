@@ -1,4 +1,5 @@
 ﻿using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Views.Components;
 using FluentAssertions;
@@ -90,6 +91,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             _addBookComponent.Instance.ErrorLabel.Should().NotBeNull();
             _addBookComponent.Instance.ErrorLabel.Value.Should().BeNull();
+
+            _addBookComponent.Instance.ErrorLabel.Color.Should().Be(Color.Red);
 
             _addBookComponent.Instance.Exception.Should().BeNull();
 
