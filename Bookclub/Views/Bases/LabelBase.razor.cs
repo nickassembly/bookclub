@@ -22,5 +22,7 @@ namespace Bookclub.Views.Bases
             InvokeAsync(StateHasChanged);
         }
 
+        public void SetColor(Color color) => this.Color = color;
+
     }
 }

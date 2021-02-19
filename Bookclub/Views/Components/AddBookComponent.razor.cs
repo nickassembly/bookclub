@@ -2,6 +2,7 @@
 using Bookclub.Models.Books.BookViews;
 using Bookclub.Models.Books.BookViews.Exceptions;
 using Bookclub.Models.Books.Exceptions;
+using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
@@ -26,7 +27,7 @@ namespace Bookclub.Views.Components
         public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase SubmitButton { get; set; }
-        public LabelBase ErrorLabel { get; set; }
+        public LabelBase StatusLabel { get; set; }
 
         protected override void OnInitialized()
         {
@@ -38,34 +39,35 @@ namespace Bookclub.Views.Components
         {
             try
             {
-            await this.BookViewService.AddBookViewAsync(this.BookView);
-
+                await this.BookViewService.AddBookViewAsync(this.BookView);
+                this.StatusLabel.SetColor(Color.Green);
+                this.StatusLabel.SetValue("Submitted Successfully");
             }
             catch (BookViewValidationException bookViewValidationException)
             {
                 string validationMessage = bookViewValidationException.InnerException.Message;
-                
-                this.ErrorLabel.SetValue(validationMessage);
+
+                this.StatusLabel.SetValue(validationMessage);
             }
             catch (BookViewDependencyValidationException dependencyValidationException)
             {
                 string validationMessage = dependencyValidationException.InnerException.Message;
 
-                this.ErrorLabel.SetValue(validationMessage);
+                this.StatusLabel.SetValue(validationMessage);
             }
             catch (BookViewDependencyException bookViewDependencyException)
             {
                 string validationMessage = bookViewDependencyException.Message;
 
-                this.ErrorLabel.SetValue(validationMessage);
+                this.StatusLabel.SetValue(validationMessage);
             }
             catch (BookViewServiceException bookViewServiceException)
             {
                 string validationMessage = bookViewServiceException.Message;
 
-                this.ErrorLabel.SetValue(validationMessage);
+                this.StatusLabel.SetValue(validationMessage);
             }
-        } 
+        }
 
 
     }

@@ -37,7 +37,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             initialBookAddComponent.BookView.Should().BeNull();
             initialBookAddComponent.MediaTypeDropDown.Should().BeNull();
             initialBookAddComponent.PublishDatePicker.Should().BeNull();
-            initialBookAddComponent.ErrorLabel.Should().BeNull();
+            initialBookAddComponent.StatusLabel.Should().BeNull();
         }
 
         [Fact]
@@ -89,10 +89,10 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.SubmitButton.Should().NotBeNull();
             _addBookComponent.Instance.SubmitButton.Label.Should().Be(expectedSubmitButtonLabel);
 
-            _addBookComponent.Instance.ErrorLabel.Should().NotBeNull();
-            _addBookComponent.Instance.ErrorLabel.Value.Should().BeNull();
+            _addBookComponent.Instance.StatusLabel.Should().NotBeNull();
+            _addBookComponent.Instance.StatusLabel.Value.Should().BeNull();
 
-            _addBookComponent.Instance.ErrorLabel.Color.Should().Be(Color.Red);
+            _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
 
             _addBookComponent.Instance.Exception.Should().BeNull();
 
@@ -123,7 +123,6 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             _addBookComponent.Instance.SubmitButton.Click();
 
-
             // then
             _addBookComponent.Instance.IsbnTextBox.Value.Should().BeEquivalentTo(expectedBookView.Isbn);
             _addBookComponent.Instance.Isbn13TextBox.Value.Should().BeEquivalentTo(expectedBookView.Isbn13);
@@ -134,7 +133,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.MediaTypeDropDown.Value.Should().Be(expectedBookView.MediaType);
             _addBookComponent.Instance.PublishDatePicker.Value.Should().Be(expectedBookView.PublishedDate);
 
-            _addBookComponent.Instance.ErrorLabel.Value.Should().BeNull();
+            _addBookComponent.Instance.StatusLabel.Value.Should().Be("Submitted Successfully");
+            _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Green);
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(_addBookComponent.Instance.BookView),
                 Times.Once);

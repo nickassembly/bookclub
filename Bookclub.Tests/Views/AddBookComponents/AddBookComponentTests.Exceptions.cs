@@ -27,7 +27,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.SubmitButton.Click();
 
             // then
-            _addBookComponent.Instance.ErrorLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
+            _addBookComponent.Instance.StatusLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
 
@@ -51,7 +51,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.SubmitButton.Click();
 
             // then
-            _addBookComponent.Instance.ErrorLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
+            _addBookComponent.Instance.StatusLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
 
