@@ -40,35 +40,45 @@ namespace Bookclub.Views.Components
             try
             {
                 await this.BookViewService.AddBookViewAsync(this.BookView);
-                this.StatusLabel.SetColor(Color.Green);
-                this.StatusLabel.SetValue("Submitted Successfully");
+                ReportBookSubmissionSucceeded();
             }
             catch (BookViewValidationException bookViewValidationException)
             {
                 string validationMessage = bookViewValidationException.InnerException.Message;
 
-                this.StatusLabel.SetValue(validationMessage);
+                ReportBookSubmissionFailed(validationMessage);
             }
             catch (BookViewDependencyValidationException dependencyValidationException)
             {
                 string validationMessage = dependencyValidationException.InnerException.Message;
 
-                this.StatusLabel.SetValue(validationMessage);
+                ReportBookSubmissionFailed(validationMessage);
             }
             catch (BookViewDependencyException bookViewDependencyException)
             {
                 string validationMessage = bookViewDependencyException.Message;
 
-                this.StatusLabel.SetValue(validationMessage);
+                ReportBookSubmissionFailed(validationMessage);
             }
             catch (BookViewServiceException bookViewServiceException)
             {
                 string validationMessage = bookViewServiceException.Message;
 
-                this.StatusLabel.SetValue(validationMessage);
+                ReportBookSubmissionFailed(validationMessage);
             }
         }
 
+        private void ReportBookSubmissionSucceeded()
+        {
+            this.StatusLabel.SetColor(Color.Green);
+            this.StatusLabel.SetValue("Submitted Successfully");
+        }
+
+        private void ReportBookSubmissionFailed(string errorMessage)
+        {
+            this.StatusLabel.SetColor(Color.Red);
+            this.StatusLabel.SetValue(errorMessage);
+        }
 
     }
 }

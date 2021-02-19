@@ -5,6 +5,7 @@ using Moq;
 using System;
 using Xunit;
 using FluentAssertions;
+using Bookclub.Models.Colors;
 
 namespace Bookclub.Tests.Views.AddBookComponents
 {
@@ -28,6 +29,8 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             // then
             _addBookComponent.Instance.StatusLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
+           
+            _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
 

@@ -92,13 +92,9 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.StatusLabel.Should().NotBeNull();
             _addBookComponent.Instance.StatusLabel.Value.Should().BeNull();
 
-            _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
-
             _addBookComponent.Instance.Exception.Should().BeNull();
 
             _bookViewServiceMock.VerifyNoOtherCalls();
-
-
         }
 
         [Fact]
