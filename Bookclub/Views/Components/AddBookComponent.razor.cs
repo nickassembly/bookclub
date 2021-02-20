@@ -39,6 +39,7 @@ namespace Bookclub.Views.Components
         {
             try
             {
+                ReportBookSubmissionWaiting();
                 await this.BookViewService.AddBookViewAsync(this.BookView);
                 ReportBookSubmissionSucceeded();
             }
@@ -66,6 +67,12 @@ namespace Bookclub.Views.Components
 
                 ReportBookSubmissionFailed(validationMessage);
             }
+        }
+
+        private void ReportBookSubmissionWaiting()
+        {
+            this.StatusLabel.SetColor(Color.Black);
+            this.StatusLabel.SetValue("Submitting ... ");
         }
 
         private void ReportBookSubmissionSucceeded()

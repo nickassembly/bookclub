@@ -98,6 +98,32 @@ namespace Bookclub.Tests.Views.AddBookComponents
         }
 
         [Fact]
+        public void ShouldDisplaySubmittingStatusBeforeBookIsSubmittedSuccessfully()
+        {
+            // given
+            BookView someBookView = CreateRandomBookView();
+
+            this._bookViewServiceMock.Setup(service => service.AddBookViewAsync(It.IsAny<BookView>()))
+                .ReturnsAsync(
+                    value: someBookView,
+                    delay: TimeSpan.FromMilliseconds(500));
+
+            // when
+            _addBookComponent = RenderComponent<AddBookComponent>();
+
+            _addBookComponent.Instance.SubmitButton.Click();
+
+            // then
+            _addBookComponent.Instance.StatusLabel.Value.Should().BeEquivalentTo("Submitting ... ");
+
+            _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Black);
+
+            _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
+
+            _bookViewServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
         public void ShouldSubmitBook()
         {
             // given
