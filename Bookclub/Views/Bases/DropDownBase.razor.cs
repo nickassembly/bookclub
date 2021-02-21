@@ -15,6 +15,9 @@ namespace Bookclub.Views.Bases
         [Parameter]
         public EventCallback<TEnum> ValueChanged { get; set; }
 
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
         public void SetValue(TEnum value) => this.Value = value;
 
         private Task OnValueChanged(ChangeEventArgs changeEventArgs)
@@ -24,6 +27,8 @@ namespace Bookclub.Views.Bases
             return ValueChanged.InvokeAsync(this.Value);
 
         }
+        public void Disable() => this.IsDisabled = true;
+        public void Enable() => this.IsDisabled = false;
 
     }
 }

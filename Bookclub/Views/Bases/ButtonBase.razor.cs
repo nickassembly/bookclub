@@ -15,7 +15,12 @@ namespace Bookclub.Views.Bases
         [Parameter]
         public Action OnClick { get; set; }
 
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
         public void Click() => OnClick.Invoke();
+        public void Disable() => this.IsDisabled = true;
+        public void Enable() => this.IsDisabled = false;
 
     }
 }

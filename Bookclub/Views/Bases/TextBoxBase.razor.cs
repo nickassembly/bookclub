@@ -14,6 +14,9 @@ namespace Bookclub.Views.Bases
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; }
 
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
         public void SetValue(string value) =>
             this.Value = value;
 
@@ -22,8 +25,11 @@ namespace Bookclub.Views.Bases
             this.Value = changeEventArgs.Value.ToString();
 
             return ValueChanged.InvokeAsync(this.Value);
-
         }
+
+        public void Disable() => this.IsDisabled = true;
+        public void Enable() => this.IsDisabled = false;
+
 
     }
 

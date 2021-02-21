@@ -63,30 +63,55 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.State.Should().Be(expectedComponentState);
 
             _addBookComponent.Instance.IsbnTextBox.Should().NotBeNull();
+
+            _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.IsbnTextBox.Placeholder.Should().Be(expectedIsbnTextBoxPlaceholder);
 
             _addBookComponent.Instance.Isbn13TextBox.Should().NotBeNull();
+
+            _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.Isbn13TextBox.Placeholder.Should().Be(expectedIsbn13TextBoxPlaceholder);
 
             _addBookComponent.Instance.AuthorTextBox.Should().NotBeNull();
+
+            _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.AuthorTextBox.Placeholder.Should().Be(expectedAuthorTextBoxPlaceholder);
 
             _addBookComponent.Instance.TitleTextBox.Should().NotBeNull();
+
+            _addBookComponent.Instance.TitleTextBox.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.TitleTextBox.Placeholder.Should().Be(expectedTitleTextBoxPlaceholder);
 
             _addBookComponent.Instance.SubtitleTextBox.Should().NotBeNull();
+
+            _addBookComponent.Instance.SubtitleTextBox.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.SubtitleTextBox.Placeholder.Should().Be(expectedSubtitleTextBoxPlaceholder);
 
             _addBookComponent.Instance.MediaTypeDropDown.Value.Should().BeOfType(typeof(BookViewMediaType));
 
             _addBookComponent.Instance.MediaTypeDropDown.Should().NotBeNull();
 
+            _addBookComponent.Instance.MediaTypeDropDown.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.IdTextBox.Should().NotBeNull();
+
+            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.IdTextBox.Placeholder.Should().Be(expectedIdTextBoxPlaceholder);
 
             _addBookComponent.Instance.PublishDatePicker.Should().NotBeNull();
 
+            _addBookComponent.Instance.PublishDatePicker.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.SubmitButton.Should().NotBeNull();
+
+            _addBookComponent.Instance.SubmitButton.IsDisabled.Should().BeFalse();
+
             _addBookComponent.Instance.SubmitButton.Label.Should().Be(expectedSubmitButtonLabel);
 
             _addBookComponent.Instance.StatusLabel.Should().NotBeNull();

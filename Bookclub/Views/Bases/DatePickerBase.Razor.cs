@@ -15,6 +15,9 @@ namespace Bookclub.Views.Bases
         [Parameter]
         public EventCallback<DateTimeOffset> ValueChanged { get; set; }
 
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
         public async Task SetValue(DateTimeOffset value)
         {
             this.Value = value;
@@ -26,7 +29,9 @@ namespace Bookclub.Views.Bases
             this.Value =  DateTimeOffset.Parse(changeEventArgs.Value.ToString());
 
             return ValueChanged.InvokeAsync(this.Value);
-
         }
+        public void Disable() => this.IsDisabled = true;
+        public void Enable() => this.IsDisabled = false;
+
     }
 }
