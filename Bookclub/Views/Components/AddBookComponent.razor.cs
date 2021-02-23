@@ -73,6 +73,14 @@ namespace Bookclub.Views.Components
         {
             this.StatusLabel.SetColor(Color.Black);
             this.StatusLabel.SetValue("Submitting ... ");
+            this.IdTextBox.Disable();
+            this.IsbnTextBox.Disable();
+            this.Isbn13TextBox.Disable();
+            this.AuthorTextBox.Disable();
+            this.TitleTextBox.Disable();
+            this.SubtitleTextBox.Disable();
+            this.PublishDatePicker.Disable();
+            this.SubmitButton.Disable();
         }
 
         private void ReportBookSubmissionSucceeded()

@@ -123,7 +123,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
         }
 
         [Fact]
-        public void ShouldDisplaySubmittingStatusBeforeBookIsSubmittedSuccessfully()
+        public void ShouldDisplaySubmittingStatusAndDisableControlsBeforeBookSubmissionCompletes()
         {
             // given
             BookView someBookView = CreateRandomBookView();
@@ -142,6 +142,15 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.StatusLabel.Value.Should().BeEquivalentTo("Submitting ... ");
 
             _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Black);
+
+            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.TitleTextBox.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.SubtitleTextBox.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.PublishDatePicker.IsDisabled.Should().BeTrue();
+            _addBookComponent.Instance.SubmitButton.IsDisabled.Should().BeTrue();
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
 
