@@ -39,7 +39,7 @@ namespace Bookclub.Views.Components
         {
             try
             {
-                ReportBookSubmissionWaiting();
+                ApplySubmittingStatus();
                 await this.BookViewService.AddBookViewAsync(this.BookView);
                 ReportBookSubmissionSucceeded();
             }
@@ -69,7 +69,7 @@ namespace Bookclub.Views.Components
             }
         }
 
-        private void ReportBookSubmissionWaiting()
+        private void ApplySubmittingStatus()
         {
             this.StatusLabel.SetColor(Color.Black);
             this.StatusLabel.SetValue("Submitting ... ");
