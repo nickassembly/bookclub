@@ -33,7 +33,6 @@ namespace Bookclub.Tests.Views.AddBookComponents
         {
             string randomMessage = GetRandomString();
             string validationMessage = randomMessage;
-            string expectedErrorMessage = validationMessage;
             var innerValidationException = new Exception(validationMessage);
 
             return new TheoryData<Exception>

@@ -47,25 +47,25 @@ namespace Bookclub.Views.Components
             {
                 string validationMessage = bookViewValidationException.InnerException.Message;
 
-                ReportBookSubmissionFailed(validationMessage);
+                ApplySubmissionFailed(validationMessage);
             }
             catch (BookViewDependencyValidationException dependencyValidationException)
             {
                 string validationMessage = dependencyValidationException.InnerException.Message;
 
-                ReportBookSubmissionFailed(validationMessage);
+                ApplySubmissionFailed(validationMessage);
             }
             catch (BookViewDependencyException bookViewDependencyException)
             {
                 string validationMessage = bookViewDependencyException.Message;
 
-                ReportBookSubmissionFailed(validationMessage);
+                ApplySubmissionFailed(validationMessage);
             }
             catch (BookViewServiceException bookViewServiceException)
             {
                 string validationMessage = bookViewServiceException.Message;
 
-                ReportBookSubmissionFailed(validationMessage);
+                ApplySubmissionFailed(validationMessage);
             }
         }
 
@@ -89,10 +89,18 @@ namespace Bookclub.Views.Components
             this.StatusLabel.SetValue("Submitted Successfully");
         }
 
-        private void ReportBookSubmissionFailed(string errorMessage)
+        private void ApplySubmissionFailed(string errorMessage)
         {
             this.StatusLabel.SetColor(Color.Red);
             this.StatusLabel.SetValue(errorMessage);
+            this.IdTextBox.Enable();
+            this.IsbnTextBox.Enable();
+            this.Isbn13TextBox.Enable();
+            this.AuthorTextBox.Enable();
+            this.TitleTextBox.Enable();
+            this.SubtitleTextBox.Enable();
+            this.PublishDatePicker.Enable();
+            this.SubmitButton.Enable();
         }
 
     }

@@ -32,6 +32,15 @@ namespace Bookclub.Tests.Views.AddBookComponents
            
             _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
 
+            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.TitleTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.SubtitleTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.PublishDatePicker.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.SubmitButton.IsDisabled.Should().BeFalse();
+
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
 
             _bookViewServiceMock.VerifyNoOtherCalls();
@@ -57,6 +66,15 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.StatusLabel.Value.Should().BeEquivalentTo(expectedErrorMessage);
 
             _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
+
+            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.TitleTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.SubtitleTextBox.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.PublishDatePicker.IsDisabled.Should().BeFalse();
+            _addBookComponent.Instance.SubmitButton.IsDisabled.Should().BeFalse();
 
             _bookViewServiceMock.Verify(service => service.AddBookViewAsync(It.IsAny<BookView>()), Times.Once);
 
