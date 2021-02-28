@@ -18,7 +18,7 @@ namespace Bookclub.Views.Components
         public ComponentState State { get; set; }
         public AddBookComponentException Exception { get; set; }
         public BookView BookView { get; set; }
-        public TextBoxBase IdTextBox { get; set; }
+      //  public TextBoxBase IdTextBox { get; set; }
         public TextBoxBase IsbnTextBox { get; set; }
         public TextBoxBase Isbn13TextBox { get; set; }
         public TextBoxBase TitleTextBox { get; set; }
@@ -73,7 +73,7 @@ namespace Bookclub.Views.Components
         {
             this.StatusLabel.SetColor(Color.Black);
             this.StatusLabel.SetValue("Submitting ... ");
-            this.IdTextBox.Disable();
+          //  this.IdTextBox.Disable();
             this.IsbnTextBox.Disable();
             this.Isbn13TextBox.Disable();
             this.AuthorTextBox.Disable();
@@ -93,7 +93,7 @@ namespace Bookclub.Views.Components
         {
             this.StatusLabel.SetColor(Color.Red);
             this.StatusLabel.SetValue(errorMessage);
-            this.IdTextBox.Enable();
+         //   this.IdTextBox.Enable();
             this.IsbnTextBox.Enable();
             this.Isbn13TextBox.Enable();
             this.AuthorTextBox.Enable();

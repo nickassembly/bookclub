@@ -12,11 +12,11 @@ namespace Bookclub.Services.BookViews
             {
                 case null:
                     throw new NullBookViewException();
-
-                case { } when IsInvalid(bookView.Id):
-                    throw new InvalidBookViewException(
-                        parameterName: nameof(BookView.Id),
-                        parameterValue: bookView.Id);
+// TODO: Verify Guid Id
+                //case { } when IsInvalid(bookView.Id):
+                //    throw new InvalidBookViewException(
+                //        parameterName: nameof(BookView.Id),
+                //        parameterValue: bookView.Id);
 
                 case { } when IsInvalid(bookView.Title):
                     throw new InvalidBookViewException(
@@ -31,6 +31,8 @@ namespace Bookclub.Services.BookViews
         }
 
         private static bool IsInvalid(string text) => String.IsNullOrWhiteSpace(text);
+
+        private static bool IsInvalid(Guid id) => id == Guid.Empty;
 
         private static bool IsInvalid(DateTimeOffset date) => date == default;
 

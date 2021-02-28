@@ -11,12 +11,12 @@ namespace Bookclub.Models.Books
     {
         public int BookId { get; set; }
       //  public int CollectionType { get; set; }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Isbn { get; set; }
         public string Isbn13 { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
-        public string PrimaryAuthor { get; set; }
+        public string Author { get; set; }
         public string Thumbnail { get; set; }
         public string Small { get; set; }
         public string Medium { get; set; }
@@ -26,7 +26,7 @@ namespace Bookclub.Models.Books
         public string Language { get; set; }
         public string SelfLink { get; set; }
         public string Publisher { get; set; }
-        public DateTimeOffset PublishedDate { get; set; }
+        public DateTimeOffset PublishDate { get; set; }
         public string Description { get; set; }
         public decimal ListPrice { get; set; }
         public string ListCurrencyCode { get; set; }

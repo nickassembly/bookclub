@@ -34,6 +34,7 @@ namespace Bookclub.Services.Books
         }
 
         private static bool IsInvalid(string text) => String.IsNullOrWhiteSpace(text);
+        private static bool IsInvalid(Guid id) => id == Guid.Empty;
 
     }
 }

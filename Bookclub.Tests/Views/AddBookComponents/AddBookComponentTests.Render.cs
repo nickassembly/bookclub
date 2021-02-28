@@ -32,7 +32,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             initialBookAddComponent.IsbnTextBox.Should().BeNull();
             initialBookAddComponent.TitleTextBox.Should().BeNull();
             initialBookAddComponent.SubtitleTextBox.Should().BeNull();
-            initialBookAddComponent.IdTextBox.Should().BeNull();
+         //   initialBookAddComponent.IdTextBox.Should().BeNull();
             initialBookAddComponent.SubmitButton.Should().BeNull();
             initialBookAddComponent.BookView.Should().BeNull();
             initialBookAddComponent.MediaTypeDropDown.Should().BeNull();
@@ -98,11 +98,11 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             _addBookComponent.Instance.MediaTypeDropDown.IsDisabled.Should().BeFalse();
 
-            _addBookComponent.Instance.IdTextBox.Should().NotBeNull();
+            //_addBookComponent.Instance.IdTextBox.Should().NotBeNull();
 
-            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
+            //_addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
 
-            _addBookComponent.Instance.IdTextBox.Placeholder.Should().Be(expectedIdTextBoxPlaceholder);
+            //_addBookComponent.Instance.IdTextBox.Placeholder.Should().Be(expectedIdTextBoxPlaceholder);
 
             _addBookComponent.Instance.PublishDatePicker.Should().NotBeNull();
 
@@ -143,7 +143,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Black);
 
-            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeTrue();
+          //  _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeTrue();
             _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeTrue();
             _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeTrue();
             _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeTrue();
@@ -173,7 +173,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.AuthorTextBox.SetValue(inputBookView.PrimaryAuthor);
             _addBookComponent.Instance.TitleTextBox.SetValue(inputBookView.Title);
             _addBookComponent.Instance.SubtitleTextBox.SetValue(inputBookView.Subtitle);
-            _addBookComponent.Instance.IdTextBox.SetValue(inputBookView.Id);
+         //   _addBookComponent.Instance.IdTextBox.SetValue(inputBookView.Id);
             _addBookComponent.Instance.MediaTypeDropDown.SetValue(inputBookView.MediaType);
             _addBookComponent.Instance.PublishDatePicker.SetValue(inputBookView.PublishedDate);
 
@@ -185,7 +185,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
             _addBookComponent.Instance.AuthorTextBox.Value.Should().BeEquivalentTo(expectedBookView.PrimaryAuthor);
             _addBookComponent.Instance.TitleTextBox.Value.Should().BeEquivalentTo(expectedBookView.Title);
             _addBookComponent.Instance.SubtitleTextBox.Value.Should().BeEquivalentTo(expectedBookView.Subtitle);
-            _addBookComponent.Instance.IdTextBox.Value.Should().BeEquivalentTo(expectedBookView.Id);
+         //   _addBookComponent.Instance.IdTextBox.Value.Should().BeEquivalentTo(expectedBookView.Id);
             _addBookComponent.Instance.MediaTypeDropDown.Value.Should().Be(expectedBookView.MediaType);
             _addBookComponent.Instance.PublishDatePicker.Value.Should().Be(expectedBookView.PublishedDate);
 

@@ -32,7 +32,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
            
             _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
 
-            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
+        //    _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
             _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeFalse();
             _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeFalse();
             _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeFalse();
@@ -67,7 +67,7 @@ namespace Bookclub.Tests.Views.AddBookComponents
 
             _addBookComponent.Instance.StatusLabel.Color.Should().Be(Color.Red);
 
-            _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
+         //   _addBookComponent.Instance.IdTextBox.IsDisabled.Should().BeFalse();
             _addBookComponent.Instance.Isbn13TextBox.IsDisabled.Should().BeFalse();
             _addBookComponent.Instance.IsbnTextBox.IsDisabled.Should().BeFalse();
             _addBookComponent.Instance.AuthorTextBox.IsDisabled.Should().BeFalse();

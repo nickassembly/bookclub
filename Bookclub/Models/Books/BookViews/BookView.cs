@@ -8,7 +8,7 @@ namespace Bookclub.Models.Books.BookViews
 {
     public class BookView
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Isbn { get; set; }
         public string Isbn13 { get; set; }
         public string Title { get; set; }

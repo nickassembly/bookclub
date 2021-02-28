@@ -50,55 +50,55 @@ namespace Bookclub.Tests.Services.Books.BookViews
 
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("   ")]   
-        public async Task ShouldThrowValidationExceptionOnAddIfBookIdIsInvalidAndLogItAsync(
-            string invalidIdNumber)
-        {
-            // given
-            BookView randomBookView = CreateRandomBookView();
-            BookView invalidBookView = randomBookView;
-            invalidBookView.Id = invalidIdNumber;
+        //[Theory]
+        //[InlineData(null)]
+        //[InlineData("")]
+        //[InlineData("   ")]   
+        //public async Task ShouldThrowValidationExceptionOnAddIfBookIdIsInvalidAndLogItAsync(
+        //    string invalidIdNumber)
+        //{
+        //    // given
+        //    BookView randomBookView = CreateRandomBookView();
+        //    BookView invalidBookView = randomBookView;
+        //    invalidBookView.Id = invalidIdNumber;
 
-            var invalidBookViewException = new InvalidBookViewException(
-                parameterName: nameof(BookView.Id),
-                parameterValue: invalidBookView.Id);
+        //    var invalidBookViewException = new InvalidBookViewException(
+        //        parameterName: nameof(BookView.Id),
+        //        parameterValue: invalidBookView.Id);
 
-            var expectedBookViewValidationException =
-                new BookViewValidationException(invalidBookViewException);
+        //    var expectedBookViewValidationException =
+        //        new BookViewValidationException(invalidBookViewException);
 
-            // when 
-            ValueTask<BookView> addBookViewTask =
-                this.bookViewService.AddBookViewAsync(invalidBookView);
+        //    // when 
+        //    ValueTask<BookView> addBookViewTask =
+        //        this.bookViewService.AddBookViewAsync(invalidBookView);
 
-            // then
-            await Assert.ThrowsAsync<BookViewValidationException>(() =>
-            addBookViewTask.AsTask());
+        //    // then
+        //    await Assert.ThrowsAsync<BookViewValidationException>(() =>
+        //    addBookViewTask.AsTask());
 
-            _loggingBrokerMock.Verify(broker =>
-            broker.LogError(It.Is(SameExceptionAs(expectedBookViewValidationException))),
-            Times.Once);
+        //    _loggingBrokerMock.Verify(broker =>
+        //    broker.LogError(It.Is(SameExceptionAs(expectedBookViewValidationException))),
+        //    Times.Once);
 
-            _userServiceMock.Verify(service =>
-            service.GetCurrentlyLoggedInUser(),
-            Times.Never);
+        //    _userServiceMock.Verify(service =>
+        //    service.GetCurrentlyLoggedInUser(),
+        //    Times.Never);
 
-            _dateTimeBrokerMock.Verify(broker =>
-            broker.GetCurrentDateTime(),
-            Times.Never);
+        //    _dateTimeBrokerMock.Verify(broker =>
+        //    broker.GetCurrentDateTime(),
+        //    Times.Never);
 
-            _bookServiceMock.Verify(service =>
-            service.AddBookAsync(It.IsAny<Book>()),
-            Times.Never);
+        //    _bookServiceMock.Verify(service =>
+        //    service.AddBookAsync(It.IsAny<Book>()),
+        //    Times.Never);
 
-            _loggingBrokerMock.VerifyNoOtherCalls();
-            _userServiceMock.VerifyNoOtherCalls();
-            _dateTimeBrokerMock.VerifyNoOtherCalls();
-            _bookServiceMock.VerifyNoOtherCalls();
+        //    _loggingBrokerMock.VerifyNoOtherCalls();
+        //    _userServiceMock.VerifyNoOtherCalls();
+        //    _dateTimeBrokerMock.VerifyNoOtherCalls();
+        //    _bookServiceMock.VerifyNoOtherCalls();
 
-        }
+        //}
 
         [Theory]
         [InlineData(null)]
