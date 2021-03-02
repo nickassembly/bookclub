@@ -44,36 +44,9 @@ namespace Bookclub.Services.BookViews
             int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
-            //return new Book
-            //{
-                
-            //    //BookId = 99, 
-            //    Id = Guid.NewGuid(),
-            //    Isbn = bookView.Isbn,
-            //    Isbn13 = bookView.Isbn13,
-            //    PrimaryAuthor = bookView.PrimaryAuthor,
-            //    PublishedDate = bookView.PublishedDate,
-            //    Title = bookView.Title,
-            //    Subtitle = bookView.Subtitle,
-            //    Country = "",
-            //    Description = "",
-            //    ExtraLarge = "",
-            //    Language = "",
-            //    Large = "",
-            //    ListCurrencyCode = "",
-            //    ListPrice = (decimal)0.00f,
-            //    Medium = "",
-            //    Publisher = "",
-            //    SelfLink = "",
-            //    Small = "",
-            //    SmallThumbnail = "",
-            //    Thumbnail = ""
-            //};
-
             return new Book
             {
 
-                //BookId = 99, 
                 Id = Guid.NewGuid(),
                 Isbn = bookView.Isbn,
                 Isbn13 = bookView.Isbn13,
