@@ -56,17 +56,17 @@ namespace Bookclub.Services.BookViews
                 PublishDate = bookView.PublishedDate,
                 Country = "",
                 Description = "",
-                ExtraLarge = "",
-                Language = "",
-                Large = "",
+                //ExtraLarge = "",
+                //Language = "",
+                //Large = "",
                 ListCurrencyCode = "",
                 ListPrice = (decimal)0.00f,
-                Medium = "",
+               // Medium = "",
                 Publisher = "",
-                SelfLink = "",
-                Small = "",
-                SmallThumbnail = "",
-                Thumbnail = ""
+                //SelfLink = "",
+                //Small = "",
+                //SmallThumbnail = "",
+                //Thumbnail = ""
             };
 
         }

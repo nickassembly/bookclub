@@ -30,7 +30,7 @@ namespace Bookclub.Tests.Services.Books.BookViews
             this._loggingBrokerMock = new Mock<ILoggingBroker>();
             var compareConfig = new ComparisonConfig();
             compareConfig.IgnoreProperty<Book>(book => book.Id);
-            compareConfig.IgnoreProperty<Book>(book => book.BookId);
+          //  compareConfig.IgnoreProperty<Book>(book => book.BookId);
             this._compareLogic = new CompareLogic(compareConfig);
 
             this.bookViewService = new BookViewService(
