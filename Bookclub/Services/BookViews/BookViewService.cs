@@ -52,21 +52,8 @@ namespace Bookclub.Services.BookViews
                 Isbn13 = bookView.Isbn13,
                 Author = bookView.PrimaryAuthor,
                 Title = bookView.Title,
-                //Subtitle = bookView.Subtitle,
+                Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
-                Country = "",
-                Description = "",
-                //ExtraLarge = "",
-                //Language = "",
-                //Large = "",
-                ListCurrencyCode = "",
-                ListPrice = (decimal)0.00f,
-               // Medium = "",
-                Publisher = "",
-                //SelfLink = "",
-                //Small = "",
-                //SmallThumbnail = "",
-                //Thumbnail = ""
             };
 
         }
