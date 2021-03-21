@@ -1,7 +1,6 @@
 ﻿using Bookclub.Brokers.API;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Books;
-using System;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.Books

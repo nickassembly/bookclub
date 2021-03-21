@@ -4,6 +4,7 @@ using Bookclub.Models.Books.BookViews.Exceptions;
 using Bookclub.Models.Books.Exceptions;
 using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
+using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
@@ -15,6 +16,12 @@ namespace Bookclub.Views.Components
     {
         [Inject]
         public IBookViewService BookViewService { get; set; }
+
+        // TODO: temporary test code remove 
+        [Inject]
+        public IBookService BookService { get; set; }
+        //******
+
         public ComponentState State { get; set; }
         public AddBookComponentException Exception { get; set; }
         public BookView BookView { get; set; }
@@ -78,7 +85,7 @@ namespace Bookclub.Views.Components
             this.Isbn13TextBox.Disable();
             this.AuthorTextBox.Disable();
             this.TitleTextBox.Disable();
-            this.SubtitleTextBox.Disable();
+         //   this.SubtitleTextBox.Disable();
             this.PublishDatePicker.Disable();
             this.SubmitButton.Disable();
         }
@@ -98,7 +105,7 @@ namespace Bookclub.Views.Components
             this.Isbn13TextBox.Enable();
             this.AuthorTextBox.Enable();
             this.TitleTextBox.Enable();
-            this.SubtitleTextBox.Enable();
+         //   this.SubtitleTextBox.Enable();
             this.PublishDatePicker.Enable();
             this.SubmitButton.Enable();
         }
