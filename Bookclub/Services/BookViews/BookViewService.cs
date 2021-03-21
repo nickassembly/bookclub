@@ -4,7 +4,10 @@ using Bookclub.Models.Books;
 using Bookclub.Models.Books.BookViews;
 using Bookclub.Services.Books;
 using Bookclub.Services.Users;
+using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
@@ -16,16 +19,20 @@ namespace Bookclub.Services.BookViews
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
 
+        private readonly HttpClient _httpClient;
+
         public BookViewService(
             IBookService bookService,
             IUserService userService,
             IDateTimeBroker dateTimeBroker,
-            ILoggingBroker loggingBroker)
+            ILoggingBroker loggingBroker,
+            HttpClient httpClient)
         {
             _bookService = bookService;
             _userService = userService;
             _dateTimeBroker = dateTimeBroker;
             _loggingBroker = loggingBroker;
+            _httpClient = httpClient;
         }
 
         public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
@@ -37,7 +44,6 @@ namespace Bookclub.Services.BookViews
 
                 return bookView;
             });
-
 
         private Book MapToBook(BookView bookView)
         {
@@ -52,7 +58,7 @@ namespace Bookclub.Services.BookViews
                 Isbn13 = bookView.Isbn13,
                 Author = bookView.PrimaryAuthor,
                 Title = bookView.Title,
-                Subtitle = bookView.Subtitle,
+              // Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
             };
 

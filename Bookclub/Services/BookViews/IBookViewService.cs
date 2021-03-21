@@ -1,4 +1,5 @@
-﻿using Bookclub.Models.Books.BookViews;
+﻿using Bookclub.Models.Books;
+using Bookclub.Models.Books.BookViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;

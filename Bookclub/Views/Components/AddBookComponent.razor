@@ -4,7 +4,7 @@
 
 <ContainerComponent State="State">
     <Content>
-        <div align="center">
+        <div>
             @*<TextBoxBase @ref="IdTextBox"
                          @bind-Value="BookView.Id"
                          Placeholder="Id" />
@@ -25,10 +25,10 @@
                          @bind-Value="BookView.Title"
                          Placeholder="Title" />
             <br />
-            <TextBoxBase @ref="SubtitleTextBox"
+            @*<TextBoxBase @ref="SubtitleTextBox"
                          @bind-Value="BookView.Subtitle"
                          Placeholder="Subtitle" />
-            <br />
+            <br />*@
             <DropDownBase @ref=MediaTypeDropDown
                           @bind-Value="BookView.MediaType"
                           TEnum="BookViewMediaType" />
