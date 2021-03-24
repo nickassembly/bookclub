@@ -9,8 +9,9 @@ namespace Bookclub.Models.Users
 {
     public class User 
     {
-        public string Login { get; set; }
+        public string EmailAddress { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
 
     }
 }
