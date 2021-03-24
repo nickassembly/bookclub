@@ -1,24 +1,20 @@
 using Bookclub.Brokers.API;
 using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
+using Bookclub.Data;
 using Bookclub.Models.Configurations;
 using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RESTFulSense.Clients;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Bookclub
 {
@@ -40,6 +36,8 @@ namespace Bookclub
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookViewService, BookViewService>();
+
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
             // TODO: need to find out best httpclient to use
             //services.AddHttpClient();

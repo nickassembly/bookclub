@@ -1,6 +1,7 @@
-﻿@page  "/"
+﻿@page  "/login"
 @using Bookclub.Services.Users
 @using Bookclub.Models.Users
+@using Bookclub.Data 
 @using Newtonsoft.Json
 @using System.Security.Claims
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -32,9 +33,9 @@
         <a href="/signup" class="col-3">Sign up</a>
     </div>
     <br />
-    <div class="col-12 row" style="text-align:left; font-weight:bold">
+    @*<div class="col-12 row" style="text-align:left; font-weight:bold">
         <span class="col-12">@LoginMesssage</span>
-    </div>
+    </div>*@
 </EditForm>
 
 @code {
@@ -51,7 +52,10 @@
 
     private async Task<bool> ValidateUser()
     {
-        // if user is valid call api
+        // Api Call to check if user is valid
+
+        ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
+        NavigationManager.NavigateTo("/");
 
         return await Task.FromResult(true);
     }

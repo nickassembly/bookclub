@@ -3,3 +3,12 @@
 
 <h1>Welcome to Bookclub</h1>
 
+<AuthorizeView>
+    <Authorized>
+        <p>Welcome, @context.User.Identity.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are signed out.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
