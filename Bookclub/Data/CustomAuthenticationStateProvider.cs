@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Blazored.SessionStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +11,33 @@ namespace Bookclub.Data
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
-        public override Task<AuthenticationState> GetAuthenticationStateAsync()
+        private ISessionStorageService _sessionStorageService;
+        public CustomAuthenticationStateProvider(ISessionStorageService sessionStorageService)
         {
-            //var identity = new ClaimsIdentity(new[]
-            //{
-            //    new Claim(ClaimTypes.Name, "test.code.removeme@gmail.com"),
-            //}, "apiauth_type");
+            _sessionStorageService = sessionStorageService;
+        }
 
-            var identity = new ClaimsIdentity();
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+        {
+            var emailAddress = await _sessionStorageService.GetItemAsync<string>("emailAddress");
+            ClaimsIdentity identity;
+
+            if (emailAddress != null)
+            {
+                 identity = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, emailAddress),
+                }, "apiauth_type");
+            }
+            else
+            {
+                 identity = new ClaimsIdentity();
+
+            }
 
             var user = new ClaimsPrincipal(identity);
 
-            return Task.FromResult(new AuthenticationState(user));
+            return await Task.FromResult(new AuthenticationState(user));
 
         }
 
@@ -36,5 +52,17 @@ namespace Bookclub.Data
 
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
+
+        public void MarkUserAsLoggedOut()
+        {
+            _sessionStorageService.RemoveItemAsync("emailAddress");
+
+            var identity = new ClaimsIdentity();
+
+            var user = new ClaimsPrincipal(identity);
+
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+        }
+
     }
 }

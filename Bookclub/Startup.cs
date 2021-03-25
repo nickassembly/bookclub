@@ -1,3 +1,4 @@
+using Blazored.SessionStorage;
 using Bookclub.Brokers.API;
 using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
@@ -36,6 +37,8 @@ namespace Bookclub
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookViewService, BookViewService>();
+
+            services.AddBlazoredSessionStorage();
 
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 

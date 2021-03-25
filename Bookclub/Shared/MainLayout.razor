@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using Bookclub.Data
+@inject NavigationManager NavigationManager 
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="sidebar">
     <NavMenu />
@@ -9,7 +12,7 @@
 
         <AuthorizeView>
             <Authorized>
-                @*<a href="/" @onclick="(() => Logout())">Logout</a>*@
+                <a href="/" @onclick="(() => Logout())">Logout</a>
             </Authorized>
             <NotAuthorized>
                 <a href="/login">Login</a>
@@ -23,3 +26,12 @@
         @Body
     </div>
 </div>
+
+@code {
+    public void Logout()
+    {
+        ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsLoggedOut();
+        NavigationManager.NavigateTo("");
+    }
+
+}

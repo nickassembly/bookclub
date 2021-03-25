@@ -8,36 +8,16 @@
 @inject NavigationManager NavigationManager
 @inject IUserService userService 
 @inject IJSRuntime jsRunTime
-    <link href="~/css/login.css" rel="stylesheet" />
-<EditForm Model="@user" OnValidSubmit="@ValidateUser">
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
-    @*<div>
-        <h3 style="font-weight:bold; color:purple">Book Stores Login</h3>
-    </div>
-    <div>
-        <br />
-    </div>
-    <div class="col-12 row">
-        <input class="form-control col-12" @bind="user.EmailAddress" placeholder="email address" />
-    </div>
-    <br />
-    <div class="col-12 row">
-        <input type="password" class="form-control col-12" @bind="user.Password" placeholder="password" />
-    </div>
-    <br />
-    <div class="col-12 row">
-        <span class="col-12"></span>
-        <input type="submit" class="form-control col-6 btn btn-primary" value="Login" />
-        <a href="/signup" class="col-3">Sign up</a>
-    </div>
-    <br />*@
+<EditForm Model="@user" OnValidSubmit="@ValidateUser">
   
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
                 <div class="d-flex justify-content-center">
                     <div class="brand_logo_container">
-                        <img src="~/images/LoginImage.jpg" class="brand_logo" alt="Logo">
+                        <img src="/images/LoginImage.jpeg" class="brand_logo" alt="Logo">
                     </div>
                 </div>
                 <div class="d-flex justify-content-center form_container">
@@ -92,7 +72,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        background: #60a3bc !important;
+        background: #a6b8bf !important;
     }
 
     .user_card {
@@ -100,7 +80,7 @@
         width: 350px;
         margin-top: auto;
         margin-bottom: auto;
-        background: #f39c12;
+        background: #c0c3d1;
         position: relative;
         display: flex;
         justify-content: center;
@@ -118,7 +98,7 @@
         width: 170px;
         top: -75px;
         border-radius: 50%;
-        background: #60a3bc;
+        background: #c0c3d1;
         padding: 10px;
         text-align: center;
     }
@@ -187,6 +167,8 @@
 
         ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
         NavigationManager.NavigateTo("/");
+
+        await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
 
         return await Task.FromResult(true);
     }
