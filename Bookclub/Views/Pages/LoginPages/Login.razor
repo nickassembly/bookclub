@@ -1,4 +1,5 @@
-﻿@page  "/login"
+﻿@layout LoginLayout 
+@page  "/"
 @using Bookclub.Services.Users
 @using Bookclub.Models.Users
 @using Bookclub.Data 
@@ -9,6 +10,8 @@
 @inject IUserService userService 
 @inject IJSRuntime jsRunTime
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+
+<!-- TODO: Update Layout-->
 
 <EditForm Model="@user" OnValidSubmit="@ValidateUser">
   
@@ -25,7 +28,7 @@
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
+                            </div>           
                             <input type="text" name="" class="form-control input_user" @bind="user.EmailAddress" placeholder="username">
                         </div>
                         <div class="input-group mb-2">
@@ -166,7 +169,7 @@
         // Api Call to check if user is valid
 
         ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/index");
 
         await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
 
