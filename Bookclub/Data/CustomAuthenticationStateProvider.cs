@@ -56,6 +56,7 @@ namespace Bookclub.Data
         public void MarkUserAsLoggedOut()
         {
             _sessionStorageService.RemoveItemAsync("emailAddress");
+            _sessionStorageService.RemoveItemAsync("token");
 
             var identity = new ClaimsIdentity();
 

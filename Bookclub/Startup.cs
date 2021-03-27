@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RESTFulSense.Clients;
 using System;
+using System.Net.Http;
 
 namespace Bookclub
 {
@@ -52,7 +53,10 @@ namespace Bookclub
             //});
 
             // Restfulsense client (library)
+
             AddHttpClient(services);
+           
+            services.AddSingleton<HttpClient>();
             AddRootDirectory(services);
         }
 

@@ -1,20 +1,19 @@
-﻿@layout LoginLayout 
-@page  "/"
+﻿@page  "/"
+@layout LoginLayout
+@using Newtonsoft.Json
 @using Bookclub.Services.Users
 @using Bookclub.Models.Users
-@using Bookclub.Data 
-@using Newtonsoft.Json
+@using Bookclub.Data
 @using System.Security.Claims
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
-@inject IUserService userService 
+@inject IUserService userService
 @inject IJSRuntime jsRunTime
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
-
-<!-- TODO: Update Layout-->
+@inject HttpClient Http
 
 <EditForm Model="@user" OnValidSubmit="@ValidateUser">
-  
+
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
@@ -28,14 +27,14 @@
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>           
+                            </div>
                             <input type="text" name="" class="form-control input_user" @bind="user.EmailAddress" placeholder="username">
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" name="" class="form-control input_pass" @bind="user.Password"placeholder="password">
+                            <input type="password" name="" class="form-control input_pass" @bind="user.Password" placeholder="password">
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
@@ -46,6 +45,11 @@
                         <div class="d-flex justify-content-center mt-3 login_container">
                             <input type="submit" class="form-control col-6 btn btn-primary" value="Login" />
                         </div>
+
+                        <div class="col-12 row" style="text-align:left; font-weight:bold">
+                            <span class="col-12">@LoginMessage</span>
+                        </div>
+
                     </div>
                 </div>
 
@@ -60,14 +64,9 @@
             </div>
         </div>
     </div>
-
-      @*<div class="col-12 row" style="text-align:left; font-weight:bold">
-            <span class="col-12">@LoginMesssage</span>
-        </div>*@
-
 </EditForm>
 
-<!-- TODO: Add Javascript interop and extract to separate file-->
+<!-- TODO: Add Javascript interop and extract styles to separate file-->
 <style>
 
     body,
@@ -148,13 +147,12 @@
     .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
         background-color: #c0392b !important;
     }
-
 </style>
 
 @code {
 
     private User user;
-
+    public string LoginMessage { get; set; }
 
     protected override Task OnInitializedAsync()
     {
@@ -167,10 +165,41 @@
     private async Task<bool> ValidateUser()
     {
         // Api Call to check if user is valid
+        // need endpoint to login user this is add user
+        // Serialize user object
+        string serializedUser = JsonConvert.SerializeObject(user);
 
+        HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
+        httpRequestMessage.Method = new HttpMethod("POST");
+        httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");
+        httpRequestMessage.Content = new StringContent(serializedUser);
+
+        httpRequestMessage.Content.Headers.ContentType =
+            new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+        var response = await Http.SendAsync(httpRequestMessage);
+
+        var responseStatusCode = response.StatusCode;
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        if (response.StatusCode.ToString() == "OK")
+        {
+            var returnedUser = JsonConvert.DeserializeObject<User>(responseBody);
+
+            await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
+            await sessionStorage.SetItemAsync("token", user.AccessToken);
+
+            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
+            NavigationManager.NavigateTo("/index");
+        }
+        else
+        {
+            LoginMessage = "Invalid username or password";
+        }
+
+        // TODO: Remove temporary code once API has proper login endpoint
         ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
         NavigationManager.NavigateTo("/index");
-
         await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
 
         return await Task.FromResult(true);
