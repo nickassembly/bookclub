@@ -10,5 +10,6 @@ namespace Bookclub.Services.Users
     public interface IUserService
     {
         int GetCurrentlyLoggedInUser();
+        Task<User> RegisterUserAsync(User user);
     }
 }

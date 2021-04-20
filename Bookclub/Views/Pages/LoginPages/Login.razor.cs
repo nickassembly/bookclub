@@ -17,7 +17,7 @@ namespace Bookclub.Views.Pages.LoginPages
 
         protected override Task OnInitializedAsync()
         {
-
+            // TODO: Need to rethink logic, may need to hit API to return ID
             user = new User();
             return base.OnInitializedAsync();
 
@@ -30,7 +30,8 @@ namespace Bookclub.Views.Pages.LoginPages
 
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
             httpRequestMessage.Method = new HttpMethod("POST");
-            httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");
+           // httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");
+            httpRequestMessage.RequestUri = new Uri("https://localhost:5001/api/login");
             httpRequestMessage.Content = new StringContent(serializedUser);
 
             httpRequestMessage.Content.Headers.ContentType =
@@ -57,9 +58,9 @@ namespace Bookclub.Views.Pages.LoginPages
             }
 
             // TODO: Remove temporary code once API has proper login endpoint
-            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
-            NavigationManager.NavigateTo("/index");
-            await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
+            //((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
+            //NavigationManager.NavigateTo("/index");
+            //await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
 
             return await Task.FromResult(true);
         }

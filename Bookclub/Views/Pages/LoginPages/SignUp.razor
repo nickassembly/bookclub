@@ -142,20 +142,13 @@
     private async Task<bool> RegisterUser()
     {
         //assume that user is valid
-        //user.Source = "APPC";
-        //var returnedUser = await userService.RegisterUserAsync(user);
+        // user.Source = "APPC";
+        var returnedUser = await userService.RegisterUserAsync(user); // TODO: Implement method, hit register endpoint in api
 
-        //if (returnedUser.EmailAddress != null)
-        //{
-        //    ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(returnedUser);
-        //    NavigationManager.NavigateTo("/");
-        //}
-        //else
-        //{
-        //    LoginMesssage = "Invalid username or password";
-        //}
-
-        return await Task.FromResult(true);
+        if (returnedUser != null) // if is valid
+            return await Task.FromResult(true);
+        else
+            return false;
     }
 
 }

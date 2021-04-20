@@ -11,6 +11,9 @@ namespace Bookclub.Services.Users
     {
         public int GetCurrentlyLoggedInUser() => 0; //temporary code
 
-   
+        public async Task<User> RegisterUserAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
