@@ -12,8 +12,8 @@ namespace Bookclub.Models.Users
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string EmailAddress { get; set; }
-        public string Password { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
         public string ConfirmPassword { get; set; }
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }

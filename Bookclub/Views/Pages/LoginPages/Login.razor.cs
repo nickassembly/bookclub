@@ -30,8 +30,9 @@ namespace Bookclub.Views.Pages.LoginPages
 
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
             httpRequestMessage.Method = new HttpMethod("POST");
-           // httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");
-            httpRequestMessage.RequestUri = new Uri("https://localhost:5001/api/login");
+           // httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");       
+            httpRequestMessage.RequestUri = new Uri("https://localhost:5001/api/users/login");
+
             httpRequestMessage.Content = new StringContent(serializedUser);
 
             httpRequestMessage.Content.Headers.ContentType =
@@ -42,14 +43,16 @@ namespace Bookclub.Views.Pages.LoginPages
             var responseStatusCode = response.StatusCode;
             var responseBody = await response.Content.ReadAsStringAsync();
 
+            // TODO: Handle valid response object
+
             if (response.StatusCode.ToString() == "OK")
             {
                 var returnedUser = JsonConvert.DeserializeObject<User>(responseBody);
 
-                await sessionStorage.SetItemAsync("emailAddress", user.EmailAddress);
+                await sessionStorage.SetItemAsync("emailAddress", user.email);
                 await sessionStorage.SetItemAsync("token", user.AccessToken);
 
-                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.EmailAddress);
+                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.password);
                 NavigationManager.NavigateTo("/index");
             }
             else
