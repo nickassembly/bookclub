@@ -15,7 +15,7 @@ namespace Bookclub.Models.Users
         public string email { get; set; }
         public string password { get; set; }
         public string ConfirmPassword { get; set; }
-        public string AccessToken { get; set; }
+        public string Token { get; set; }
         public string RefreshToken { get; set; }
 
 

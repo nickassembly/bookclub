@@ -1,11 +1,14 @@
 ﻿@page "/index"
-@using Bookclub.Views.Components
+@using Bookclub.Services.Users
+@inject HttpClient Http
+@inject IUserService userService
+
 
 <h1>Welcome to Bookclub</h1>
 
 <AuthorizeView>
     <Authorized>
-        <p>Welcome, @context.User.Identity.Name</p>
+        <p>Welcome @loggedInUser.email</p>
     </Authorized>
     <NotAuthorized>
         <p>You are signed out.</p>

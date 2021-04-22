@@ -9,7 +9,8 @@ namespace Bookclub.Services.Users
 {
     public class UserService : IUserService
     {
-        public int GetCurrentlyLoggedInUser() => 0; //temporary code
+        // TODO: Implement this method
+        public int GetCurrentlyLoggedInUser() => 0; 
 
         public async Task<User> RegisterUserAsync(User user)
         {
