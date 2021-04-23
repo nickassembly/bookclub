@@ -1,8 +1,8 @@
-﻿using Bookclub.Models.Users;
+﻿using Bookclub.Data;
+using Bookclub.Models.Users;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Bookclub.Views.Pages.LoginPages
@@ -10,7 +10,7 @@ namespace Bookclub.Views.Pages.LoginPages
     public partial class SignUp
     {
         private User user;
-        public string LoginMesssage { get; set; }
+        public string RegisterMessage { get; set; }
 
         protected override Task OnInitializedAsync()
         {
@@ -20,14 +20,42 @@ namespace Bookclub.Views.Pages.LoginPages
 
         private async Task<bool> RegisterUser()
         {
-            //assume that user is valid
-            // user.Source = "APPC";
-            var returnedUser = await userService.RegisterUserAsync(user); // TODO: Implement method, hit register endpoint in api
+            // Serialize user object
+            string serializedUser = JsonConvert.SerializeObject(user);
 
-            if (returnedUser != null) // if is valid
-                return await Task.FromResult(true);
+            HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
+            httpRequestMessage.Method = new HttpMethod("POST");
+
+            // httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");       
+            httpRequestMessage.RequestUri = new Uri("https://localhost:5001/api/users/register");
+
+            httpRequestMessage.Content = new StringContent(serializedUser);
+
+            httpRequestMessage.Content.Headers.ContentType =
+                new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            var response = await Http.SendAsync(httpRequestMessage);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            if (response.StatusCode.ToString() == "OK")
+            {
+                var returnedUser = JsonConvert.DeserializeObject<User>(responseBody);
+
+                await sessionStorage.SetItemAsync("emailAddress", user.email);
+                await sessionStorage.SetItemAsync("token", returnedUser.Token);
+                await sessionStorage.SetItemAsync("refreshToken", returnedUser.RefreshToken);
+
+                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.password);
+                NavigationManager.NavigateTo("/index");
+            }
             else
-                return false;
+            {
+                // TODO: Need navigation button to bring unauthorized user back to login screen as an option.
+                RegisterMessage = $"Unable to create user. Name or email taken.";
+            }
+
+            return await Task.FromResult(true);
+
         }
     }
 }
