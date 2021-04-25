@@ -47,7 +47,7 @@ namespace Bookclub.Services.BookViews
 
         private Book MapToBook(BookView bookView)
         {
-            int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
+         //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
             return new Book
