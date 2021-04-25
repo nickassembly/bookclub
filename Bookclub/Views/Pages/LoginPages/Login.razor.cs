@@ -26,8 +26,7 @@ namespace Bookclub.Views.Pages.LoginPages
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
             httpRequestMessage.Method = new HttpMethod("POST");
           
-            // httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users");       
-            httpRequestMessage.RequestUri = new Uri("https://localhost:5001/api/users/login");
+            httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users/login");       
 
             httpRequestMessage.Content = new StringContent(serializedUser);
 
