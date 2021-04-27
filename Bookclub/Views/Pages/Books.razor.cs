@@ -27,5 +27,11 @@ namespace Bookclub.Views.Pages
 
             return bookList;
         }
+
+        // TODO: need to fix and refactor adding books
+        public async Task AddBook()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
