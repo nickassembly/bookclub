@@ -43,17 +43,6 @@ namespace Bookclub
 
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
-            // TODO: need to find out best httpclient to use
-            //services.AddHttpClient();
-            //services.AddHttpClient<IHttpClientBuilder, IHttpClientBuilder>(client => 
-            //{
-            //   LocalConfigurations localConfigurations = Configuration.Get<LocalConfigurations>();
-            //   string apiUrl = localConfigurations.ApiConfigurations.Url;
-            //   client.BaseAddress = new Uri(apiUrl);
-            //});
-
-            // Restfulsense client (library)
-
             AddHttpClient(services);
            
             services.AddSingleton<HttpClient>();
