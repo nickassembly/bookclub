@@ -4,8 +4,6 @@
 
 @inject HttpClient http;
 
-<h1>Books</h1>
-@* TODO: Remove Temporary Display code, need to create proper booklist component *@
 <div class="container">
     <h3 class="p-3 text-center">Current Books</h3>
     <table class="table table-striped table-bordered">
@@ -13,47 +11,26 @@
             <tr>
                 <th>Isbn</th>
                 <th>Author</th>
-                <th>Title</th>             
+                <th>Title</th>
                 <th>List Price</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var book in BookList)
             {
-            <tr>
-                <td>@book.Isbn</td>
-                <td>@book.Author</td>
-                <td>@book.Title</td>             
-                <td>@book.ListPrice</td>
-            </tr>
+                <tr>
+                    <td>@book.Isbn</td>
+                    <td>@book.Author</td>
+                    <td>@book.Title</td>
+                    <td>@book.ListPrice</td>
+                </tr>
             }
         </tbody>
     </table>
+
+    <h3 class="p-3">Add Book</h3>
+    <AddBookComponent />
 </div>
 
-<AddBookComponent />
 
-@code {
-    // TODO: remove -- temporary code for testing api
-
-    public Book Book { get; set; }
-
-    public List<Book> BookList { get; set; } = new List<Book>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await GetBooks();
-    }
-
-    public async Task<IEnumerable<Book>> GetBooks()
-    {
-        List<Book> bookList = new List<Book>();
-
-        BookList = await http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
-
-        return bookList;
-    }
-
-
-}
 
