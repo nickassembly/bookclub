@@ -24,7 +24,7 @@ namespace Bookclub.Brokers.API
 
         public async Task<Book> PostBookAsync(Book book)
         {
-            // TODO: api call here to add book to the database. May need to change method signature
+
             return new Book();
         }
 
