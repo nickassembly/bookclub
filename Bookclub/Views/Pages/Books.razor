@@ -18,12 +18,13 @@
         <tbody>
             @foreach (var book in BookList)
             {
-                <tr>
-                    <td>@book.Isbn</td>
-                    <td>@book.Author</td>
-                    <td>@book.Title</td>
-                    <td>@book.ListPrice</td>
-                </tr>
+            <tr>
+                <td>@book.Isbn</td>
+                <td>@book.Author</td>
+                <td>@book.Title</td>
+                <td>@book.Subtitle</td>
+                <td>@book.ListPrice</td>
+            </tr>
             }
         </tbody>
     </table>

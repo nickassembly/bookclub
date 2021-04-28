@@ -9,6 +9,6 @@ namespace Bookclub.Brokers.API
 {
     public partial interface IApiBroker
     {
-        ValueTask<Book> PostBookAsync(Book book);
+        Task<Book> PostBookAsync(Book book);
     }
 }

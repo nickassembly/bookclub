@@ -58,8 +58,15 @@ namespace Bookclub.Services.BookViews
                 Isbn13 = bookView.Isbn13,
                 Author = bookView.PrimaryAuthor,
                 Title = bookView.Title,
-              // Subtitle = bookView.Subtitle,
+                Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
+                // TODO: Replace with function. Temporary Test code
+                Publisher = "test pub",
+                CreatedBy = Guid.NewGuid(),
+                UpdatedBy = Guid.NewGuid(),
+                CreatedDate = DateTimeOffset.UtcNow,
+                UpdatedDate = DateTimeOffset.UtcNow,
+                ListPrice = 9 // TODO: figure out decimal to float conversions
             };
 
         }
