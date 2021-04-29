@@ -23,7 +23,7 @@ namespace Bookclub.Views.Pages
         {
             List<Book> bookList = new List<Book>();
 
-            BookList = await http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
+            BookList = await Http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
 
             return bookList;
         }
