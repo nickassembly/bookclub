@@ -1,6 +1,10 @@
 ﻿using Bookclub.Models.Books;
+using Bookclub.Models.Books.Books;
+using Bookclub.Services.Books;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RESTFulSense.Clients;
+using RestSharp;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -56,6 +60,37 @@ namespace Bookclub.Brokers.API
             }
 
             return null;
+        }
+
+        // TODO: Need to add logic to save user cookies once book table is locked down
+        public async Task<BookResponse> PostBookAsync2(/*HttpContext ctx,*/ Book book)
+        {
+            var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/books");
+
+            client.Timeout = -1;
+
+            //var bearerAccessToken = $"bearer " + ctx.Request.Cookies["access_token"]; // may need later
+
+            var bookAddRequest = new RestRequest(Method.POST);
+
+            //bookAddRequest.AddHeader("Authorization", bearerAccessToken); 
+
+            bookAddRequest.AddJsonBody(book);
+
+            var bookAddResponse = await client.ExecuteAsync<BookResponse>(bookAddRequest);
+
+            if (bookAddResponse.StatusCode.ToString() != "")
+            {
+                BookResponse invalidResponse = JsonConvert.DeserializeObject<BookResponse>(bookAddResponse.Content);
+
+                // handle logging and errors
+                return invalidResponse;
+            }
+
+            BookResponse createdResponse = JsonConvert.DeserializeObject<BookResponse>(bookAddResponse.Content);
+
+            return createdResponse;
+
         }
 
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>

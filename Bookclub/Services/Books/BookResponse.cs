@@ -1,5 +1,4 @@
-﻿using Bookclub.Models.Books;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bookclub.Services.Books
 {
-    public interface IBookService
+    public class BookResponse
     {
-        Task<BookResponse> AddBookAsync(Book book);
+        // TODO: Determine Proper Api Response object
+        public string ResponseMessage { get; set; }
     }
 }

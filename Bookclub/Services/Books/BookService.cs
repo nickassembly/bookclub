@@ -16,13 +16,11 @@ namespace Bookclub.Services.Books
             _loggingBroker = loggingBroker;
         }
 
-        public ValueTask<Book> AddBookAsync(Book book) =>
-            TryCatch(async () =>
-            {
-                ValidateBook(book);
-
-                return await _apiBroker.PostBookAsync(book);
-            });
+        public async Task<BookResponse> AddBookAsync(Book book)
+        {
+            ValidateBook(book);
+            return await _apiBroker.PostBookAsync2(book);
+        }
 
     }
 }
