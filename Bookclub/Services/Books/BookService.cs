@@ -19,8 +19,12 @@ namespace Bookclub.Services.Books
         public async Task<BookResponse> AddBookAsync(Book book)
         {
             ValidateBook(book);
-            return await _apiBroker.PostBookAsync2(book);
+            return await _apiBroker.PostBookAsync(book);
         }
 
+        public void DeleteBookAsync()
+        {
+            _apiBroker.DeleteBookAsync();
+        }
     }
 }

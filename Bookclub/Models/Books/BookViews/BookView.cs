@@ -15,7 +15,6 @@ namespace Bookclub.Models.Books.BookViews
         public string Subtitle { get; set; }
         public string PrimaryAuthor { get; set; }
         public DateTimeOffset PublishedDate { get; set; } = DateTime.Now;
-
         public BookViewMediaType MediaType { get; set; }
 
     }

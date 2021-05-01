@@ -10,5 +10,6 @@ namespace Bookclub.Services.Books
     public interface IBookService
     {
         Task<BookResponse> AddBookAsync(Book book);
+        void DeleteBookAsync();
     }
 }

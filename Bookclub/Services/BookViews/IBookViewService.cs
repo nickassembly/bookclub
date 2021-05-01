@@ -11,5 +11,6 @@ namespace Bookclub.Services.BookViews
     public interface IBookViewService
     {
         ValueTask<BookView> AddBookViewAsync(BookView book);
+        void DeleteBook();
     }
 }

@@ -17,15 +17,12 @@ namespace Bookclub.Views.Components
         [Inject]
         public IBookViewService BookViewService { get; set; }
 
-        // TODO: temporary test code remove 
         [Inject]
         public IBookService BookService { get; set; }
-        //******
 
         public ComponentState State { get; set; }
         public AddBookComponentException Exception { get; set; }
         public BookView BookView { get; set; }
-      //  public TextBoxBase IdTextBox { get; set; }
         public TextBoxBase IsbnTextBox { get; set; }
         public TextBoxBase Isbn13TextBox { get; set; }
         public TextBoxBase TitleTextBox { get; set; }
@@ -34,6 +31,7 @@ namespace Bookclub.Views.Components
         public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase SubmitButton { get; set; }
+        public ButtonBase DeleteButton { get; set; }
         public LabelBase StatusLabel { get; set; }
 
         protected override void OnInitialized()
@@ -73,6 +71,21 @@ namespace Bookclub.Views.Components
                 string validationMessage = bookViewServiceException.Message;
 
                 ApplySubmissionFailed(validationMessage);
+            }
+        }
+
+        public async void DeleteBookAsync()
+        {
+            try
+            {
+                ApplySubmittingStatus();
+                this.BookViewService.DeleteBook();
+                ReportBookSubmissionSucceeded();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
 

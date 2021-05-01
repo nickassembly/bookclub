@@ -6,9 +6,9 @@
     <Content>
         <div>
             @*<TextBoxBase @ref="IdTextBox"
-                         @bind-Value="BookView.Id"
-                         Placeholder="Id" />
-            <br />*@
+                     @bind-Value="BookView.Id"
+                     Placeholder="Id" />
+        <br />*@
             <TextBoxBase @ref="IsbnTextBox"
                          @bind-Value="BookView.Isbn"
                          Placeholder="Isbn" />
@@ -26,9 +26,9 @@
                          Placeholder="Title" />
             <br />
             @*<TextBoxBase @ref="SubtitleTextBox"
-                         @bind-Value="BookView.Subtitle"
-                         Placeholder="Subtitle" />
-            <br />*@
+                     @bind-Value="BookView.Subtitle"
+                     Placeholder="Subtitle" />
+        <br />*@
             <DropDownBase @ref=MediaTypeDropDown
                           @bind-Value="BookView.MediaType"
                           TEnum="BookViewMediaType" />
@@ -40,6 +40,10 @@
             <ButtonBase @ref=SubmitButton
                         Label="Submit Book"
                         OnClick="@AddBookAsync" />
+            <br />
+            <ButtonBase @ref="DeleteButton"
+                        Label="Delete Book"
+                        OnClick="@DeleteBookAsync" />
             <br />
             <LabelBase @ref=StatusLabel />
 

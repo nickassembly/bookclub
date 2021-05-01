@@ -29,41 +29,8 @@ namespace Bookclub.Brokers.API
         //private async ValueTask<T> PostAsync<T>(string relativeUrl, T content) =>
         //   await this.apiClient.PostContentAsync<T>(relativeUrl, content);
 
-        public async Task<Book> PostBookAsync(Book book)
-        {
-
-            string serializedBook = JsonConvert.SerializeObject(book);
-
-            HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
-            httpRequestMessage.Method = new HttpMethod("POST");
-
-            httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/books");
-
-            httpRequestMessage.Content = new StringContent(serializedBook);
-
-            httpRequestMessage.Content.Headers.ContentType =
-                new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-            var response = await _http.SendAsync(httpRequestMessage);
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode.ToString() == "OK")
-            {
-                var returnedBook = JsonConvert.DeserializeObject<Book>(responseBody);
-
-                return returnedBook;
-            }
-            else
-            {
-
-            }
-
-            return null;
-        }
-
         // TODO: Need to add logic to save user cookies once book table is locked down
-        public async Task<BookResponse> PostBookAsync2(/*HttpContext ctx,*/ Book book)
+        public async Task<BookResponse> PostBookAsync(/*HttpContext ctx,*/ Book book)
         {
             var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/books");
 
@@ -91,6 +58,11 @@ namespace Bookclub.Brokers.API
 
             return createdResponse;
 
+        }
+
+        public void DeleteBookAsync()
+        {
+            // todo delete api logic here
         }
 
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>

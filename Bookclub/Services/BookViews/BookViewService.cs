@@ -45,6 +45,11 @@ namespace Bookclub.Services.BookViews
                 return bookView;
             });
 
+        public void DeleteBook()
+        {
+             _bookService.DeleteBookAsync();
+        }
+
         private Book MapToBook(BookView bookView)
         {
          //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
