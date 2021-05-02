@@ -1,6 +1,7 @@
 ﻿using Bookclub.Brokers.API;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Books;
+using System;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.Books
@@ -16,15 +17,15 @@ namespace Bookclub.Services.Books
             _loggingBroker = loggingBroker;
         }
 
-        // TODO: Need to Implement Displaying Booklist as well as 
-        // Adding, Updating, and Removing Existing Books in list
-        public ValueTask<Book> AddBookAsync(Book book) =>
-            TryCatch(async () =>
-            {
-                ValidateBook(book);
+        public async Task<BookResponse> AddBookAsync(Book book)
+        {
+            ValidateBook(book);
+            return await _apiBroker.PostBookAsync(book);
+        }
 
-                return await _apiBroker.PostBookAsync(book);
-            });
-
+        public async Task<BookResponse> DeleteBookAsync(Guid bookId)
+        {
+           return await _apiBroker.DeleteBookAsync(bookId);
+        }
     }
 }

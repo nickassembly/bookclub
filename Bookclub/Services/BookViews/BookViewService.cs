@@ -45,9 +45,14 @@ namespace Bookclub.Services.BookViews
                 return bookView;
             });
 
+        public Task<BookResponse> DeleteBookAsync(Guid bookId)
+        {
+            return _bookService.DeleteBookAsync(bookId);
+        }
+
         private Book MapToBook(BookView bookView)
         {
-         //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
+            //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
             return new Book
@@ -58,8 +63,15 @@ namespace Bookclub.Services.BookViews
                 Isbn13 = bookView.Isbn13,
                 Author = bookView.PrimaryAuthor,
                 Title = bookView.Title,
-              // Subtitle = bookView.Subtitle,
+                Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
+                // TODO: Replace with function. Temporary Test code
+                Publisher = "test pub",
+                CreatedBy = Guid.NewGuid(),
+                UpdatedBy = Guid.NewGuid(),
+                CreatedDate = DateTimeOffset.UtcNow,
+                UpdatedDate = DateTimeOffset.UtcNow,
+                ListPrice = 9 // TODO: figure out decimal to float conversions
             };
 
         }

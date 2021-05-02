@@ -2,7 +2,7 @@
 @using Bookclub.Views.Components
 @using Bookclub.Models.Books
 
-@inject HttpClient http;
+@inject HttpClient Http
 
 <div class="container">
     <h3 class="p-3 text-center">Current Books</h3>
@@ -12,18 +12,26 @@
                 <th>Isbn</th>
                 <th>Author</th>
                 <th>Title</th>
+                <th>Subtitle</th>
                 <th>List Price</th>
+                <th>Remove</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var book in BookList)
             {
-                <tr>
-                    <td>@book.Isbn</td>
-                    <td>@book.Author</td>
-                    <td>@book.Title</td>
-                    <td>@book.ListPrice</td>
-                </tr>
+            <tr>
+                <td>@book.Isbn</td>
+                <td>@book.Author</td>
+                <td>@book.Title</td>
+                <td>@book.Subtitle</td>
+                <td>@book.ListPrice</td>
+                <td>
+                    <button  @onclick="() => DeleteBookAsync(book.Id)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
