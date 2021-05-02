@@ -74,21 +74,6 @@ namespace Bookclub.Views.Components
             }
         }
 
-        public async void DeleteBookAsync()
-        {
-            try
-            {
-                ApplySubmittingStatus();
-                this.BookViewService.DeleteBook();
-                ReportBookSubmissionSucceeded();
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
-        }
-
         private void ApplySubmittingStatus()
         {
             this.StatusLabel.SetColor(Color.Black);

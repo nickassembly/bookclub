@@ -1,6 +1,7 @@
 ﻿using Bookclub.Brokers.API;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Books;
+using System;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.Books
@@ -22,9 +23,9 @@ namespace Bookclub.Services.Books
             return await _apiBroker.PostBookAsync(book);
         }
 
-        public void DeleteBookAsync()
+        public async Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
-            _apiBroker.DeleteBookAsync();
+           return await _apiBroker.DeleteBookAsync(bookId);
         }
     }
 }

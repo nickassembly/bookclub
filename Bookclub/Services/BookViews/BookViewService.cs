@@ -45,14 +45,14 @@ namespace Bookclub.Services.BookViews
                 return bookView;
             });
 
-        public void DeleteBook()
+        public Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
-             _bookService.DeleteBookAsync();
+            return _bookService.DeleteBookAsync(bookId);
         }
 
         private Book MapToBook(BookView bookView)
         {
-         //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
+            //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
             return new Book

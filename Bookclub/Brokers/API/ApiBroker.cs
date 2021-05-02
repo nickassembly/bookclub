@@ -1,7 +1,5 @@
 ﻿using Bookclub.Models.Books;
-using Bookclub.Models.Books.Books;
 using Bookclub.Services.Books;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RESTFulSense.Clients;
 using RestSharp;
@@ -60,9 +58,28 @@ namespace Bookclub.Brokers.API
 
         }
 
-        public void DeleteBookAsync()
+        public async Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
-            // todo delete api logic here
+
+            var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/books/{bookId}");
+
+            client.Timeout = -1;
+
+            var bookDeleteRequest = new RestRequest(Method.DELETE);
+
+            var bookDeleteResponse = await client.ExecuteAsync<BookResponse>(bookDeleteRequest);
+
+            if (bookDeleteResponse.StatusCode.ToString() != "")
+            {
+                BookResponse invalidResponse = JsonConvert.DeserializeObject<BookResponse>(bookDeleteResponse.Content);
+
+                // handle logging and errors
+                return invalidResponse;
+            }
+
+            BookResponse deletedResponse = JsonConvert.DeserializeObject<BookResponse>(bookDeleteResponse.Content);
+
+            return deletedResponse;
         }
 
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>

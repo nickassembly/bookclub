@@ -12,7 +12,9 @@
                 <th>Isbn</th>
                 <th>Author</th>
                 <th>Title</th>
+                <th>Subtitle</th>
                 <th>List Price</th>
+                <th>Remove</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +26,11 @@
                 <td>@book.Title</td>
                 <td>@book.Subtitle</td>
                 <td>@book.ListPrice</td>
+                <td>
+                    <button  @onclick="() => DeleteBookAsync(book.Id)">
+                        Delete
+                    </button>
+                </td>
             </tr>
             }
         </tbody>
