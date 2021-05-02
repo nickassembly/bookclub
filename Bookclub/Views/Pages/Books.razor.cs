@@ -36,6 +36,8 @@ namespace Bookclub.Views.Pages
             return bookList;
         }
 
+        // TODO: Error handling on delete reference add book component
+        // need to implement submission status for user feedback on button
         public async Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
             try
