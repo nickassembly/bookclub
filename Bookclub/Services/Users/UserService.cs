@@ -9,10 +9,9 @@ namespace Bookclub.Services.Users
 {
     public class UserService : IUserService
     {
-        // TODO: Implement this method
-        public int GetCurrentlyLoggedInUser() => 0; 
-
-        public async Task<User> RegisterUserAsync(User user)
+        // TODO: Call or Create Api Endpoint to get logged in user object and return
+        // Research best way to get user data on login and store for later use
+        public User GetCurrentlyLoggedInUser()
         {
             throw new NotImplementedException();
         }

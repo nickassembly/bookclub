@@ -31,7 +31,6 @@ namespace Bookclub.Views.Components
         public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase SubmitButton { get; set; }
-        public ButtonBase DeleteButton { get; set; }
         public LabelBase StatusLabel { get; set; }
 
         protected override void OnInitialized()
@@ -78,12 +77,11 @@ namespace Bookclub.Views.Components
         {
             this.StatusLabel.SetColor(Color.Black);
             this.StatusLabel.SetValue("Submitting ... ");
-          //  this.IdTextBox.Disable();
             this.IsbnTextBox.Disable();
             this.Isbn13TextBox.Disable();
             this.AuthorTextBox.Disable();
             this.TitleTextBox.Disable();
-         //   this.SubtitleTextBox.Disable();
+            this.SubtitleTextBox.Disable();
             this.PublishDatePicker.Disable();
             this.SubmitButton.Disable();
         }
@@ -98,12 +96,11 @@ namespace Bookclub.Views.Components
         {
             this.StatusLabel.SetColor(Color.Red);
             this.StatusLabel.SetValue(errorMessage);
-         //   this.IdTextBox.Enable();
             this.IsbnTextBox.Enable();
             this.Isbn13TextBox.Enable();
             this.AuthorTextBox.Enable();
             this.TitleTextBox.Enable();
-         //   this.SubtitleTextBox.Enable();
+            this.SubtitleTextBox.Enable();
             this.PublishDatePicker.Enable();
             this.SubmitButton.Enable();
         }
