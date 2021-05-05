@@ -3,9 +3,11 @@ using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Books;
 using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.Users;
 using Bookclub.Services.Books;
 using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,7 @@ namespace Bookclub.Services.BookViews
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;
+        private readonly IHttpContextAccessor _ctx;
 
 
         private readonly HttpClient _httpClient;
@@ -31,7 +34,8 @@ namespace Bookclub.Services.BookViews
             IDateTimeBroker dateTimeBroker,
             ILoggingBroker loggingBroker,
             HttpClient httpClient,
-            ISessionStorageService sessionStorage)
+            ISessionStorageService sessionStorage,
+            IHttpContextAccessor ctx)
         {
             _bookService = bookService;
             _userService = userService;
@@ -39,6 +43,7 @@ namespace Bookclub.Services.BookViews
             _loggingBroker = loggingBroker;
             _httpClient = httpClient;
             _sessionStorage = sessionStorage;
+            _ctx = ctx;
         }
 
         public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
@@ -58,10 +63,10 @@ namespace Bookclub.Services.BookViews
 
         private Book MapToBook(BookView bookView)
         {
-
+            // TODO: Email is not being handled correctly. Need a better way to maintain session data
             string userEmail = _sessionStorage.GetItemAsync<string>("email").ToString();
 
-            // TODO: Add rest sharp to make call to get user through email
+            User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
 
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
