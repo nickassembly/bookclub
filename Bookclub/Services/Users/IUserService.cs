@@ -9,6 +9,6 @@ namespace Bookclub.Services.Users
 {
     public interface IUserService
     {
-        User GetCurrentlyLoggedInUser();
+        User GetCurrentlyLoggedInUser(string email);
     }
 }

@@ -1,10 +1,12 @@
-﻿using Bookclub.Brokers.DateTimes;
+﻿using Blazored.SessionStorage;
+using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Books;
 using Bookclub.Models.Books.BookViews;
 using Bookclub.Services.Books;
 using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Session;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -18,6 +20,8 @@ namespace Bookclub.Services.BookViews
         private readonly IUserService _userService;
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
+        private readonly ISessionStorageService _sessionStorage;
+
 
         private readonly HttpClient _httpClient;
 
@@ -26,13 +30,15 @@ namespace Bookclub.Services.BookViews
             IUserService userService,
             IDateTimeBroker dateTimeBroker,
             ILoggingBroker loggingBroker,
-            HttpClient httpClient)
+            HttpClient httpClient,
+            ISessionStorageService sessionStorage)
         {
             _bookService = bookService;
             _userService = userService;
             _dateTimeBroker = dateTimeBroker;
             _loggingBroker = loggingBroker;
             _httpClient = httpClient;
+            _sessionStorage = sessionStorage;
         }
 
         public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
@@ -52,7 +58,11 @@ namespace Bookclub.Services.BookViews
 
         private Book MapToBook(BookView bookView)
         {
-            //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
+
+            string userEmail = _sessionStorage.GetItemAsync<string>("email").ToString();
+
+            // TODO: Add rest sharp to make call to get user through email
+
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
             return new Book

@@ -9,9 +9,8 @@ namespace Bookclub.Services.Users
 {
     public class UserService : IUserService
     {
-        // TODO: Call or Create Api Endpoint to get logged in user object and return
-        // Research best way to get user data on login and store for later use
-        public User GetCurrentlyLoggedInUser()
+        // TODO: Use Restsharp to /GET all users and match email, return user data
+        public User GetCurrentlyLoggedInUser(string email)
         {
             throw new NotImplementedException();
         }
