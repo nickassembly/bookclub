@@ -36,6 +36,8 @@ namespace Bookclub.Services.Users
 
             List<User> userList = JsonConvert.DeserializeObject<List<User>>(userApiResponse.Content);
 
+            // TODO: Add validation if list is empty
+
  
             return userList.Where(x => x.email == email).FirstOrDefault();
 

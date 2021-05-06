@@ -50,7 +50,7 @@ namespace Bookclub.Services.BookViews
             TryCatch(async () =>
             {
                 ValidateBookView(bookView);
-                Book book = MapToBook(bookView);
+                Book book = await MapToBook(bookView);
                 await _bookService.AddBookAsync(book);
 
                 return bookView;
@@ -61,25 +61,18 @@ namespace Bookclub.Services.BookViews
             return _bookService.DeleteBookAsync(bookId);
         }
 
-        public async Task<string> GetUserEmail()
-        {
-            return await _sessionStorage.GetItemAsync<string>("emailAddress");
-        }
-
-        // need to make async
-        private Book MapToBook(BookView bookView)
+        public async Task<Book> MapToBook(BookView bookView)
         {
 
-            var userEmail = GetUserEmail();
+            var userEmail = await _sessionStorage.GetItemAsync<string>("emailAddress");
 
-         //   User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
-            User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, "");
+            User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
 
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
             return new Book
             {
-
+                // TODO: Fix publisher and list price
                 Id = Guid.NewGuid(),
                 Isbn = bookView.Isbn,
                 Isbn13 = bookView.Isbn13,
@@ -87,13 +80,12 @@ namespace Bookclub.Services.BookViews
                 Title = bookView.Title,
                 Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
-                // TODO: Replace with function. Temporary Test code
-                Publisher = "test pub",
-                CreatedBy = Guid.NewGuid(),
-                UpdatedBy = Guid.NewGuid(),
-                CreatedDate = DateTimeOffset.UtcNow,
-                UpdatedDate = DateTimeOffset.UtcNow,
-                ListPrice = 9 // TODO: figure out decimal to float conversions
+                Publisher = "TBD",
+                CreatedBy = loggedInUser.Id,
+                UpdatedBy = loggedInUser.Id,
+                CreatedDate = currentDateTime,
+                UpdatedDate = currentDateTime,
+                ListPrice = 9
             };
 
         }

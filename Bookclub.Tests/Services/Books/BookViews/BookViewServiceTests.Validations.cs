@@ -131,9 +131,9 @@ namespace Bookclub.Tests.Services.Books.BookViews
             broker.LogError(It.Is(SameExceptionAs(expectedBookViewValidationException))),
             Times.Once);
 
-            _userServiceMock.Verify(service =>
-            service.GetCurrentlyLoggedInUser(),
-            Times.Never);
+            //_userServiceMock.Verify(service =>
+            //service.GetCurrentlyLoggedInUser(),
+            //Times.Never);
 
             _dateTimeBrokerMock.Verify(broker =>
             broker.GetCurrentDateTime(),
