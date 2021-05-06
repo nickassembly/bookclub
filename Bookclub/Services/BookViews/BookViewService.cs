@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Session;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
@@ -24,7 +25,6 @@ namespace Bookclub.Services.BookViews
         private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;
         private readonly IHttpContextAccessor _ctx;
-
 
         private readonly HttpClient _httpClient;
 
@@ -61,12 +61,19 @@ namespace Bookclub.Services.BookViews
             return _bookService.DeleteBookAsync(bookId);
         }
 
+        public async Task<string> GetUserEmail()
+        {
+            return await _sessionStorage.GetItemAsync<string>("emailAddress");
+        }
+
+        // need to make async
         private Book MapToBook(BookView bookView)
         {
-            // TODO: Email is not being handled correctly. Need a better way to maintain session data
-            string userEmail = _sessionStorage.GetItemAsync<string>("email").ToString();
 
-            User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
+            var userEmail = GetUserEmail();
+
+         //   User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
+            User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, "");
 
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
