@@ -18,7 +18,7 @@ namespace Bookclub.Services.Users
 
         }
 
-        public User GetCurrentlyLoggedInUser(HttpContext ctx, string email)
+        public async Task<User> GetCurrentlyLoggedInUser(HttpContext ctx, string email)
         {
             var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/Users");
             client.Timeout = -1;
@@ -27,20 +27,21 @@ namespace Bookclub.Services.Users
             var bearerAccessToken = $"bearer " + ctx.Request.Cookies["access_token"]; // TODO: lock down routes and implement using session tokens for access
 
             request.AddHeader("Authorization", bearerAccessToken);
+
             IRestResponse userApiResponse = client.Execute(request);
 
             if (userApiResponse.StatusCode.ToString() != "OK")
             {
-                // bad response
+                UserResponse invalidResponse = JsonConvert.DeserializeObject<UserResponse>(userApiResponse.Content);
+
+                invalidResponse.ResponseMessage = "Problem getting user";
+                return null;
             }
 
             List<User> userList = JsonConvert.DeserializeObject<List<User>>(userApiResponse.Content);
+            User loggedInUser = userList.Where(x => x.email == email).FirstOrDefault();
 
-            // TODO: Add validation if list is empty
-
- 
-            return userList.Where(x => x.email == email).FirstOrDefault();
-
+            return loggedInUser != null ? loggedInUser : null;
 
         }
     }

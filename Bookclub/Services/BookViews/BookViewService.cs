@@ -66,13 +66,18 @@ namespace Bookclub.Services.BookViews
 
             var userEmail = await _sessionStorage.GetItemAsync<string>("emailAddress");
 
-            User loggedInUser = _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
+            User loggedInUser = await _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
+
+            if (loggedInUser == null)
+                return await Task.FromResult<Book>(null);
 
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
+            // TODO: Validate user decimal input, add $$$ to string in view
+            decimal bookListPrice = Convert.ToDecimal(bookView.ListPrice);
+
             return new Book
             {
-                // TODO: Fix publisher and list price
                 Id = Guid.NewGuid(),
                 Isbn = bookView.Isbn,
                 Isbn13 = bookView.Isbn13,
@@ -80,12 +85,12 @@ namespace Bookclub.Services.BookViews
                 Title = bookView.Title,
                 Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
-                Publisher = "TBD",
+                Publisher = bookView.Publisher,
                 CreatedBy = loggedInUser.Id,
                 UpdatedBy = loggedInUser.Id,
                 CreatedDate = currentDateTime,
                 UpdatedDate = currentDateTime,
-                ListPrice = 9
+                ListPrice = bookListPrice
             };
 
         }

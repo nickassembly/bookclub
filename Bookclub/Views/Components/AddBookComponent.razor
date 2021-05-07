@@ -29,6 +29,14 @@
                           @bind-Value="BookView.MediaType"
                           TEnum="BookViewMediaType" />
             <br />
+            <TextBoxBase  @ref=Publisher
+                          @bind-Value="BookView.Publisher"
+                          Placeholder="Publisher" />
+            <br />
+            <TextBoxBase  @ref=ListPrice
+                          @bind-Value="BookView.ListPrice"
+                          PlaceHolder="List Price" />
+            <br />
             <DatePickerBase @ref="PublishDatePicker"
                             @bind-Value="BookView.PublishedDate" />
 

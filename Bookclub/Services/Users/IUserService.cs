@@ -10,6 +10,6 @@ namespace Bookclub.Services.Users
 {
     public interface IUserService
     {
-        User GetCurrentlyLoggedInUser(HttpContext ctx, string email);
+        Task<User> GetCurrentlyLoggedInUser(HttpContext ctx, string email);
     }
 }

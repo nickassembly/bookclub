@@ -29,6 +29,8 @@ namespace Bookclub.Views.Components
         public TextBoxBase SubtitleTextBox { get; set; }
         public TextBoxBase AuthorTextBox { get; set; }
         public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
+        public TextBoxBase Publisher { get; set; }
+        public TextBoxBase ListPrice { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase SubmitButton { get; set; }
         public LabelBase StatusLabel { get; set; }

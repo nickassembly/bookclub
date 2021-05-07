@@ -19,6 +19,5 @@ namespace Bookclub.Models.Users
         public string Token { get; set; }
         public string RefreshToken { get; set; }
 
-
     }
 }
