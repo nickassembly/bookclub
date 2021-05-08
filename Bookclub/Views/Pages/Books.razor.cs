@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bookclub.Models.Colors;
+using Color = Bookclub.Models.Colors.Color;
 
 namespace Bookclub.Views.Pages
 {
@@ -16,6 +19,7 @@ namespace Bookclub.Views.Pages
     {
         public Book Book { get; set; }
         public ButtonBase DeleteButton { get; set; }
+        public LabelBase StatusLabel { get; set; }
 
         [Inject]
         public IBookViewService BookViewService { get; set; }
@@ -42,7 +46,11 @@ namespace Bookclub.Views.Pages
         {
             try
             {
+                ApplyDeletingStatus();
                 await BookViewService.DeleteBookAsync(bookId);
+                ReportBookDeletionSucceeded();
+                // TODO: Refresh Page function
+                NavigationManager.NavigateTo("books", true);
             }
             catch (System.Exception)
             {
@@ -52,6 +60,19 @@ namespace Bookclub.Views.Pages
 
             return null;
         }
+
+        private void ApplyDeletingStatus()
+        {
+            this.StatusLabel.SetColor(Color.Black);
+            this.StatusLabel.SetValue("Deleting ... ");
+        }
+
+        private void ReportBookDeletionSucceeded()
+        {
+            this.StatusLabel.SetColor(Color.Red);
+            this.StatusLabel.SetValue("Deleted Successfully");
+        }
+
 
     }
 }

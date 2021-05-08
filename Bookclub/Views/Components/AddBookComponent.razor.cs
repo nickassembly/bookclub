@@ -48,6 +48,8 @@ namespace Bookclub.Views.Components
                 ApplySubmittingStatus();
                 await this.BookViewService.AddBookViewAsync(this.BookView);
                 ReportBookSubmissionSucceeded();
+                NavigationManager.NavigateTo("books", true);
+                
             }
             catch (BookViewValidationException bookViewValidationException)
             {

@@ -1,6 +1,7 @@
 ﻿@using Bookclub.Models.Books.BookViews;
 @using Bookclub.Views.Components.ContainerComponents;
 @using Bookclub.Models.Colors;
+@inject NavigationManager NavigationManager
 
 <ContainerComponent State="State">
     <Content>
@@ -29,13 +30,13 @@
                           @bind-Value="BookView.MediaType"
                           TEnum="BookViewMediaType" />
             <br />
-            <TextBoxBase  @ref=Publisher
-                          @bind-Value="BookView.Publisher"
-                          Placeholder="Publisher" />
+            <TextBoxBase @ref=Publisher
+                         @bind-Value="BookView.Publisher"
+                         Placeholder="Publisher" />
             <br />
-            <TextBoxBase  @ref=ListPrice
-                          @bind-Value="BookView.ListPrice"
-                          PlaceHolder="List Price" />
+            <TextBoxBase @ref=ListPrice
+                         @bind-Value="BookView.ListPrice"
+                         PlaceHolder="List Price" />
             <br />
             <DatePickerBase @ref="PublishDatePicker"
                             @bind-Value="BookView.PublishedDate" />
