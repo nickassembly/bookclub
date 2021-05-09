@@ -26,7 +26,7 @@ namespace Bookclub.Services.Books
         public async Task<BookResponse> EditBookAsync(Book book)
         {
             ValidateBook(book);
-            // TODO: need api endpoint to edit a book before we can put this in the front end. 
+            // TODO: need api endpoint to edit a book
             return null;
         }
 
