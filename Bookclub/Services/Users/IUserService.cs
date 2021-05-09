@@ -1,4 +1,5 @@
 ﻿using Bookclub.Models.Users;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace Bookclub.Services.Users
 {
     public interface IUserService
     {
-        int GetCurrentlyLoggedInUser();
-        Task<User> RegisterUserAsync(User user);
+        Task<User> GetCurrentlyLoggedInUser(HttpContext ctx, string email);
     }
 }

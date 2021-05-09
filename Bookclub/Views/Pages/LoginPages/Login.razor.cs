@@ -40,6 +40,7 @@ namespace Bookclub.Views.Pages.LoginPages
             {
                 var returnedUser = JsonConvert.DeserializeObject<User>(responseBody);
 
+                // TODO: Proper way to retrieve session data once set?
                 await sessionStorage.SetItemAsync("emailAddress", user.email);
                 await sessionStorage.SetItemAsync("token", returnedUser.Token);
                 await sessionStorage.SetItemAsync("refreshToken", returnedUser.RefreshToken);

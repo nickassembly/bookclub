@@ -1,13 +1,18 @@
-﻿using Bookclub.Brokers.DateTimes;
+﻿using Blazored.SessionStorage;
+using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Models.Books;
 using Bookclub.Models.Books.BookViews;
+using Bookclub.Models.Users;
 using Bookclub.Services.Books;
 using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
@@ -18,6 +23,8 @@ namespace Bookclub.Services.BookViews
         private readonly IUserService _userService;
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
+        private readonly ISessionStorageService _sessionStorage;
+        private readonly IHttpContextAccessor _ctx;
 
         private readonly HttpClient _httpClient;
 
@@ -26,38 +33,57 @@ namespace Bookclub.Services.BookViews
             IUserService userService,
             IDateTimeBroker dateTimeBroker,
             ILoggingBroker loggingBroker,
-            HttpClient httpClient)
+            HttpClient httpClient,
+            ISessionStorageService sessionStorage,
+            IHttpContextAccessor ctx)
         {
             _bookService = bookService;
             _userService = userService;
             _dateTimeBroker = dateTimeBroker;
             _loggingBroker = loggingBroker;
             _httpClient = httpClient;
+            _sessionStorage = sessionStorage;
+            _ctx = ctx;
         }
 
         public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
             TryCatch(async () =>
             {
                 ValidateBookView(bookView);
-                Book book = MapToBook(bookView);
+                Book book = await MapToBook(bookView);
                 await _bookService.AddBookAsync(book);
-
                 return bookView;
             });
+
+        public Task<BookResponse> EditBookAsync(Book bookToEdit)
+        {
+             return _bookService.EditBookAsync(bookToEdit);
+        }
 
         public Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
             return _bookService.DeleteBookAsync(bookId);
         }
 
-        private Book MapToBook(BookView bookView)
+        public async Task<Book> MapToBook(BookView bookView)
         {
-            //   int currentLoggedInUserId = _userService.GetCurrentlyLoggedInUser();
+
+            var userEmail = await _sessionStorage.GetItemAsync<string>("emailAddress");
+
+            User loggedInUser = await _userService.GetCurrentlyLoggedInUser(_ctx.HttpContext, userEmail);
+
+            if (loggedInUser == null)
+                return await Task.FromResult<Book>(null);
+
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
+
+            bool isValidPriceInput = Decimal.TryParse(bookView.ListPrice, out decimal bookListPrice);
+
+            if (!isValidPriceInput)
+                bookListPrice = 0.00m;
 
             return new Book
             {
-
                 Id = Guid.NewGuid(),
                 Isbn = bookView.Isbn,
                 Isbn13 = bookView.Isbn13,
@@ -65,13 +91,12 @@ namespace Bookclub.Services.BookViews
                 Title = bookView.Title,
                 Subtitle = bookView.Subtitle,
                 PublishDate = bookView.PublishedDate,
-                // TODO: Replace with function. Temporary Test code
-                Publisher = "test pub",
-                CreatedBy = Guid.NewGuid(),
-                UpdatedBy = Guid.NewGuid(),
-                CreatedDate = DateTimeOffset.UtcNow,
-                UpdatedDate = DateTimeOffset.UtcNow,
-                ListPrice = 9 // TODO: figure out decimal to float conversions
+                Publisher = bookView.Publisher,
+                CreatedBy = loggedInUser.Id,
+                UpdatedBy = loggedInUser.Id,
+                CreatedDate = currentDateTime,
+                UpdatedDate = currentDateTime,
+                ListPrice = bookListPrice
             };
 
         }

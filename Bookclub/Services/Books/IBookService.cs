@@ -11,5 +11,6 @@ namespace Bookclub.Services.Books
     {
         Task<BookResponse> AddBookAsync(Book book);
         Task<BookResponse> DeleteBookAsync(Guid bookId);
+        Task<BookResponse> EditBookAsync(Book book);
     }
 }

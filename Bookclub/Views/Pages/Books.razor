@@ -3,6 +3,7 @@
 @using Bookclub.Models.Books
 
 @inject HttpClient Http
+@inject NavigationManager NavigationManager 
 
 <div class="container">
     <h3 class="p-3 text-center">Current Books</h3>
@@ -14,6 +15,7 @@
                 <th>Title</th>
                 <th>Subtitle</th>
                 <th>List Price</th>
+                <th>Edit</th>
                 <th>Remove</th>
             </tr>
         </thead>
@@ -25,12 +27,18 @@
                 <td>@book.Author</td>
                 <td>@book.Title</td>
                 <td>@book.Subtitle</td>
-                <td>@book.ListPrice</td>
+                <td>$@book.ListPrice</td>
+                <td>
+                    <button @onclick="() => EditBookAsync(book)">
+                        Edit
+                    </button>
+                </td>
                 <td>
                     <button  @onclick="() => DeleteBookAsync(book.Id)">
                         Delete
                     </button>
                 </td>
+                    <LabelBase @ref="StatusLabel"></LabelBase>
             </tr>
             }
         </tbody>

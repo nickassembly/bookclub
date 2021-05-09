@@ -46,6 +46,7 @@ namespace Bookclub
             AddHttpClient(services);
            
             services.AddSingleton<HttpClient>();
+            services.AddHttpContextAccessor();
             AddRootDirectory(services);
         }
 

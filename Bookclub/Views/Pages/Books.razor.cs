@@ -3,12 +3,10 @@ using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Color = Bookclub.Models.Colors.Color;
 
 namespace Bookclub.Views.Pages
 {
@@ -16,6 +14,7 @@ namespace Bookclub.Views.Pages
     {
         public Book Book { get; set; }
         public ButtonBase DeleteButton { get; set; }
+        public LabelBase StatusLabel { get; set; }
 
         [Inject]
         public IBookViewService BookViewService { get; set; }
@@ -36,11 +35,15 @@ namespace Bookclub.Views.Pages
             return bookList;
         }
 
+        // TODO: Error handling on delete and edit reference
         public async Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
             try
             {
+                ApplyDeletingStatus();
                 await BookViewService.DeleteBookAsync(bookId);
+                ReportBookDeletionSucceeded();
+                NavigationManager.NavigateTo("books", true);
             }
             catch (System.Exception)
             {
@@ -50,6 +53,48 @@ namespace Bookclub.Views.Pages
 
             return null;
         }
+
+        public async Task<BookResponse> EditBookAsync(Book bookToEdit)
+        {
+            try
+            {
+                ApplyEditingStatus();
+                await BookViewService.EditBookAsync(bookToEdit);
+                ReportEditingSuccess();
+                NavigationManager.NavigateTo("books", true);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+            return null;
+        }
+
+        private void ApplyDeletingStatus()
+        {
+            this.StatusLabel.SetColor(Color.Black);
+            this.StatusLabel.SetValue("Deleting ... ");
+        }
+        private void ApplyEditingStatus()
+        {
+            this.StatusLabel.SetColor(Color.Black);
+            this.StatusLabel.SetValue("Making Changes ... ");
+        }
+
+        private void ReportBookDeletionSucceeded()
+        {
+            this.StatusLabel.SetColor(Color.Red);
+            this.StatusLabel.SetValue("Deleted Successfully");
+        }
+
+        private void ReportEditingSuccess()
+        {
+            this.StatusLabel.SetColor(Color.Green);
+            this.StatusLabel.SetValue("Book Edited Successfully");
+        }
+
 
     }
 }
