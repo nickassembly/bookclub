@@ -55,6 +55,10 @@ namespace Bookclub.Services.BookViews
                 return bookView;
             });
 
+        public Task<BookResponse> EditBookAsync(Book bookToEdit)
+        {
+             return _bookService.EditBookAsync(bookToEdit);
+        }
 
         public Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
@@ -73,8 +77,10 @@ namespace Bookclub.Services.BookViews
 
             DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
 
-            // TODO: Handle 0/default value from bad input
-            decimal bookListPrice = Convert.ToDecimal(bookView.ListPrice);
+            bool isValidPriceInput = Decimal.TryParse(bookView.ListPrice, out decimal bookListPrice);
+
+            if (!isValidPriceInput)
+                bookListPrice = 0.00m;
 
             return new Book
             {

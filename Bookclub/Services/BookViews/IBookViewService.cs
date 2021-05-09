@@ -13,5 +13,6 @@ namespace Bookclub.Services.BookViews
     {
         ValueTask<BookView> AddBookViewAsync(BookView book);
         Task<BookResponse> DeleteBookAsync(Guid bookId);
+        Task<BookResponse> EditBookAsync(Book bookToEdit);
     }
 }
