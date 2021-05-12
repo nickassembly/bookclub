@@ -58,8 +58,9 @@ namespace Bookclub.Views.Pages
         {
             try
             {
-                ApplyEditingStatus();
-                await BookViewService.EditBookAsync(bookToEdit);
+                Book newBookInfo = GetNewBookInfo(bookToEdit);
+
+                await BookViewService.EditBookAsync(newBookInfo);
                 ReportEditingSuccess();
                 NavigationManager.NavigateTo("books", true);
             }
@@ -72,15 +73,19 @@ namespace Bookclub.Views.Pages
             return null;
         }
 
+        public Book GetNewBookInfo(Book bookToEdit)
+        {
+            Book newBookInfo = new Book();
+
+            // TODO: Render Edit Modal to get book info
+
+            return newBookInfo;
+        }
+
         private void ApplyDeletingStatus()
         {
             this.StatusLabel.SetColor(Color.Black);
             this.StatusLabel.SetValue("Deleting ... ");
-        }
-        private void ApplyEditingStatus()
-        {
-            this.StatusLabel.SetColor(Color.Black);
-            this.StatusLabel.SetValue("Making Changes ... ");
         }
 
         private void ReportBookDeletionSucceeded()

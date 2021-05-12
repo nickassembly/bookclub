@@ -9,5 +9,6 @@ namespace Bookclub.Brokers.API
     {
         Task<BookResponse> PostBookAsync(Book book);
         Task<BookResponse> DeleteBookAsync(Guid bookId);
+        Task<BookResponse> EditBookAsync(Book book);
     }
 }

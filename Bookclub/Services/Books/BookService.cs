@@ -26,8 +26,7 @@ namespace Bookclub.Services.Books
         public async Task<BookResponse> EditBookAsync(Book book)
         {
             ValidateBook(book);
-            // TODO: /api/books PUT endpoint, update call goes here.
-            return null;
+            return await _apiBroker.EditBookAsync(book);
         }
 
         public async Task<BookResponse> DeleteBookAsync(Guid bookId)
