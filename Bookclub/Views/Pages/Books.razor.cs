@@ -15,6 +15,7 @@ namespace Bookclub.Views.Pages
         public Book Book { get; set; }
         public ButtonBase DeleteButton { get; set; }
         public LabelBase StatusLabel { get; set; }
+        bool ShowEditComponent { get; set; } = false;
 
         [Inject]
         public IBookViewService BookViewService { get; set; }
@@ -54,32 +55,9 @@ namespace Bookclub.Views.Pages
             return null;
         }
 
-        public async Task<BookResponse> EditBookAsync(Book bookToEdit)
+        public void ShowEditModal()
         {
-            try
-            {
-                Book newBookInfo = GetNewBookInfo(bookToEdit);
-
-                await BookViewService.EditBookAsync(newBookInfo);
-                ReportEditingSuccess();
-                NavigationManager.NavigateTo("books", true);
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
-
-            return null;
-        }
-
-        public Book GetNewBookInfo(Book bookToEdit)
-        {
-            Book newBookInfo = new Book();
-
-            // TODO: Render Edit Modal to get book info
-
-            return newBookInfo;
+            NavigationManager.NavigateTo("editbookcomponent", true);
         }
 
         private void ApplyDeletingStatus()
@@ -94,11 +72,7 @@ namespace Bookclub.Views.Pages
             this.StatusLabel.SetValue("Deleted Successfully");
         }
 
-        private void ReportEditingSuccess()
-        {
-            this.StatusLabel.SetColor(Color.Green);
-            this.StatusLabel.SetValue("Book Edited Successfully");
-        }
+
 
 
     }
