@@ -61,6 +61,11 @@ namespace Bookclub.Views.Components
 
         }
 
+        public async void CancelEditAsync()
+        {
+            NavigationManager.NavigateTo("books", true);
+        }
+
         public Book GetNewBookInfo()
         {
             Book newBookInfo = new Book();

@@ -16,6 +16,7 @@ namespace Bookclub.Views.Pages
         public ButtonBase DeleteButton { get; set; }
         public LabelBase StatusLabel { get; set; }
         bool ShowEditComponent { get; set; } = false;
+        bool ShowBookList { get; set; } = true;
 
         [Inject]
         public IBookViewService BookViewService { get; set; }
@@ -55,9 +56,12 @@ namespace Bookclub.Views.Pages
             return null;
         }
 
-        public void ShowEditModal()
+        public void ToggleEdit(Book book)
         {
-            NavigationManager.NavigateTo("editbookcomponent", true);
+            ShowEditComponent = true;
+            ShowBookList = false;
+           // TODO: Need to load proper book info into Edit book component
+
         }
 
         private void ApplyDeletingStatus()

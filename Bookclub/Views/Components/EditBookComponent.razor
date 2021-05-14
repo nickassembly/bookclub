@@ -43,8 +43,12 @@
 
             <br />
             <ButtonBase @ref=ConfirmEditButton
-                        Label="Edit Book"
+                        Label="Confirm"
                         OnClick="@EditBookAsync" />
+
+            <ButtonBase @ref=CancelEditButton
+                        Label="Cancel"
+                        OnClick="@CancelEditAsync" />
 
             <br />
             <LabelBase @ref=StatusLabel />
