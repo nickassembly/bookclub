@@ -16,6 +16,7 @@ namespace Bookclub.Views.Pages
         public ButtonBase DeleteButton { get; set; }
         public LabelBase StatusLabel { get; set; }
         bool ShowEditComponent { get; set; } = false;
+        bool ShowAddComponent { get; set; } = false;
         bool ShowBookList { get; set; } = true;
 
         [Parameter]
@@ -63,6 +64,12 @@ namespace Bookclub.Views.Pages
         {
             BookToEdit = book;
             ShowEditComponent = true;
+            ShowBookList = false;
+        }
+
+        public void ToggleAdd()
+        {
+            ShowAddComponent = true;
             ShowBookList = false;
         }
 

@@ -63,6 +63,8 @@ namespace Bookclub.Views.Components
 
         public async void EditBookAsync()
         {
+
+            // TODO: Wire Up confirm edit button to allow data changes
             try
             {
                 Book newBookInfo = GetNewBookInfo();
