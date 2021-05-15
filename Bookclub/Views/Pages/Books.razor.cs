@@ -15,6 +15,12 @@ namespace Bookclub.Views.Pages
         public Book Book { get; set; }
         public ButtonBase DeleteButton { get; set; }
         public LabelBase StatusLabel { get; set; }
+        bool ShowEditComponent { get; set; } = false;
+        bool ShowAddComponent { get; set; } = false;
+        bool ShowBookList { get; set; } = true;
+
+        [Parameter]
+        public Book BookToEdit { get; set; }
 
         [Inject]
         public IBookViewService BookViewService { get; set; }
@@ -54,33 +60,23 @@ namespace Bookclub.Views.Pages
             return null;
         }
 
-        public async Task<BookResponse> EditBookAsync(Book bookToEdit)
+        public void ToggleEdit(Book book)
         {
-            try
-            {
-                ApplyEditingStatus();
-                await BookViewService.EditBookAsync(bookToEdit);
-                ReportEditingSuccess();
-                NavigationManager.NavigateTo("books", true);
-            }
-            catch (System.Exception)
-            {
+            BookToEdit = book;
+            ShowEditComponent = true;
+            ShowBookList = false;
+        }
 
-                throw;
-            }
-
-            return null;
+        public void ToggleAdd()
+        {
+            ShowAddComponent = true;
+            ShowBookList = false;
         }
 
         private void ApplyDeletingStatus()
         {
             this.StatusLabel.SetColor(Color.Black);
             this.StatusLabel.SetValue("Deleting ... ");
-        }
-        private void ApplyEditingStatus()
-        {
-            this.StatusLabel.SetColor(Color.Black);
-            this.StatusLabel.SetValue("Making Changes ... ");
         }
 
         private void ReportBookDeletionSucceeded()
@@ -89,11 +85,7 @@ namespace Bookclub.Views.Pages
             this.StatusLabel.SetValue("Deleted Successfully");
         }
 
-        private void ReportEditingSuccess()
-        {
-            this.StatusLabel.SetColor(Color.Green);
-            this.StatusLabel.SetValue("Book Edited Successfully");
-        }
+
 
 
     }

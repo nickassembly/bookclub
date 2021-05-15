@@ -3,49 +3,82 @@
 @using Bookclub.Models.Books
 
 @inject HttpClient Http
-@inject NavigationManager NavigationManager 
+@inject NavigationManager NavigationManager
 
 <div class="container">
-    <h3 class="p-3 text-center">Current Books</h3>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Isbn</th>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Subtitle</th>
-                <th>List Price</th>
-                <th>Edit</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in BookList)
-            {
-            <tr>
-                <td>@book.Isbn</td>
-                <td>@book.Author</td>
-                <td>@book.Title</td>
-                <td>@book.Subtitle</td>
-                <td>$@book.ListPrice</td>
-                <td>
-                    <button @onclick="() => EditBookAsync(book)">
-                        Edit
-                    </button>
-                </td>
-                <td>
-                    <button  @onclick="() => DeleteBookAsync(book.Id)">
-                        Delete
-                    </button>
-                </td>
-                    <LabelBase @ref="StatusLabel"></LabelBase>
-            </tr>
-            }
-        </tbody>
-    </table>
+    @if (ShowBookList)
+    {
+        <h3 class="p-3 text-center">Current Books</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Isbn</th>
+                    <th>Author</th>
+                    <th>Title</th>
+                    <th>Subtitle</th>
+                    <th>List Price</th>
+                    <th>Edit</th>
+                    <th>Remove</th>
+                    @if (ShowEditComponent)
+                    {
+                        <th>Cancel</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in BookList)
+                {
+                    <tr>
+                        <td>@book.Isbn</td>
+                        <td>@book.Author</td>
+                        <td>@book.Title</td>
+                        <td>@book.Subtitle</td>
+                        <td>$@book.ListPrice</td>
+                        <td>
+                            <button @onclick="(() => ToggleEdit(book))">
+                                Edit
+                            </button>
+                        </td>
+                        <td>
+                            <button @onclick="() => DeleteBookAsync(book.Id)">
+                                Delete
+                            </button>
+                        </td>
 
-    <h3 class="p-3">Add Book</h3>
-    <AddBookComponent />
+                        @if (ShowEditComponent)
+                        {
+                            <td>
+                                <button @onclick="(() => ShowEditComponent = false)">
+                                    Cancel
+                                </button>
+                            </td>
+                        }
+
+                        <LabelBase @ref="StatusLabel"></LabelBase>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    <button @onclick="(() => ToggleAdd())">
+        Add Book
+    </button>
+    }
+
+
+    @if (ShowEditComponent)
+    {
+        <h3 class="p-3">Edit Book</h3>
+        <EditBookComponent BookToEdit="@BookToEdit" />
+    }
+
+    @if (ShowAddComponent)
+    {
+        <h3 class="p-3">Add Book</h3>
+        <AddBookComponent />
+    }
+
+
 </div>
 
 
