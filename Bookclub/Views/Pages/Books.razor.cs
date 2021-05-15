@@ -18,6 +18,9 @@ namespace Bookclub.Views.Pages
         bool ShowEditComponent { get; set; } = false;
         bool ShowBookList { get; set; } = true;
 
+        [Parameter]
+        public Book BookToEdit { get; set; }
+
         [Inject]
         public IBookViewService BookViewService { get; set; }
 
@@ -58,10 +61,9 @@ namespace Bookclub.Views.Pages
 
         public void ToggleEdit(Book book)
         {
+            BookToEdit = book;
             ShowEditComponent = true;
             ShowBookList = false;
-           // TODO: Need to load proper book info into Edit book component
-
         }
 
         private void ApplyDeletingStatus()

@@ -9,6 +9,7 @@ using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 
 namespace Bookclub.Views.Components
@@ -20,6 +21,9 @@ namespace Bookclub.Views.Components
 
         [Inject]
         public IBookService BookService { get; set; }
+
+        [Parameter]
+        public Book BookToEdit { get; set; }
 
         public ComponentState State { get; set; }
         public AddBookComponentException Exception { get; set; }
@@ -39,7 +43,21 @@ namespace Bookclub.Views.Components
 
         protected override void OnInitialized()
         {
-            this.BookView = new BookView();
+
+            this.BookView = new BookView
+            {
+                Id = BookToEdit.Id,
+                Isbn = BookToEdit.Isbn,
+                Isbn13 = BookToEdit.Isbn13,
+                Title = BookToEdit.Title,
+                Subtitle = BookToEdit.Subtitle,
+                PrimaryAuthor = BookToEdit.Author,
+                Publisher = BookToEdit.Publisher,
+                ListPrice = BookToEdit.ListPrice.ToString(),
+                PublishedDate = BookToEdit.PublishDate
+              // MediaType = BookToEdit.MediaType TODO: Fix Media Type
+            };
+
             this.State = ComponentState.Content;
         }
 

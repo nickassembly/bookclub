@@ -61,11 +61,10 @@
         </table>
     }
 
-
     @if (ShowEditComponent)
     {
         <h3 class="p-3">Edit Book</h3>
-        <EditBookComponent />
+        <EditBookComponent BookToEdit="@BookToEdit"/>
     }
     else
     {
