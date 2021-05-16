@@ -18,6 +18,8 @@ namespace Bookclub.Views.Pages.LoginPages
             return base.OnInitializedAsync();
         }
 
+        // TODO: Convert to RestSharp call...possibly add logging?
+
         private async Task<bool> RegisterUser()
         {
             // Serialize user object
