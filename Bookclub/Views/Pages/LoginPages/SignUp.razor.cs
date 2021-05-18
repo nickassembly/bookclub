@@ -1,8 +1,8 @@
 ﻿using Bookclub.Data;
 using Bookclub.Models.Users;
+using Bookclub.Services.Users;
 using Newtonsoft.Json;
-using System;
-using System.Net.Http;
+using RestSharp;
 using System.Threading.Tasks;
 
 namespace Bookclub.Views.Pages.LoginPages
@@ -12,49 +12,45 @@ namespace Bookclub.Views.Pages.LoginPages
         private User user;
         public string RegisterMessage { get; set; }
 
+        // TODO: Add logger to log errors on failed api calls
         protected override Task OnInitializedAsync()
         {
             user = new User();
             return base.OnInitializedAsync();
         }
 
-        private async Task<bool> RegisterUser()
+        private async Task<User> RegisterUser()
         {
-            // Serialize user object
-            string serializedUser = JsonConvert.SerializeObject(user);
+            var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/users/register");
+            client.Timeout = -1;
 
-            HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
-            httpRequestMessage.Method = new HttpMethod("POST");
+            var registerUserRequest = new RestRequest(Method.POST);
 
-            httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users/register");       
+            registerUserRequest.AddJsonBody(user);
 
-            httpRequestMessage.Content = new StringContent(serializedUser);
+            var userAddResponse = await client.ExecuteAsync<UserResponse>(registerUserRequest);
 
-            httpRequestMessage.Content.Headers.ContentType =
-                new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-            var response = await Http.SendAsync(httpRequestMessage);
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode.ToString() == "OK")
+            if (userAddResponse.StatusCode.ToString() != "OK")
             {
-                var returnedUser = JsonConvert.DeserializeObject<User>(responseBody);
-
-                await sessionStorage.SetItemAsync("emailAddress", user.email);
-                await sessionStorage.SetItemAsync("token", returnedUser.Token);
-                await sessionStorage.SetItemAsync("refreshToken", returnedUser.RefreshToken);
-
-                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.password);
-                NavigationManager.NavigateTo("/index");
-            }
-            else
-            {
-                // TODO: Need navigation button to bring unauthorized user back to login screen as an option.
+                UserResponse invalidResponse = JsonConvert.DeserializeObject<UserResponse>(userAddResponse.Content);
+                invalidResponse.ResponseMessage = $"Error Registering User: {userAddResponse.StatusCode}";
                 RegisterMessage = $"Unable to create user. Name or email taken.";
+
+                return null;
             }
 
-            return await Task.FromResult(true);
+            var returnedUser = JsonConvert.DeserializeObject<User>(userAddResponse.Content);
+            await sessionStorage.SetItemAsync("emailAddress", user.email);
+            await sessionStorage.SetItemAsync("token", returnedUser.Token);
+            await sessionStorage.SetItemAsync("refreshToken", returnedUser.RefreshToken);
+
+            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.password);
+            NavigationManager.NavigateTo("/index");
+
+            return returnedUser;
 
         }
+
     }
 }
