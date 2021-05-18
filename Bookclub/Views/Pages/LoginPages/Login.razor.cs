@@ -1,6 +1,8 @@
 ﻿using Bookclub.Data;
 using Bookclub.Models.Users;
+using Bookclub.Services.Users;
 using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,48 +14,43 @@ namespace Bookclub.Views.Pages.LoginPages
         private User user;
         public string LoginMessage { get; set; }
 
+        // TODO: Add logging to failed api responses
         protected override Task OnInitializedAsync()
         {
             user = new User();
             return base.OnInitializedAsync();
         }
 
-        private async Task<bool> ValidateUser()
+        private async Task<User> ValidateUser()
         {
-            // Serialize user object
-            string serializedUser = JsonConvert.SerializeObject(user);
+            var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/users/login");
+            client.Timeout = -1;
 
-            HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
-            httpRequestMessage.Method = new HttpMethod("POST");
-          
-            httpRequestMessage.RequestUri = new Uri("https://bookclubapiservicev2.azurewebsites.net/api/users/login");
+            var registerUserRequest = new RestRequest(Method.POST);
 
-            httpRequestMessage.Content = new StringContent(serializedUser);
+            registerUserRequest.AddJsonBody(user);
 
-            httpRequestMessage.Content.Headers.ContentType =
-                new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var userAddResponse = await client.ExecuteAsync<UserResponse>(registerUserRequest);
 
-            var response = await Http.SendAsync(httpRequestMessage);
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode.ToString() == "OK")
+            if (userAddResponse.StatusCode.ToString() != "OK")
             {
-                var returnedUser = JsonConvert.DeserializeObject<User>(responseBody);
+                UserResponse invalidResponse = JsonConvert.DeserializeObject<UserResponse>(userAddResponse.Content);
+                invalidResponse.ResponseMessage = $"Error Logging In User: {userAddResponse.StatusCode}";
+                LoginMessage = $"Unable to log in user.";
 
-                // TODO: Proper way to retrieve session data once set?
-                await sessionStorage.SetItemAsync("emailAddress", user.email);
-                await sessionStorage.SetItemAsync("token", returnedUser.Token);
-                await sessionStorage.SetItemAsync("refreshToken", returnedUser.RefreshToken);
-
-                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.password);
-                NavigationManager.NavigateTo("/index");
-            }
-            else
-            {
-                LoginMessage = "Invalid username or password";
+                return null;
             }
 
-            return await Task.FromResult(true);
+            var validatedUser = JsonConvert.DeserializeObject<User>(userAddResponse.Content);
+            await sessionStorage.SetItemAsync("emailAddress", user.email);
+            await sessionStorage.SetItemAsync("token", validatedUser.Token);
+            await sessionStorage.SetItemAsync("refreshToken", validatedUser.RefreshToken);
+
+            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.password);
+            NavigationManager.NavigateTo("/index");
+
+            return validatedUser;
         }
+
     }
 }

@@ -33,6 +33,7 @@ namespace Bookclub.Views.Components
         public TextBoxBase ListPrice { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase SubmitButton { get; set; }
+        public ButtonBase CancelAddButton { get; set; }
         public LabelBase StatusLabel { get; set; }
 
         protected override void OnInitialized()
@@ -75,6 +76,11 @@ namespace Bookclub.Views.Components
 
                 ApplySubmissionFailed(validationMessage);
             }
+        }
+
+        public async void CancelAddAsync()
+        {
+            NavigationManager.NavigateTo("books", true);
         }
 
         private void ApplySubmittingStatus()
