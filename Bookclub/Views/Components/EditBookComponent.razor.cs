@@ -55,7 +55,8 @@ namespace Bookclub.Views.Components
                 Publisher = BookToEdit.Publisher,
                 ListPrice = BookToEdit.ListPrice.ToString(),
                 PublishedDate = BookToEdit.PublishDate
-              // MediaType = BookToEdit.MediaType TODO: Fix Media Type
+              // MediaType = BookToEdit.MediaType
+              // TODO: Fix Media Type
             };
 
             this.State = ComponentState.Content;

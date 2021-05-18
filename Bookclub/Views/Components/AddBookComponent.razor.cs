@@ -42,6 +42,7 @@ namespace Bookclub.Views.Components
             this.State = ComponentState.Content;
         }
 
+        // TODO: Add Logging
         public async void AddBookAsync()
         {
             try
