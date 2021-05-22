@@ -1,0 +1,8 @@
+﻿@using Microsoft.Extensions.Logging
+
+@inject ILogger<Error> _logger
+@inject IToastService _toastService 
+
+<CascadingValue Value=this>
+    @ChildContent
+</CascadingValue>
