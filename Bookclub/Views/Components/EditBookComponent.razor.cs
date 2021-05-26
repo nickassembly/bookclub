@@ -59,18 +59,20 @@ namespace Bookclub.Views.Components
               // TODO: Fix Media Type
             };
 
+            // TODO: Book data needs to be changeable in component and editbookasync should take edited data
+            // currently it just passes the same book view data that is currently in the list. 
+
             this.State = ComponentState.Content;
         }
 
-        public async void EditBookAsync()
+        public async void EditBookAsync(Book bookToEdit)
         {
 
-            // TODO: Wire Up confirm edit button to allow data changes
             try
             {
-                Book newBookInfo = GetNewBookInfo();
+               // Book newBookInfo = GetNewBookInfo();
 
-                await BookViewService.EditBookAsync(newBookInfo);
+                await BookViewService.EditBookAsync(bookToEdit);
                 ReportEditingSuccess();
                 NavigationManager.NavigateTo("books", true);
             }

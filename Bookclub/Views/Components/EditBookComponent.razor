@@ -44,7 +44,7 @@
             <br />
             <ButtonBase @ref=ConfirmEditButton
                         Label="Confirm"
-                        OnClick="@EditBookAsync" />
+                        OnClick="(() => EditBookAsync(BookToEdit))" />
 
             <ButtonBase @ref=CancelEditButton
                         Label="Cancel"
