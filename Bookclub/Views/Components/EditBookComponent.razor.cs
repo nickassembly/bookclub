@@ -9,6 +9,7 @@ using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Threading.Tasks;
 
@@ -24,6 +25,21 @@ namespace Bookclub.Views.Components
 
         [Parameter]
         public Book BookToEdit { get; set; }
+
+        private string _isbnInput;
+        [Parameter]
+        public string IsbnInput
+        {
+            get => _isbnInput;
+            set
+            {
+                if (_isbnInput == value) return;
+                _isbnInput = value;
+                IsbnInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> IsbnInputChanged { get; set; }
 
         public ComponentState State { get; set; }
         public AddBookComponentException Exception { get; set; }
@@ -59,18 +75,20 @@ namespace Bookclub.Views.Components
               // TODO: Fix Media Type
             };
 
-            // TODO: Book data needs to be changeable in component and editbookasync should take edited data
-            // currently it just passes the same book view data that is currently in the list. 
+ 
 
             this.State = ComponentState.Content;
         }
+
+
 
         public async void EditBookAsync(Book bookToEdit)
         {
 
             try
             {
-               // Book newBookInfo = GetNewBookInfo();
+                // Book newBookInfo = GetNewBookInfo();
+                bookToEdit.Isbn = IsbnInput;
 
                 await BookViewService.EditBookAsync(bookToEdit);
                 ReportEditingSuccess();
