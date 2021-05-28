@@ -12,36 +12,37 @@
                              Placeholder="@BookView.Isbn" />
                 <br />
                 <TextBoxBase @ref="Isbn13TextBox"
-                             @bind-Value="BookView.Isbn13"
-                             Placeholder="Isbn13" />
+                             @bind-Value="@Isbn13Input"
+                             Placeholder="@BookView.Isbn13" />
                 <br />
                 <TextBoxBase @ref="AuthorTextBox"
-                             @bind-Value="BookView.PrimaryAuthor"
-                             Placeholder="Author" />
+                             @bind-Value="@AuthorInput"
+                             Placeholder="@BookView.PrimaryAuthor" />
                 <br />
 
                 <TextBoxBase @ref="TitleTextBox"
-                             @bind-Value="BookView.Title"
-                             Placeholder="Title" />
+                             @bind-Value="@TitleInput"
+                             Placeholder="@BookView.Title" />
                 <br />
                 <TextBoxBase @ref="SubtitleTextBox"
-                             @bind-Value="BookView.Subtitle"
-                             Placeholder="Subtitle" />
+                             @bind-Value="@SubTitleInput"
+                             Placeholder="@BookView.Subtitle" />
                 <br />
-                <DropDownBase @ref=MediaTypeDropDown
-                              @bind-Value="BookView.MediaType"
+                @*<DropDownBase @ref=MediaTypeDropDown
+                              @bind-Value="@MediaTypeInput"
                               TEnum="BookViewMediaType" />
-                <br />
+                <br />*@
                 <TextBoxBase @ref=Publisher
-                             @bind-Value="BookView.Publisher"
-                             Placeholder="Publisher" />
+                             @bind-Value="@PublisherInput"
+                             Placeholder="@BookView.Publisher" />
                 <br />
                 <TextBoxBase @ref=ListPrice
-                             @bind-Value="BookView.ListPrice"
-                             PlaceHolder="List Price" />
+                             @bind-Value="@BookListPrice"
+                             PlaceHolder="@BookView.ListPrice" />
                 <br />
                 <DatePickerBase @ref="PublishDatePicker"
-                                @bind-Value="BookView.PublishedDate" />
+                                @bind-Value="@PublishDateInput"
+                                />
 
                 <br />
                 <ButtonBase @ref=ConfirmEditButton

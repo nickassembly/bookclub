@@ -1,17 +1,13 @@
 ﻿using Bookclub.Models.AddBookComponents.Exceptions;
 using Bookclub.Models.Books;
 using Bookclub.Models.Books.BookViews;
-using Bookclub.Models.Books.BookViews.Exceptions;
-using Bookclub.Models.Books.Exceptions;
 using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using System;
-using System.Threading.Tasks;
 
 namespace Bookclub.Views.Components
 {
@@ -25,6 +21,9 @@ namespace Bookclub.Views.Components
 
         [Parameter]
         public Book BookToEdit { get; set; }
+
+        [Parameter]
+        public string BookListPrice { get; set; }
 
         private string _isbnInput;
         [Parameter]
@@ -40,6 +39,126 @@ namespace Bookclub.Views.Components
         }
         [Parameter]
         public EventCallback<string> IsbnInputChanged { get; set; }
+
+        private string _isbn13Input;
+        [Parameter]
+        public string Isbn13Input
+        {
+            get => _isbn13Input;
+            set
+            {
+                if (_isbn13Input == value) return;
+                _isbn13Input = value;
+                Isbn13InputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> Isbn13InputChanged { get; set; }
+
+        private string _authorInput;
+        [Parameter]
+        public string AuthorInput
+        {
+            get => _authorInput;
+            set
+            {
+                if (_authorInput == value) return;
+                _authorInput = value;
+                AuthorInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> AuthorInputChanged { get; set; }
+
+        private string _titleInput;
+        [Parameter]
+        public string TitleInput
+        {
+            get => _titleInput;
+            set
+            {
+                if (_titleInput == value) return;
+                _titleInput = value;
+                TitleInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> TitleInputChanged { get; set; }
+
+        private string _subTitleInput;
+        [Parameter]
+        public string SubTitleInput
+        {
+            get => _subTitleInput;
+            set
+            {
+                if (_subTitleInput == value) return;
+                _subTitleInput = value;
+                SubTitleInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> SubTitleInputChanged { get; set; }
+
+        private string _mediaTypeInput;
+        [Parameter]
+        public string MediaTypeInput
+        {
+            get => _mediaTypeInput;
+            set
+            {
+                if (_mediaTypeInput == value) return;
+                _mediaTypeInput = value;
+                MediaTypeInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> MediaTypeInputChanged { get; set; }
+
+        private string _publisherInput;
+        [Parameter]
+        public string PublisherInput
+        {
+            get => _publisherInput;
+            set
+            {
+                if (_publisherInput == value) return;
+                _publisherInput = value;
+                PublisherInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> PublisherInputChanged { get; set; }
+
+        private string _listPriceInput;
+        [Parameter]
+        public string ListPriceInput
+        {
+            get => _listPriceInput;
+            set
+            {
+                if (_listPriceInput == value) return;
+                _listPriceInput = value;
+                ListPriceInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<string> ListPriceInputChanged { get; set; }
+
+        private DateTimeOffset _publishDateInput;
+        [Parameter]
+        public DateTimeOffset PublishDateInput
+        {
+            get => _publishDateInput;
+            set
+            {
+                if (_publishDateInput == value) return;
+                _publishDateInput = value;
+                PublishDateInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<DateTimeOffset> PublishDateInputChanged { get; set; }
 
         public ComponentState State { get; set; }
         public AddBookComponentException Exception { get; set; }
@@ -71,24 +190,28 @@ namespace Bookclub.Views.Components
                 Publisher = BookToEdit.Publisher,
                 ListPrice = BookToEdit.ListPrice.ToString(),
                 PublishedDate = BookToEdit.PublishDate
-              // MediaType = BookToEdit.MediaType
-              // TODO: Fix Media Type
+                // MediaType = BookToEdit.MediaType
+                // TODO: Fix Media Type
             };
 
- 
+
 
             this.State = ComponentState.Content;
         }
 
-
-
         public async void EditBookAsync(Book bookToEdit)
         {
+            decimal listPriceDecimal = Convert.ToDecimal(BookListPrice);
 
             try
             {
-                // Book newBookInfo = GetNewBookInfo();
                 bookToEdit.Isbn = IsbnInput;
+                bookToEdit.Author = AuthorInput;
+                bookToEdit.Isbn13 = Isbn13Input;
+                bookToEdit.Title = TitleInput;
+                bookToEdit.Publisher = PublisherInput;
+                bookToEdit.PublishDate = PublishDateInput;
+                bookToEdit.ListPrice = listPriceDecimal;
 
                 await BookViewService.EditBookAsync(bookToEdit);
                 ReportEditingSuccess();
