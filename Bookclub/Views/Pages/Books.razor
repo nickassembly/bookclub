@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>Isbn</th>
+                    <th>Isbn13</th>
                     <th>Author</th>
                     <th>Title</th>
                     <th>Subtitle</th>
@@ -28,34 +29,35 @@
             <tbody>
                 @foreach (var book in BookList)
                 {
-                    <tr>
-                        <td>@book.Isbn</td>
-                        <td>@book.Author</td>
-                        <td>@book.Title</td>
-                        <td>@book.Subtitle</td>
-                        <td>$@book.ListPrice</td>
+                <tr>
+                    <td>@book.Isbn</td>
+                    <td>@book.Isbn13</td>
+                    <td>@book.Author</td>
+                    <td>@book.Title</td>
+                    <td>@book.Subtitle</td>
+                    <td>$@book.ListPrice</td>
+                    <td>
+                        <button @onclick="(() => ToggleEdit(book))">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button @onclick="() => DeleteBookAsync(book.Id)">
+                            Delete
+                        </button>
+                    </td>
+
+                    @if (ShowEditComponent)
+                    {
                         <td>
-                            <button @onclick="(() => ToggleEdit(book))">
-                                Edit
+                            <button @onclick="(() => ShowEditComponent = false)">
+                                Cancel
                             </button>
                         </td>
-                        <td>
-                            <button @onclick="() => DeleteBookAsync(book.Id)">
-                                Delete
-                            </button>
-                        </td>
+                    }
 
-                        @if (ShowEditComponent)
-                        {
-                            <td>
-                                <button @onclick="(() => ShowEditComponent = false)">
-                                    Cancel
-                                </button>
-                            </td>
-                        }
-
-                        <LabelBase @ref="StatusLabel"></LabelBase>
-                    </tr>
+                    <LabelBase @ref="StatusLabel"></LabelBase>
+                </tr>
                 }
             </tbody>
         </table>

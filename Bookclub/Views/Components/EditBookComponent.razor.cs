@@ -199,19 +199,26 @@ namespace Bookclub.Views.Components
             this.State = ComponentState.Content;
         }
 
+        // TODO: need client side validation.
+        // TODO: better way to handle edit book component labels/placeholders
         public async void EditBookAsync(Book bookToEdit)
         {
-            decimal listPriceDecimal = Convert.ToDecimal(BookListPrice);
+            decimal uneditedListPrice = bookToEdit.ListPrice;
 
             try
             {
-                bookToEdit.Isbn = IsbnInput;
-                bookToEdit.Author = AuthorInput;
-                bookToEdit.Isbn13 = Isbn13Input;
-                bookToEdit.Title = TitleInput;
-                bookToEdit.Publisher = PublisherInput;
-                bookToEdit.PublishDate = PublishDateInput;
-                bookToEdit.ListPrice = listPriceDecimal;
+                bookToEdit.Isbn = IsbnInput != null ? IsbnInput : bookToEdit.Isbn;
+                bookToEdit.Author = AuthorInput != null ? AuthorInput : bookToEdit.Author;
+                bookToEdit.Isbn13 = Isbn13Input != null ? Isbn13Input : bookToEdit.Isbn13;
+                bookToEdit.Title = TitleInput != null ? TitleInput : bookToEdit.Title;
+                bookToEdit.Subtitle = SubTitleInput != null ? SubTitleInput : bookToEdit.Subtitle;
+                bookToEdit.Publisher = PublisherInput != null ? PublisherInput : bookToEdit.Publisher;
+                bookToEdit.PublishDate = PublishDateInput != default ? PublishDateInput : bookToEdit.PublishDate;
+
+                if (Convert.ToDecimal(BookListPrice) == 0)
+                    bookToEdit.ListPrice = uneditedListPrice;
+                else
+                    bookToEdit.ListPrice = Convert.ToDecimal(BookListPrice);
 
                 await BookViewService.EditBookAsync(bookToEdit);
                 ReportEditingSuccess();
