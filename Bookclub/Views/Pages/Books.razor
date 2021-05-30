@@ -17,6 +17,7 @@
                     <th>Author</th>
                     <th>Title</th>
                     <th>Subtitle</th>
+                    <th>Publisher</th>
                     <th>List Price</th>
                     <th>Edit</th>
                     <th>Remove</th>
@@ -35,6 +36,7 @@
                     <td>@book.Author</td>
                     <td>@book.Title</td>
                     <td>@book.Subtitle</td>
+                    <td>@book.Publisher</td>
                     <td>$@book.ListPrice</td>
                     <td>
                         <button @onclick="(() => ToggleEdit(book))">
