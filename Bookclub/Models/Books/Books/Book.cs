@@ -15,9 +15,7 @@ namespace Bookclub.Models.Books
         public string Author { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
-        // TODO: Fix issue when enabling media type on front end. Causes booklist get to fail
-        // Cannot convert media type...
-        // public BookMediaType MediaType { get; set; }
+      //  public BookMediaType MediaType { get; set; }
         public string Publisher { get; set; }
         public DateTimeOffset PublishDate { get; set; }
         public decimal ListPrice { get; set; }
