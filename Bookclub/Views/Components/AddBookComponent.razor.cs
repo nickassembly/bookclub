@@ -6,14 +6,20 @@ using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
+using Bookclub.Shared;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 
 namespace Bookclub.Views.Components
 {
     public partial class AddBookComponent
     {
+        // Added for error logging
+        [CascadingParameter]
+        public Error Error { get; set; }
+
         [Inject]
         public IBookViewService BookViewService { get; set; }
 
@@ -40,8 +46,22 @@ namespace Bookclub.Views.Components
         {
             this.BookView = new BookView();
             this.State = ComponentState.Content;
+
+            // TODO: Refactor catch blocks to call Error.ProcessError to use global error component
+            // something similar to below
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                // Call global error component process error method
+                Error.ProcessError(ex);
+            }
+  
         }
 
+        // TODO: Add Logging
         public async void AddBookAsync()
         {
             try

@@ -70,7 +70,7 @@ namespace Bookclub.Brokers.API
 
             var bookAddResponse = await client.ExecuteAsync<BookResponse>(bookAddRequest);
 
-            if (bookAddResponse.StatusCode.ToString() != "")
+            if (bookAddResponse.StatusCode.ToString() != "OK")
             {
                 BookResponse invalidResponse = JsonConvert.DeserializeObject<BookResponse>(bookAddResponse.Content);
 

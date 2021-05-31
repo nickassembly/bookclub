@@ -36,6 +36,8 @@ namespace Bookclub.Views.Pages
         {
             List<Book> bookList = new List<Book>();
 
+            // TODO: Json Converter cannot convert enum here for (Media Type) may need a different serializer or handle in a new way
+            // to allow Media Types to be added
             BookList = await Http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
 
             return bookList;

@@ -1,8 +1,6 @@
 ﻿using Bookclub.Models.AddBookComponents.Exceptions;
 using Bookclub.Models.Books;
 using Bookclub.Models.Books.BookViews;
-using Bookclub.Models.Books.BookViews.Exceptions;
-using Bookclub.Models.Books.Exceptions;
 using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.Books;
@@ -10,7 +8,6 @@ using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Threading.Tasks;
 
 namespace Bookclub.Views.Components
 {
@@ -25,21 +22,46 @@ namespace Bookclub.Views.Components
         [Parameter]
         public Book BookToEdit { get; set; }
 
+        [Parameter]
+        public string BookListPrice { get; set; }
         public ComponentState State { get; set; }
-        public AddBookComponentException Exception { get; set; }
+       // public AddBookComponentException Exception { get; set; }
         public BookView BookView { get; set; }
         public TextBoxBase IsbnTextBox { get; set; }
         public TextBoxBase Isbn13TextBox { get; set; }
         public TextBoxBase TitleTextBox { get; set; }
         public TextBoxBase SubtitleTextBox { get; set; }
         public TextBoxBase AuthorTextBox { get; set; }
-        public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
-        public TextBoxBase Publisher { get; set; }
+        //public DropDownBase<BookViewMediaType> MediaTypeDropDown { get; set; }
+        public TextBoxBase PublisherTextBox { get; set; }
         public TextBoxBase ListPrice { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase ConfirmEditButton { get; set; }
         public ButtonBase CancelEditButton { get; set; }
         public LabelBase StatusLabel { get; set; }
+
+        // TODO: Need better way to handle publish date picker
+        private DateTimeOffset _publishDateInput;
+        [Parameter]
+        public DateTimeOffset PublishDateInput
+        {
+            get => _publishDateInput;
+            set
+            {
+                if (_publishDateInput == value) return;
+                _publishDateInput = value;
+                PublishDateInputChanged.InvokeAsync(value);
+            }
+        }
+        [Parameter]
+        public EventCallback<DateTimeOffset> PublishDateInputChanged { get; set; }
+
+        private string Isbn { get; set; }
+        private string Isbn13 { get; set; }
+        private string Author { get; set; }
+        private string Title { get; set; }
+        private string Subtitle { get; set; }
+        private string Publisher { get; set; }
 
         protected override void OnInitialized()
         {
@@ -55,21 +77,37 @@ namespace Bookclub.Views.Components
                 Publisher = BookToEdit.Publisher,
                 ListPrice = BookToEdit.ListPrice.ToString(),
                 PublishedDate = BookToEdit.PublishDate
-              // MediaType = BookToEdit.MediaType TODO: Fix Media Type
+                // MediaType = BookToEdit.MediaType
+                // TODO: Fix Media Type
             };
 
             this.State = ComponentState.Content;
         }
 
-        public async void EditBookAsync()
-        {
+        // TODO: need client side validation.
 
-            // TODO: Wire Up confirm edit button to allow data changes
+        public async void EditBookAsync(Book bookToEdit)
+        {
+            decimal uneditedListPrice = bookToEdit.ListPrice;
+
             try
             {
-                Book newBookInfo = GetNewBookInfo();
 
-                await BookViewService.EditBookAsync(newBookInfo);
+                bookToEdit.Isbn = !string.IsNullOrEmpty(Isbn) ? Isbn : bookToEdit.Isbn;
+                bookToEdit.Author = !string.IsNullOrEmpty(Author) ? Author : bookToEdit.Author;
+                bookToEdit.Isbn13 = !string.IsNullOrEmpty(Isbn13) ? Isbn13 : bookToEdit.Isbn13;
+                bookToEdit.Title = !string.IsNullOrEmpty(Title) ? Title : bookToEdit.Title;
+                bookToEdit.Subtitle = !string.IsNullOrEmpty(Subtitle) ? Subtitle : bookToEdit.Subtitle;
+                bookToEdit.Publisher = !string.IsNullOrEmpty(Publisher) ? Publisher : bookToEdit.Publisher;
+
+                bookToEdit.PublishDate = PublishDateInput != default ? PublishDateInput : bookToEdit.PublishDate;
+
+                if (Convert.ToDecimal(BookListPrice) == 0)
+                    bookToEdit.ListPrice = uneditedListPrice;
+                else
+                    bookToEdit.ListPrice = Convert.ToDecimal(BookListPrice);
+
+                await BookViewService.EditBookAsync(bookToEdit);
                 ReportEditingSuccess();
                 NavigationManager.NavigateTo("books", true);
             }
