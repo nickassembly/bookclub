@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Color = Bookclub.Models.Colors.Color;
 
 namespace Bookclub.Views.Pages
@@ -18,6 +19,13 @@ namespace Bookclub.Views.Pages
         bool ShowEditComponent { get; set; } = false;
         bool ShowAddComponent { get; set; } = false;
         bool ShowBookList { get; set; } = true;
+
+        private readonly IBookService _bookService;
+
+        public Books(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
 
         [Parameter]
         public Book BookToEdit { get; set; }
@@ -36,9 +44,9 @@ namespace Bookclub.Views.Pages
         {
             List<Book> bookList = new List<Book>();
 
-            // TODO: Json Converter cannot convert enum here for (Media Type) may need a different serializer or handle in a new way
-            // to allow Media Types to be added
-            BookList = await Http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
+            // TODO: Add a new method to bookservice to get all books
+  
+            //BookList = await Http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
 
             return bookList;
         }
