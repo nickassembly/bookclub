@@ -27,6 +27,11 @@ namespace Bookclub.Views.Pages
             _bookService = bookService;
         }
 
+        public Books()
+        {
+            // TODO: Research why a parameterless constructor is needed here
+        }
+
         [Parameter]
         public Book BookToEdit { get; set; }
 
@@ -44,9 +49,13 @@ namespace Bookclub.Views.Pages
         {
             List<Book> bookList = new List<Book>();
 
-            // TODO: Add a new method to bookservice to get all books
-  
+            var books = await BookViewService.GetAllBooks();
+
             //BookList = await Http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
+
+            // TODO: Cleanup and Fix naming
+            BookList = books.Books;
+            
 
             return bookList;
         }
