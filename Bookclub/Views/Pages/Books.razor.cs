@@ -49,14 +49,10 @@ namespace Bookclub.Views.Pages
         {
             List<Book> bookList = new List<Book>();
 
-            var books = await BookViewService.GetAllBooks();
+            var bookResponse = await BookViewService.GetAllBooks();
 
-            //BookList = await Http.GetJsonAsync<List<Book>>("https://bookclubapiservicev2.azurewebsites.net/api/books");
-
-            // TODO: Cleanup and Fix naming
-            BookList = books.Books;
+            BookList = bookResponse.Books;
             
-
             return bookList;
         }
 
