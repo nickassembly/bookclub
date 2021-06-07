@@ -14,7 +14,6 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "igniteui-webcomponents-core": "^1.3.0",
-    "igniteui-webcomponents-gauges": "^1.3.0"
+    "node-isbn": "^1.6.1"
   }
 }

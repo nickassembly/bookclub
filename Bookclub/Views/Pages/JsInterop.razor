@@ -1,29 +1,7 @@
 ﻿@page "/interop"
-@inject IJSRuntime JSRuntime 
+@inject IJSRuntime JSRuntime
 
-<h1>JS Interop Test</h1>
+<h4>Get ISBN Data</h4>
+<br />
 
-@*<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-<button class="btn btn-primary" @onclick="CallInstanceMethod">Invoke Instance Method</button>*@
-
-<igc-radial-gauge id="rg" height="400px"
-                  width="400px"
-                  value="25"
-                  interval="5"
-                  minimum-value="0"
-                  maximum-value="100">
-    <igc-radial-gauge-range start-value="0"
-                            end-value="30"
-                            brush="red"></igc-radial-gauge-range>
-    <igc-radial-gauge-range start-value="30"
-                            end-value="60"
-                            brush="yellow"></igc-radial-gauge-range>
-    <igc-radial-gauge-range start-value="60"
-                            end-value="100"
-                            brush="green"></igc-radial-gauge-range>
-</igc-radial-gauge>
-
-<button @onclick="OnClick">Update Value</button>
+<button class="btn btn-primary" @onclick="OnClick">Test</button>
