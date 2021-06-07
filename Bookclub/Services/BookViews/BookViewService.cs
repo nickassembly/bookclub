@@ -46,6 +46,11 @@ namespace Bookclub.Services.BookViews
             _ctx = ctx;
         }
 
+        public Task<BookResponse> GetAllBooks()
+        {
+            return _bookService.GetAllBooks();
+        }
+
         public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
             TryCatch(async () =>
             {
@@ -100,5 +105,7 @@ namespace Bookclub.Services.BookViews
             };
 
         }
+
+     
     }
 }

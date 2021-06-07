@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RESTFulSense.Clients;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,6 +24,39 @@ namespace Bookclub.Brokers.API
 
         private async ValueTask<T> GetAsync<T>(string relativeUrl) =>
            await this.apiClient.GetContentAsync<T>(relativeUrl);
+
+        public async Task<BookResponse> GetAllBooks()
+        {
+            var client = new RestClient($"https://bookclubapiservicev2.azurewebsites.net/api/books");
+
+            client.Timeout = -1;
+
+            //var bearerAccessToken = $"bearer " + ctx.Request.Cookies["access_token"]; // may need later
+
+            var bookGetRequest = new RestRequest(Method.GET);
+
+            //bookAddRequest.AddHeader("Authorization", bearerAccessToken); 
+
+            var bookGetResponse = await client.ExecuteAsync<BookResponse>(bookGetRequest);
+
+            if (bookGetResponse.StatusCode.ToString() != "OK")
+            {
+                BookResponse invalidResponse = JsonConvert.DeserializeObject<BookResponse>(bookGetResponse.Content);
+
+                // handle logging and errors
+                return invalidResponse;
+            }
+
+            List<Book> returnedBooks = JsonConvert.DeserializeObject<List<Book>>(bookGetResponse.Content);
+
+            BookResponse createdResponse = new BookResponse
+            {
+                ResponseMessage = bookGetResponse.StatusCode.ToString(),
+                Books = returnedBooks
+            };
+
+            return createdResponse;
+        }
 
         public async Task<BookResponse> PostBookAsync(/*HttpContext ctx,*/ Book book)
         {

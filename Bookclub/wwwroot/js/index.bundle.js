@@ -1,0 +1,1 @@
+window.getBookInfo=function(o){console.log(o)};
