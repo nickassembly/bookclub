@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookclub", "Bookclub\Bookcl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookclub.Tests", "Bookclub.Tests\Bookclub.Tests.csproj", "{D22F9E58-8BE8-4954-9FE0-71C0508E1A30}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1CD87806-CAA6-4474-8A3C-D9B8ED3E348B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8ED1A490-15AC-4B4D-A09F-CB91AA541DE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D6D5EA82-CAC2-4C00-A844-8FF114AE06E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +30,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D22F9E58-8BE8-4954-9FE0-71C0508E1A30} = {D6D5EA82-CAC2-4C00-A844-8FF114AE06E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31D1A41E-D5FF-4C48-977C-B03BBE0B653D}
