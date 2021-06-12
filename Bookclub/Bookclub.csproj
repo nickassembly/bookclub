@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ApiModels\" />
+    <Folder Include="Api\" />
+    <Folder Include="Pages\ProjectDetails\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
