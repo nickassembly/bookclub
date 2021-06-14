@@ -1,18 +1,13 @@
 ﻿using Blazored.SessionStorage;
 using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
-using Bookclub.Models.Books;
-using Bookclub.Models.Books.BookViews;
+using Bookclub.Core.DomainAggregates;
 using Bookclub.Models.Users;
 using Bookclub.Services.Books;
 using Bookclub.Services.Users;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
@@ -54,7 +49,7 @@ namespace Bookclub.Services.BookViews
         public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
             TryCatch(async () =>
             {
-                ValidateBookView(bookView);
+                // TODO: Add Book View validation (on back end)
                 Book book = await MapToBook(bookView);
                 await _bookService.AddBookAsync(book);
                 return bookView;

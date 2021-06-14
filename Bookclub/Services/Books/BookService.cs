@@ -1,6 +1,6 @@
 ﻿using Bookclub.Brokers.API;
 using Bookclub.Brokers.Logging;
-using Bookclub.Models.Books;
+using Bookclub.Core.DomainAggregates;
 using System;
 using System.Threading.Tasks;
 
@@ -24,13 +24,12 @@ namespace Bookclub.Services.Books
 
         public async Task<BookResponse> AddBookAsync(Book book)
         {
-            ValidateBook(book);
+            // TODO: Add Book Validation ...service? (back end validation)
             return await _apiBroker.PostBookAsync(book);
         }
 
         public async Task<BookResponse> EditBookAsync(Book book)
         {
-            ValidateBook(book);
             return await _apiBroker.EditBookAsync(book);
         }
 

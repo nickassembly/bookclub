@@ -1,4 +1,4 @@
-﻿using Bookclub.Models.Books;
+﻿using Bookclub.Core.DomainAggregates;
 using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;

@@ -1,11 +1,6 @@
-﻿using Bookclub.Models.Books.Books;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace Bookclub.Models.Books
+namespace Bookclub.Core.DomainAggregates
 {
     public class Book
     {

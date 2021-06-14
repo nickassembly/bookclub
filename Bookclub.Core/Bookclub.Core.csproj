@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BookclubAggregate\Events\" />
-    <Folder Include="BookclubAggregate\Handlers\" />
-    <Folder Include="BookclubAggregate\Specifications\" />
+    <Folder Include="CustomExceptions\" />
+    <Folder Include="DomainAggregates\Events\" />
+    <Folder Include="DomainAggregates\Handlers\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <Folder Include="Services\Books\" />
   </ItemGroup>
 
 </Project>

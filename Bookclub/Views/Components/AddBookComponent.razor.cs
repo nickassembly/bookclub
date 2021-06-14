@@ -1,7 +1,5 @@
-﻿using Bookclub.Models.AddBookComponents.Exceptions;
-using Bookclub.Models.Books.BookViews;
-using Bookclub.Models.Books.BookViews.Exceptions;
-using Bookclub.Models.Books.Exceptions;
+﻿using Bookclub.Core.DomainAggregates;
+using Bookclub.Models.AddBookComponents.Exceptions;
 using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.Books;
@@ -10,7 +8,6 @@ using Bookclub.Shared;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Threading.Tasks;
 
 namespace Bookclub.Views.Components
 {
@@ -72,30 +69,11 @@ namespace Bookclub.Views.Components
                 NavigationManager.NavigateTo("books", true);
                 
             }
-            catch (BookViewValidationException bookViewValidationException)
+            catch
             {
-                string validationMessage = bookViewValidationException.InnerException.Message;
-
-                ApplySubmissionFailed(validationMessage);
+                // TODO: Define exceptions
             }
-            catch (BookViewDependencyValidationException dependencyValidationException)
-            {
-                string validationMessage = dependencyValidationException.InnerException.Message;
-
-                ApplySubmissionFailed(validationMessage);
-            }
-            catch (BookViewDependencyException bookViewDependencyException)
-            {
-                string validationMessage = bookViewDependencyException.Message;
-
-                ApplySubmissionFailed(validationMessage);
-            }
-            catch (BookViewServiceException bookViewServiceException)
-            {
-                string validationMessage = bookViewServiceException.Message;
-
-                ApplySubmissionFailed(validationMessage);
-            }
+           
         }
 
         public async void CancelAddAsync()

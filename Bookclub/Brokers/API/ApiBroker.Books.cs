@@ -1,5 +1,4 @@
-﻿using Bookclub.Models.Books;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Bookclub.Brokers.API
 {

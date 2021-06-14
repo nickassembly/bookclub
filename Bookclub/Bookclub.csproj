@@ -21,6 +21,10 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bookclub.Core\Bookclub.Core.csproj" />
+  </ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="npm install" WorkingDirectory="Services/NpmJS" />
     <Exec Command="npm run build" WorkingDirectory="Services/NpmJS" />
