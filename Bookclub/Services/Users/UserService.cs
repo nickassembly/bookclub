@@ -1,4 +1,4 @@
-﻿using Bookclub.Models.Users;
+﻿using Bookclub.Core.DomainAggregates;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RestSharp;

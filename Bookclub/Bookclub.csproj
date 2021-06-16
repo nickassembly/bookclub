@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Api\**" />
+    <Content Remove="Api\**" />
+    <EmbeddedResource Remove="Api\**" />
+    <None Remove="Api\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.SessionStorage" Version="1.0.13" />
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
@@ -14,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiModels\" />
-    <Folder Include="Api\" />
     <Folder Include="Pages\ProjectDetails\" />
     <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\images\" />

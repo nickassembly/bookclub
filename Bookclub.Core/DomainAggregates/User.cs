@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookclub.Models.Users
+namespace Bookclub.Core.DomainAggregates
 {
-    public class User 
+    public class User
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

@@ -9,7 +9,7 @@ namespace Bookclub.Models.Colors
     public enum Color
     {
         Black,
-        Red, 
+        Red,
         Green
     }
 }

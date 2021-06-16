@@ -1,5 +1,5 @@
-﻿using Bookclub.Data;
-using Bookclub.Models.Users;
+﻿using Bookclub.Core.DomainAggregates;
+using Bookclub.Data;
 using Bookclub.Services.Users;
 using Newtonsoft.Json;
 using RestSharp;

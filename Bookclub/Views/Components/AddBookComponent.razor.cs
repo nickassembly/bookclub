@@ -1,5 +1,4 @@
 ﻿using Bookclub.Core.DomainAggregates;
-using Bookclub.Models.AddBookComponents.Exceptions;
 using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
 using Bookclub.Services.Books;
@@ -24,7 +23,6 @@ namespace Bookclub.Views.Components
         public IBookService BookService { get; set; }
 
         public ComponentState State { get; set; }
-        public AddBookComponentException Exception { get; set; }
         public BookView BookView { get; set; }
         public TextBoxBase IsbnTextBox { get; set; }
         public TextBoxBase Isbn13TextBox { get; set; }

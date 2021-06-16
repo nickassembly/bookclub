@@ -2,7 +2,6 @@
 using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Core.DomainAggregates;
-using Bookclub.Models.Users;
 using Bookclub.Services.Books;
 using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Http;
