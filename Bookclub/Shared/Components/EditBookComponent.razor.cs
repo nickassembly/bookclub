@@ -1,12 +1,12 @@
 ﻿using Bookclub.Core.DomainAggregates;
 using Bookclub.Core.Interfaces;
-using Bookclub.Models.Colors;
-using Bookclub.Models.ContainerComponents;
+using Bookclub.Shared.Colors;
+using Bookclub.Shared.Components.ContainerComponents;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
 using System;
 
-namespace Bookclub.Views.Components
+namespace Bookclub.Shared.Components
 {
     public partial class EditBookComponent
     {

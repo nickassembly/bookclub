@@ -1,7 +1,7 @@
-﻿using Bookclub.Models.ContainerComponents;
+﻿using Bookclub.Shared.Components.ContainerComponents;
 using Microsoft.AspNetCore.Components;
 
-namespace Bookclub.Views.Components.ContainerComponents
+namespace Bookclub.Shared.Components
 {
     public partial class ContainerComponent : ComponentBase
     {

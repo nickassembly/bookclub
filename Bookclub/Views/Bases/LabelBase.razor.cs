@@ -1,10 +1,5 @@
-﻿using Bookclub.Models.Colors;
+﻿using Bookclub.Shared.Colors;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookclub.Views.Bases
 {

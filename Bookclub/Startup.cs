@@ -5,7 +5,7 @@ using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Core.Interfaces;
 using Bookclub.Data;
-using Bookclub.Models.Configurations;
+using Bookclub.Configurations;
 using Bookclub.Services;
 using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
