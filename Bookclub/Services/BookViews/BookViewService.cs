@@ -1,8 +1,6 @@
 ﻿using Blazored.SessionStorage;
-using Bookclub.Brokers.DateTimes;
-using Bookclub.Brokers.Logging;
 using Bookclub.Core.DomainAggregates;
-using Bookclub.Services.Books;
+using Bookclub.Core.Interfaces;
 using Bookclub.Services.Users;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -14,7 +12,7 @@ namespace Bookclub.Services.BookViews
     public partial class BookViewService : IBookViewService
     {
         private readonly IBookService _bookService;
-        private readonly IUserService _userService;
+        private readonly IUserService _userService; // TODO: unable to move IUserService to Domain Aggregates without causing compile error of auto gen code
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;

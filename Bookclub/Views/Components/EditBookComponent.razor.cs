@@ -1,8 +1,7 @@
 ﻿using Bookclub.Core.DomainAggregates;
+using Bookclub.Core.Interfaces;
 using Bookclub.Models.Colors;
 using Bookclub.Models.ContainerComponents;
-using Bookclub.Services.Books;
-using Bookclub.Services.BookViews;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
 using System;

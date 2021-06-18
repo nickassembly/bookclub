@@ -1,5 +1,5 @@
 ﻿using Bookclub.Core.DomainAggregates;
-using Bookclub.Services.Books;
+using Bookclub.Core.Interfaces;
 using Newtonsoft.Json;
 using RESTFulSense.Clients;
 using RestSharp;

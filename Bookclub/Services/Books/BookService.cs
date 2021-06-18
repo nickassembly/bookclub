@@ -1,6 +1,7 @@
 ﻿using Bookclub.Brokers.API;
 using Bookclub.Brokers.Logging;
 using Bookclub.Core.DomainAggregates;
+using Bookclub.Core.Interfaces;
 using System;
 using System.Threading.Tasks;
 
