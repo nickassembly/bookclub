@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
 {
+    // TODO: Move to domain Services folder
     public partial class BookViewService : IBookViewService
     {
         private readonly IBookService _bookService;
