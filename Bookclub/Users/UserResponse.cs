@@ -1,4 +1,4 @@
-﻿namespace Bookclub.Services.Users
+﻿namespace Bookclub.Users
 {
     public class UserResponse
     {

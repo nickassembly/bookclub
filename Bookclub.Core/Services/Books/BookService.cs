@@ -1,11 +1,9 @@
-﻿using Bookclub.Brokers.API;
-using Bookclub.Brokers.Logging;
-using Bookclub.Core.DomainAggregates;
+﻿using Bookclub.Core.DomainAggregates;
 using Bookclub.Core.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace Bookclub.Services.Books
+namespace Bookclub.Core.Services.Books
 {
     public partial class BookService : IBookService
     {

@@ -6,10 +6,7 @@ using Bookclub.Brokers.Logging;
 using Bookclub.Core.Interfaces;
 using Bookclub.Data;
 using Bookclub.Configurations;
-using Bookclub.Services;
-using Bookclub.Services.Books;
 using Bookclub.Services.BookViews;
-using Bookclub.Services.Users;
 using Bookclub.Views.Pages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -21,6 +18,9 @@ using Microsoft.Extensions.Logging;
 using RESTFulSense.Clients;
 using System;
 using System.Net.Http;
+using Bookclub.Users;
+using Bookclub.Core.Services;
+using Bookclub.Core.Services.Books;
 
 namespace Bookclub
 {
@@ -42,8 +42,7 @@ namespace Bookclub
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookViewService, BookViewService>();
-            
-            services.AddScoped<IDotnetToJavascript, DotnetToJavascript>();
+
             services.AddScoped<AddressProvider>();
 
             services.AddBlazoredToast();

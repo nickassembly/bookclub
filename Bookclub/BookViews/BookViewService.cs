@@ -7,7 +7,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Bookclub.Services.BookViews
+namespace Bookclub.BookViews
+
 {
     public partial class BookViewService : IBookViewService
     {
@@ -43,18 +44,18 @@ namespace Bookclub.Services.BookViews
             return _bookService.GetAllBooks();
         }
 
-        public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
-            TryCatch(async () =>
-            {
-                // TODO: Add Book View validation (on back end)
-                Book book = await MapToBook(bookView);
-                await _bookService.AddBookAsync(book);
-                return bookView;
-            });
+        public async ValueTask<BookView> AddBookViewAsync(BookView bookView)
+        {
+            // TODO: Add Book View validation (on back end)
+            Book book = await MapToBook(bookView);
+            await _bookService.AddBookAsync(book);
+            return bookView;
+        }
+
 
         public Task<BookResponse> EditBookAsync(Book bookToEdit)
         {
-             return _bookService.EditBookAsync(bookToEdit);
+            return _bookService.EditBookAsync(bookToEdit);
         }
 
         public Task<BookResponse> DeleteBookAsync(Guid bookId)
@@ -98,6 +99,6 @@ namespace Bookclub.Services.BookViews
 
         }
 
-     
+
     }
 }

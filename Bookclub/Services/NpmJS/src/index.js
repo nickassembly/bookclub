@@ -1,5 +1,4 @@
 ﻿
-
 window.getBookInfo = function (bookIsbn) {
 
     var isbn = require('node-isbn');
