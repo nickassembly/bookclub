@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
 {
-    // TODO: Services which return View Models should stay in Web project
+    // TODO: Move BookView Service and IBookView Service back to web project
+    // Services which return View Models should stay in Web project
     // Requests and Responses as well as all UI Binding Models go in this project
     public partial class BookViewService : IBookViewService
     {

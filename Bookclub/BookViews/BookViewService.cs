@@ -13,7 +13,7 @@ namespace Bookclub.BookViews
     public partial class BookViewService : IBookViewService
     {
         private readonly IBookService _bookService;
-        private readonly IUserService _userService; // TODO: unable to move IUserService to Domain Aggregates without causing compile error of auto gen code
+        private readonly IUserService _userService;
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;
