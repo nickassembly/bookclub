@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ApiModels\" />
     <Folder Include="Pages\ProjectDetails\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
