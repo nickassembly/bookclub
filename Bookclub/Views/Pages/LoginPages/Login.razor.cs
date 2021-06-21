@@ -1,5 +1,6 @@
 ﻿using Bookclub.Core.DomainAggregates;
 using Bookclub.Data;
+using Bookclub.Responses;
 using Bookclub.Users;
 using Newtonsoft.Json;
 using RestSharp;

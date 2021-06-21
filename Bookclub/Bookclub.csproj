@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Api\**" />
+    <Compile Remove="Pages\**" />
     <Content Remove="Api\**" />
+    <Content Remove="Pages\**" />
     <EmbeddedResource Remove="Api\**" />
+    <EmbeddedResource Remove="Pages\**" />
     <None Remove="Api\**" />
+    <None Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +26,7 @@
 
   <ItemGroup>
     <Folder Include="ApiModels\" />
-    <Folder Include="Pages\ProjectDetails\" />
+    <Folder Include="Requests\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

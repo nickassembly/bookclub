@@ -21,6 +21,7 @@ using System.Net.Http;
 using Bookclub.Users;
 using Bookclub.Core.Services;
 using Bookclub.Core.Services.Books;
+using Bookclub.Interfaces;
 
 namespace Bookclub
 {

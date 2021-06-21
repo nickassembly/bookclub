@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace Bookclub.Users
+namespace Bookclub.Interfaces
 {
     public interface IUserService
     {

@@ -1,21 +1,19 @@
 ﻿using Blazored.SessionStorage;
 using Bookclub.Core.DomainAggregates;
 using Bookclub.Core.Interfaces;
-using Bookclub.Users;
+using Bookclub.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
+
 {
-    // TODO: Move BookView Service and IBookView Service back to web project
-    // Services which return View Models should stay in Web project
-    // Requests and Responses as well as all UI Binding Models go in this project
     public partial class BookViewService : IBookViewService
     {
         private readonly IBookService _bookService;
-        private readonly IUserService _userService; // TODO: unable to move IUserService to Domain Aggregates without causing compile error of auto gen code
+        private readonly IUserService _userService;
         private readonly IDateTimeBroker _dateTimeBroker;
         private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;
@@ -46,18 +44,18 @@ namespace Bookclub.Services.BookViews
             return _bookService.GetAllBooks();
         }
 
-        public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
-            TryCatch(async () =>
-            {
-                // TODO: Add Book View validation (on back end)
-                Book book = await MapToBook(bookView);
-                await _bookService.AddBookAsync(book);
-                return bookView;
-            });
+        public async ValueTask<BookView> AddBookViewAsync(BookView bookView)
+        {
+            // TODO: Add Book View validation (on back end)
+            Book book = await MapToBook(bookView);
+            await _bookService.AddBookAsync(book);
+            return bookView;
+        }
+
 
         public Task<BookResponse> EditBookAsync(Book bookToEdit)
         {
-             return _bookService.EditBookAsync(bookToEdit);
+            return _bookService.EditBookAsync(bookToEdit);
         }
 
         public Task<BookResponse> DeleteBookAsync(Guid bookId)
@@ -101,6 +99,6 @@ namespace Bookclub.Services.BookViews
 
         }
 
-     
+
     }
 }
