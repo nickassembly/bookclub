@@ -7,6 +7,7 @@ namespace Bookclub.Core.Services.Books
 {
     public partial class BookService : IBookService
     {
+        // TODO: Refactor out Api broker
         private readonly IApiBroker _apiBroker;
         private readonly ILoggingBroker _loggingBroker;
 
