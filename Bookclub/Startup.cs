@@ -1,6 +1,5 @@
 using Blazored.SessionStorage;
 using Blazored.Toast;
-using Bookclub.Brokers.API;
 using Bookclub.Brokers.DateTimes;
 using Bookclub.Brokers.Logging;
 using Bookclub.Core.Interfaces;
@@ -19,7 +18,6 @@ using RESTFulSense.Clients;
 using System;
 using System.Net.Http;
 using Bookclub.Users;
-using Bookclub.Core.Services;
 using Bookclub.Core.Services.Books;
 using Bookclub.Interfaces;
 
@@ -36,7 +34,6 @@ namespace Bookclub
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddScoped<IApiBroker, ApiBroker>();
             services.AddScoped<ILogger, Logger<LoggingBroker>>();
             services.AddScoped<ILoggingBroker, LoggingBroker>();
             services.AddScoped<IDateTimeBroker, DateTimeBroker>();
