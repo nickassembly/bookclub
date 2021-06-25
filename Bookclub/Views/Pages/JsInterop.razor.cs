@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using System.Threading.Tasks;
 
 namespace Bookclub.Views.Pages
 {
@@ -9,8 +10,14 @@ namespace Bookclub.Views.Pages
         {
             string isbn = "0034556678";
             await JSRuntime.InvokeVoidAsync("getBookInfo", new { isbn });
+            await DoSomeStuff(isbn);
         }
 
+        [JSInvokable] // can be called from javascript
+        async Task DoSomeStuff(string isbn)
+        {
+            await JSRuntime.InvokeVoidAsync("ReturnData", isbn);
+        }
 
     }
 }
