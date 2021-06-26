@@ -4,7 +4,9 @@ using Bookclub.Shared.Colors;
 using Bookclub.Shared.Components.ContainerComponents;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
+using System.Threading.Tasks;
 
 namespace Bookclub.Shared.Components
 {
@@ -32,6 +34,7 @@ namespace Bookclub.Shared.Components
         public TextBoxBase ListPrice { get; set; }
         public DatePickerBase PublishDatePicker { get; set; }
         public ButtonBase SubmitButton { get; set; }
+        public ButtonBase AddBookDetailsButton { get; set; }
         public ButtonBase CancelAddButton { get; set; }
         public LabelBase StatusLabel { get; set; }
 
@@ -70,6 +73,12 @@ namespace Bookclub.Shared.Components
                 // TODO: Define exceptions
             }
            
+        }
+
+        public async void AddBookDetails()
+        {
+            string isbn = "0735619670";
+            await JSRuntime.InvokeAsync<string>("getBookInfo", new { isbn });
         }
 
         public async void CancelAddAsync()

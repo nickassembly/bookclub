@@ -2,6 +2,7 @@
 @using Bookclub.Shared.Components.ContainerComponents;
 @using Bookclub.Shared.Colors;
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <ContainerComponent State="State">
     <Content>
@@ -45,6 +46,10 @@
             <ButtonBase @ref=SubmitButton
                         Label="Submit Book"
                         OnClick="@AddBookAsync" />
+
+            <ButtonBase @ref=AddBookDetailsButton
+                        Label="ISBN DB Details"
+                        OnClick="@AddBookDetails" />
 
             <ButtonBase @ref=CancelAddButton
                         Label="Cancel"

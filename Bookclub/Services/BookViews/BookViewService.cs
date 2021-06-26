@@ -74,6 +74,8 @@ namespace Bookclub.Services.BookViews
             if (!isValidPriceInput)
                 bookListPrice = 0.00m;
 
+            // TODO: GetBookDetails Method to go out to IsbnDB and return proper book data
+
             return new Book
             {
                 Id = Guid.NewGuid(),

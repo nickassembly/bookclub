@@ -8,7 +8,7 @@ namespace Bookclub.Views.Pages
         // TODO: Integrate Isbn Library and Data fetching
         async void OnClick()
         {
-            string isbn = "0034556678";
+            string isbn = "0735619670";
             await JSRuntime.InvokeVoidAsync("getBookInfo", new { isbn });
             await DoSomeStuff(isbn);
         }
