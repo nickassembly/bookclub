@@ -13,7 +13,7 @@ namespace Bookclub.Views.Pages
             await DoSomeStuff(isbn);
         }
 
-        [JSInvokable] // can be called from javascript
+        [JSInvokable] // csharp method getting called from JS
         async Task DoSomeStuff(string isbn)
         {
             await JSRuntime.InvokeVoidAsync("ReturnData", isbn);

@@ -1,7 +1,5 @@
 using Blazored.SessionStorage;
 using Blazored.Toast;
-using Bookclub.Brokers.DateTimes;
-using Bookclub.Brokers.Logging;
 using Bookclub.Core.Interfaces;
 using Bookclub.Data;
 using Bookclub.Configurations;
@@ -34,9 +32,6 @@ namespace Bookclub
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddScoped<ILogger, Logger<LoggingBroker>>();
-            services.AddScoped<ILoggingBroker, LoggingBroker>();
-            services.AddScoped<IDateTimeBroker, DateTimeBroker>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookViewService, BookViewService>();

@@ -11,11 +11,9 @@ namespace Bookclub.Core.Services.Books
 {
     public partial class BookService : IBookService
     {
-        private readonly ILoggingBroker _loggingBroker;
-
-        public BookService(ILoggingBroker loggingBroker)
+        public BookService()
         {
-            _loggingBroker = loggingBroker;
+
         }
 
         // TODO: invalid response and created response are coming back null

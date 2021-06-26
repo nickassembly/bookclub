@@ -97,6 +97,7 @@ namespace Bookclub.Shared.Components
                 bookToEdit.Subtitle = !string.IsNullOrEmpty(Subtitle) ? Subtitle : bookToEdit.Subtitle;
                 bookToEdit.Publisher = !string.IsNullOrEmpty(Publisher) ? Publisher : bookToEdit.Publisher;
 
+                // TODO: Date not being edited properly
                 bookToEdit.PublishDate = PublishDateInput != default ? PublishDateInput : bookToEdit.PublishDate;
 
                 if (Convert.ToDecimal(BookListPrice) == 0)

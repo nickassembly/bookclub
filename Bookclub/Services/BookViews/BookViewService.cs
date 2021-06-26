@@ -14,8 +14,6 @@ namespace Bookclub.Services.BookViews
     {
         private readonly IBookService _bookService;
         private readonly IUserService _userService;
-        private readonly IDateTimeBroker _dateTimeBroker;
-        private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;
         private readonly IHttpContextAccessor _ctx;
 
@@ -24,16 +22,12 @@ namespace Bookclub.Services.BookViews
         public BookViewService(
             IBookService bookService,
             IUserService userService,
-            IDateTimeBroker dateTimeBroker,
-            ILoggingBroker loggingBroker,
             HttpClient httpClient,
             ISessionStorageService sessionStorage,
             IHttpContextAccessor ctx)
         {
             _bookService = bookService;
             _userService = userService;
-            _dateTimeBroker = dateTimeBroker;
-            _loggingBroker = loggingBroker;
             _httpClient = httpClient;
             _sessionStorage = sessionStorage;
             _ctx = ctx;
@@ -73,7 +67,7 @@ namespace Bookclub.Services.BookViews
             if (loggedInUser == null)
                 return await Task.FromResult<Book>(null);
 
-            DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
+            DateTimeOffset currentDateTime = DateTimeOffset.UtcNow;
 
             bool isValidPriceInput = Decimal.TryParse(bookView.ListPrice, out decimal bookListPrice);
 
