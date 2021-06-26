@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Api\**" />
+    <Compile Remove="Pages\**" />
+    <Content Remove="Api\**" />
+    <Content Remove="Pages\**" />
+    <EmbeddedResource Remove="Api\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <None Remove="Api\**" />
+    <None Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.SessionStorage" Version="1.0.13" />
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
@@ -14,7 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Requests\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bookclub.Core\Bookclub.Core.csproj" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

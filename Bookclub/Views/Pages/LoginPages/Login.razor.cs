@@ -1,10 +1,9 @@
-﻿using Bookclub.Data;
-using Bookclub.Models.Users;
-using Bookclub.Services.Users;
+﻿using Bookclub.Core.DomainAggregates;
+using Bookclub.Data;
+using Bookclub.Responses;
+using Bookclub.Users;
 using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Bookclub.Views.Pages.LoginPages

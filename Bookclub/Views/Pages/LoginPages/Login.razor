@@ -1,8 +1,8 @@
 ﻿@page  "/"
 @layout LoginLayout
 @using Newtonsoft.Json
-@using Bookclub.Services.Users
-@using Bookclub.Models.Users
+@using Bookclub.Interfaces
+@using Bookclub.Core.DomainAggregates
 @using Bookclub.Data
 @using System.Security.Claims
 @inject AuthenticationStateProvider AuthenticationStateProvider

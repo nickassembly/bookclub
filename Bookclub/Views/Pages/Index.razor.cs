@@ -1,12 +1,5 @@
-﻿using Bookclub.Data;
-using Bookclub.Models.Users;
+﻿using Bookclub.Core.DomainAggregates;
 using Microsoft.AspNetCore.Components;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Bookclub.Views.Pages

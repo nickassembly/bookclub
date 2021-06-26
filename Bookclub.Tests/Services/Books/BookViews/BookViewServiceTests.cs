@@ -33,11 +33,11 @@ namespace Bookclub.Tests.Services.Books.BookViews
           //  compareConfig.IgnoreProperty<Book>(book => book.BookId);
             this._compareLogic = new CompareLogic(compareConfig);
 
-            this.bookViewService = new BookViewService(
-               bookService: _bookServiceMock.Object,
-               userService: _userServiceMock.Object,
-               dateTimeBroker: _dateTimeBrokerMock.Object,
-               loggingBroker: _loggingBrokerMock.Object);
+            //this.bookViewService = new BookViewService(
+            //   bookService: _bookServiceMock.Object,
+            //   userService: _userServiceMock.Object,
+            //   dateTimeBroker: _dateTimeBrokerMock.Object,
+            //   loggingBroker: _loggingBrokerMock.Object);
         }
 
         private static dynamic CreateRandomBookViewProperties()

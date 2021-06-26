@@ -1,28 +1,19 @@
 ﻿using Blazored.SessionStorage;
-using Bookclub.Brokers.DateTimes;
-using Bookclub.Brokers.Logging;
-using Bookclub.Models.Books;
-using Bookclub.Models.Books.BookViews;
-using Bookclub.Models.Users;
-using Bookclub.Services.Books;
-using Bookclub.Services.Users;
-using Microsoft.AspNetCore.Components;
+using Bookclub.Core.DomainAggregates;
+using Bookclub.Core.Interfaces;
+using Bookclub.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bookclub.Services.BookViews
+
 {
     public partial class BookViewService : IBookViewService
     {
         private readonly IBookService _bookService;
         private readonly IUserService _userService;
-        private readonly IDateTimeBroker _dateTimeBroker;
-        private readonly ILoggingBroker _loggingBroker;
         private readonly ISessionStorageService _sessionStorage;
         private readonly IHttpContextAccessor _ctx;
 
@@ -31,16 +22,12 @@ namespace Bookclub.Services.BookViews
         public BookViewService(
             IBookService bookService,
             IUserService userService,
-            IDateTimeBroker dateTimeBroker,
-            ILoggingBroker loggingBroker,
             HttpClient httpClient,
             ISessionStorageService sessionStorage,
             IHttpContextAccessor ctx)
         {
             _bookService = bookService;
             _userService = userService;
-            _dateTimeBroker = dateTimeBroker;
-            _loggingBroker = loggingBroker;
             _httpClient = httpClient;
             _sessionStorage = sessionStorage;
             _ctx = ctx;
@@ -51,18 +38,18 @@ namespace Bookclub.Services.BookViews
             return _bookService.GetAllBooks();
         }
 
-        public ValueTask<BookView> AddBookViewAsync(BookView bookView) =>
-            TryCatch(async () =>
-            {
-                ValidateBookView(bookView);
-                Book book = await MapToBook(bookView);
-                await _bookService.AddBookAsync(book);
-                return bookView;
-            });
+        public async ValueTask<BookView> AddBookViewAsync(BookView bookView)
+        {
+            // TODO: Add Book View validation (on back end)
+            Book book = await MapToBook(bookView);
+            await _bookService.AddBookAsync(book);
+            return bookView;
+        }
+
 
         public Task<BookResponse> EditBookAsync(Book bookToEdit)
         {
-             return _bookService.EditBookAsync(bookToEdit);
+            return _bookService.EditBookAsync(bookToEdit);
         }
 
         public Task<BookResponse> DeleteBookAsync(Guid bookId)
@@ -80,12 +67,14 @@ namespace Bookclub.Services.BookViews
             if (loggedInUser == null)
                 return await Task.FromResult<Book>(null);
 
-            DateTimeOffset currentDateTime = _dateTimeBroker.GetCurrentDateTime();
+            DateTimeOffset currentDateTime = DateTimeOffset.UtcNow;
 
             bool isValidPriceInput = Decimal.TryParse(bookView.ListPrice, out decimal bookListPrice);
 
             if (!isValidPriceInput)
                 bookListPrice = 0.00m;
+
+            // TODO: GetBookDetails Method to go out to IsbnDB and return proper book data
 
             return new Book
             {
@@ -106,6 +95,6 @@ namespace Bookclub.Services.BookViews
 
         }
 
-     
+
     }
 }

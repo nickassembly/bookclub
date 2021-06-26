@@ -1,0 +1,68 @@
+﻿@using Bookclub.Core.DomainAggregates
+@using Bookclub.Shared.Components
+@inject NavigationManager NavigationManager
+
+
+    <ContainerComponent State="State">
+        <Content>
+            <div>
+                <TextBoxBase @ref="IsbnTextBox"
+                             @bind-Value="@Isbn"
+                             Placeholder="@BookView.Isbn" />
+                <LabelBase Value="Isbn" />
+                <br />
+                <TextBoxBase @ref="Isbn13TextBox"
+                             @bind-Value="@Isbn13"
+                             Placeholder="@BookView.Isbn13" />
+                <LabelBase Value="Isbn13" />
+                <br />
+                <TextBoxBase @ref="AuthorTextBox"
+                             @bind-Value="@Author"
+                             Placeholder="@BookView.PrimaryAuthor" />
+                <LabelBase Value="Author" />
+                <br />
+                <TextBoxBase @ref="TitleTextBox"
+                             @bind-Value="@Title"
+                             Placeholder="@BookView.Title" />
+                <LabelBase Value="Title" />
+                <br />
+                <TextBoxBase @ref="SubtitleTextBox"
+                             @bind-Value="@Subtitle"
+                             Placeholder="@BookView.Subtitle" />
+                <LabelBase Value="Subtitle" />
+                <br />
+                @*
+           <LabelBase Value="Media" />
+           <DropDownBase @ref=MediaTypeDropDown
+             @bind-Value="@MediaTypeInput"
+             TEnum="BookViewMediaType" />
+        <br />*@
+                <TextBoxBase @ref=PublisherTextBox
+                             @bind-Value="@Publisher"
+                             Placeholder="@BookView.Publisher" />
+                <LabelBase Value="Publisher" />
+                <br />
+                <TextBoxBase @ref=ListPrice
+                             @bind-Value="@BookListPrice"
+                             PlaceHolder="@BookView.ListPrice" />
+                <LabelBase Value="List Price" />
+                <br />
+                <DatePickerBase @ref="PublishDatePicker"
+                                @bind-Value="@BookView.PublishedDate" />
+                <LabelBase Value="Publish Date" />
+
+                <br />
+                <ButtonBase @ref=ConfirmEditButton
+                            Label="Confirm"
+                            OnClick="(() => EditBookAsync(BookToEdit))" />
+
+                <ButtonBase @ref=CancelEditButton
+                            Label="Cancel"
+                            OnClick="@CancelEditAsync" />
+
+                <br />
+                <LabelBase @ref=StatusLabel />
+
+            </div>
+        </Content>
+    </ContainerComponent>

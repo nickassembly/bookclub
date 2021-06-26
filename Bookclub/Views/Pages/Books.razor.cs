@@ -1,13 +1,12 @@
-﻿using Bookclub.Models.Books;
-using Bookclub.Services.Books;
-using Bookclub.Services.BookViews;
+﻿using Bookclub.Core.DomainAggregates;
+using Bookclub.Core.Interfaces;
 using Bookclub.Views.Bases;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Color = Bookclub.Models.Colors.Color;
+using Color = Bookclub.Shared.Colors.Color;
 
 namespace Bookclub.Views.Pages
 {
