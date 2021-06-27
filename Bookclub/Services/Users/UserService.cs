@@ -1,4 +1,5 @@
 ﻿using Bookclub.Core.DomainAggregates;
+using Bookclub.Core.Interfaces;
 using Bookclub.Responses;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -6,7 +7,6 @@ using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bookclub.Interfaces;
 
 namespace Bookclub.Services.Users
 {

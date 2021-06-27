@@ -2,7 +2,6 @@ using Blazored.SessionStorage;
 using Blazored.Toast;
 using Bookclub.Core.Interfaces;
 using Bookclub.Data;
-using Bookclub.Configurations;
 using Bookclub.Services.BookViews;
 using Bookclub.Views.Pages;
 using Microsoft.AspNetCore.Builder;
@@ -11,13 +10,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using RESTFulSense.Clients;
-using System;
 using System.Net.Http;
-using Bookclub.Users;
 using Bookclub.Core.Services.Books;
-using Bookclub.Interfaces;
+using Bookclub.Services.Users;
 
 namespace Bookclub
 {
@@ -44,8 +39,6 @@ namespace Bookclub
 
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
-            AddHttpClient(services);
-           
             services.AddSingleton<HttpClient>();
             services.AddHttpContextAccessor();
             AddRootDirectory(services);
@@ -75,17 +68,6 @@ namespace Bookclub
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
-            });
-        }
-
-        private void AddHttpClient(IServiceCollection services)
-        {
-            services.AddHttpClient<IRESTFulApiFactoryClient, RESTFulApiFactoryClient>(client =>
-            {
-                LocalConfigurations localConfigurations = Configuration.Get<LocalConfigurations>();
-                string apiUrl = localConfigurations.ApiConfigurations.Url;
-                client.BaseAddress = new Uri(apiUrl);
-
             });
         }
 

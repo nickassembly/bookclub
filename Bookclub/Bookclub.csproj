@@ -7,12 +7,20 @@
   <ItemGroup>
     <Compile Remove="Api\**" />
     <Compile Remove="Pages\**" />
+    <Compile Remove="Requests\**" />
+    <Compile Remove="ViewModels\**" />
     <Content Remove="Api\**" />
     <Content Remove="Pages\**" />
+    <Content Remove="Requests\**" />
+    <Content Remove="ViewModels\**" />
     <EmbeddedResource Remove="Api\**" />
     <EmbeddedResource Remove="Pages\**" />
+    <EmbeddedResource Remove="Requests\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Api\**" />
     <None Remove="Pages\**" />
+    <None Remove="Requests\**" />
+    <None Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,8 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
