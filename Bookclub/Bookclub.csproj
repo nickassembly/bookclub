@@ -26,6 +26,8 @@
   <ItemGroup>
     <PackageReference Include="Blazored.SessionStorage" Version="1.0.13" />
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
+    <PackageReference Include="Google.Apis.Books.v1" Version="1.52.0.2231" />
+    <PackageReference Include="Google.Apis.Core" Version="1.52.0" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RESTFulSense" Version="1.7.0" />

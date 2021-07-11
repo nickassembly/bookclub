@@ -1,8 +1,11 @@
 ﻿using Blazored.SessionStorage;
 using Bookclub.Core.DomainAggregates;
 using Bookclub.Core.Interfaces;
+using Bookclub.Core.Services.Books;
+using Google.Apis.Services;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -46,16 +49,34 @@ namespace Bookclub.Services.BookViews
         }
 
 
-        public Task<BookResponse> EditBookAsync(Book bookToEdit)
+        public async Task<BookResponse> EditBookAsync(Book bookToEdit)
         {
-            return _bookService.EditBookAsync(bookToEdit);
+            var bookISBN = await SearchISBN("0071807993");
+            
+            return await _bookService.EditBookAsync(bookToEdit);
         }
 
         public Task<BookResponse> DeleteBookAsync(Guid bookId)
         {
             return _bookService.DeleteBookAsync(bookId);
         }
-
+        public static async Task<Google.Apis.Books.v1.Data.Volume> SearchISBN(string isbn)
+        {
+            Console.WriteLine("Executing a book search request…");
+            var result = await service.Volumes.List(isbn).ExecuteAsync();
+            if (result != null && result.Items != null)
+            {
+                var item = result.Items.FirstOrDefault();
+                return item;
+            }
+            return null;
+        }
+        public static Google.Apis.Books.v1.BooksService service = new Google.Apis.Books.v1.BooksService(
+               new BaseClientService.Initializer
+               {
+                   ApplicationName = "BookClub",
+                   ApiKey = "AIzaSyCjqD7OtvMLj-JMh3erdPRh_qWyRJvnvxw",
+               });
         public async Task<Book> MapToBook(BookView bookView)
         {
 
