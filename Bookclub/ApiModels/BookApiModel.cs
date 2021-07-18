@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bookclub.ApiModels
 {
-    public class CreateBookDTO
+    public class BookApiModel
     {
-        // TODO: Create properties and sub properties needed to create a new title
+        // TODO: Properties of book that we will need
+        // may not need this class? Possible would all be in request/responses?
+
     }
 }
