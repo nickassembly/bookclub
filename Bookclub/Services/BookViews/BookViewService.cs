@@ -43,11 +43,6 @@ namespace Bookclub.Services.BookViews
 
         public async ValueTask<BookView> AddBookViewAsync(BookView bookView)
         {
-            // TODO: Add Automapper to map BookView to BookRequest
-            CreateBookRequest bookRequest = new();
-            bookRequest.Author[0] = bookView.PrimaryAuthor;
-           
-
             Book book = await MapToBook(bookView);
             await _bookService.AddBookAsync(book);
             return bookView;
@@ -98,8 +93,6 @@ namespace Bookclub.Services.BookViews
 
             if (!isValidPriceInput)
                 bookListPrice = 0.00m;
-
-            // TODO: GetBookDetails Method to go out to IsbnDB and return proper book data
 
             return new Book
             {
