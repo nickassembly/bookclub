@@ -1,4 +1,5 @@
 ﻿using Blazored.SessionStorage;
+using Bookclub.ApiModels.CreateBook;
 using Bookclub.Core.DomainAggregates;
 using Bookclub.Core.Interfaces;
 using Bookclub.Core.Services.Books;
@@ -42,7 +43,11 @@ namespace Bookclub.Services.BookViews
 
         public async ValueTask<BookView> AddBookViewAsync(BookView bookView)
         {
-            // TODO: Add Book View validation (on back end)
+            // TODO: Add Automapper to map BookView to BookRequest
+            CreateBookRequest bookRequest = new();
+            bookRequest.Author[0] = bookView.PrimaryAuthor;
+           
+
             Book book = await MapToBook(bookView);
             await _bookService.AddBookAsync(book);
             return bookView;

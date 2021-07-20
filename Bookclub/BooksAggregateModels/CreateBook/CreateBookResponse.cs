@@ -8,6 +8,7 @@ namespace Bookclub.ApiModels.CreateBook
 {
     public class CreateBookResponse
     {
-        
+        public int BookId { get; set; }
+
     }
 }
