@@ -1,4 +1,5 @@
-﻿using Bookclub.Core.DomainAggregates;
+﻿using Bookclub.BooksAggregateModels;
+using Bookclub.Core.DomainAggregates;
 using Bookclub.Core.Interfaces;
 using Bookclub.Shared.Colors;
 using Bookclub.Shared.Components.ContainerComponents;
@@ -38,10 +39,16 @@ namespace Bookclub.Shared.Components
         public ButtonBase CancelAddButton { get; set; }
         public LabelBase StatusLabel { get; set; }
 
+        [Parameter]
+        public GoogleApiRequest GoogleRequest { get; set; }
+
+
         protected override void OnInitialized()
         {
             this.BookView = new BookView();
             this.State = ComponentState.Content;
+
+
 
             // TODO: Refactor catch blocks to call Error.ProcessError to use global error component
             // something similar to below
@@ -77,6 +84,14 @@ namespace Bookclub.Shared.Components
 
         public async void AddBookDetails()
         {
+            var request = new GoogleApiRequest
+            {
+                Isbn = this.BookView.Isbn,
+                Isbn13 = this.BookView.Isbn13
+            };
+
+            // TODO: Pass isbn and isbn13 and whatever else is needed into the Google Api lookup
+
             string isbn = "0735619670";
             await JSRuntime.InvokeAsync<string>("getBookInfo", new { isbn });
         }
